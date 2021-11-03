@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/currenciesFragment">
+
+    <fragment
+        android:id="@+id/currenciesFragment"
+        android:name="com.jbc7ag.cryptso.ui.currencieslist.CurrenciesFragment"
+        android:label="" >
+        <action
+            android:id="@+id/action_currenciesFragment_to_currencyDetailFragment"
+            app:destination="@id/currencyDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/currencyDetailFragment"
+        android:name="com.jbc7ag.cryptso.ui.currencydetail.CurrencyDetailFragment"
+        android:label="" >
+        <argument
+            android:name="currency_id"
+            app:argType="long" />
+    </fragment>
+</navigation>
