@@ -1,8 +1,5 @@
 package dev.ricsarabia.cryptochallenge.data.services
 
-import dev.ricsarabia.cryptochallenge.data.AvailableBooksResponse
-import dev.ricsarabia.cryptochallenge.data.OrderBookResponse
-import dev.ricsarabia.cryptochallenge.data.TickerResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

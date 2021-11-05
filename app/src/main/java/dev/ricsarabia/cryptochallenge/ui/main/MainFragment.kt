@@ -28,7 +28,7 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         // Retrieving books data
-        viewModel.getAvailableBooks()
+        viewModel.getBooks()
 
         // Observers
         viewModel.books.observe(viewLifecycleOwner, {

@@ -1,4 +1,4 @@
-package dev.ricsarabia.cryptochallenge.data
+package dev.ricsarabia.cryptochallenge.data.services
 
 data class AvailableBooksResponse(
   val success: Boolean,
