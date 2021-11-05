@@ -1,6 +1,6 @@
 package dev.ricsarabia.cryptochallenge.di
 
-import dev.ricsarabia.cryptochallenge.services.BitsoService
+import dev.ricsarabia.cryptochallenge.data.services.BitsoService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
  * Object to initialize and configure Retrofit's api to execute web requests.
  */
 
-object NetworkingModule {
+object BitsoNetworkingModule {
     private const val BITSO_BASE_URL = "https://api.bitso.com/v3/"
 
     private fun provideRetrofitClient(): Retrofit {
