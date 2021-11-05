@@ -1,7 +1,7 @@
 package com.example.bootcampproject.domain
 
 data class Currency (
-    val id: Long,
+    val code: String,
     val name: String,
     val imageUrl: String,
 )

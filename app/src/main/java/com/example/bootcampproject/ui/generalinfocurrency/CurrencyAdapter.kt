@@ -39,7 +39,7 @@ class CurrencyAdapter(
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Currency>() {
             override fun areItemsTheSame(oldItem: Currency, newItem: Currency): Boolean =
-                oldItem.id == newItem.id
+                oldItem.code == newItem.code
 
             override fun areContentsTheSame(oldItem: Currency, newItem: Currency): Boolean =
                 oldItem == newItem
