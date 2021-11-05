@@ -12,7 +12,9 @@ data class Orders (
 data class OrderDetail(
     @SerializedName("updated_at") val date: Date,
     @SerializedName("sequence") val sequence: Long,
-    @SerializedName("bids") val bids: List<Bids>
+    @SerializedName("bids") val bids: List<Bids>,
+    @SerializedName("asks") val asks: List<Bids>
+
 )
 
 data class Bids(

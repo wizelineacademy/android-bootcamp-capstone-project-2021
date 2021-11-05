@@ -16,8 +16,8 @@
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/margin_items_cards"
             android:orientation="vertical"
+            android:padding="@dimen/margin_items_cards"
             app:cardElevation="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,25 +46,68 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_subtitle"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/detail_currency_label"
+
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/detail_currency_image"
-                    app:layout_constraintStart_toStartOf="@+id/detail_currency_label"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/detail_currency_image"
                     tools:text="$2,321,23.00 MXN" />
 
                 <TextView
                     android:id="@+id/detail_currency_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/last_price"
                     android:textColor="@color/gray"
                     android:textSize="@dimen/item_label"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/detail_currency_price"
+                    app:layout_constraintStart_toStartOf="@+id/detail_currency_price"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_currency_price" />
+
+                <TextView
+                    android:id="@+id/detail_currency_high"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/subtitle_size"
+                    app:layout_constraintBottom_toBottomOf="@+id/detail_currency_image"
+                    app:layout_constraintEnd_toStartOf="@+id/detail_currency_low"
                     app:layout_constraintStart_toEndOf="@+id/detail_currency_image"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.63"
-                    android:text="@string/last_price" />
+                    app:layout_constraintTop_toBottomOf="@+id/detail_currency_label"
+                    tools:text="$2,00,000" />
+
+                <TextView
+                    android:id="@+id/detail_currency_low"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/subtitle_size"
+                    app:layout_constraintBottom_toBottomOf="@+id/detail_currency_high"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/detail_currency_high"
+                    app:layout_constraintTop_toTopOf="@+id/detail_currency_high"
+                    tools:text="$2,00,000" />
+
+                <TextView
+                    android:id="@+id/detail_currency_high_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/high"
+                    android:textColor="@color/green"
+                    android:textSize="@dimen/item_label"
+                    app:layout_constraintEnd_toEndOf="@+id/detail_currency_high"
+                    app:layout_constraintStart_toStartOf="@+id/detail_currency_high"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_currency_high" />
+
+                <TextView
+                    android:id="@+id/detail_currency_low_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/low"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/item_label"
+                    app:layout_constraintEnd_toEndOf="@+id/detail_currency_low"
+                    app:layout_constraintStart_toStartOf="@+id/detail_currency_low"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_currency_low" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -82,73 +125,70 @@
             tools:text="BTC/MXN" />
 
         <TextView
-            android:id="@+id/detail_currency_high"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_items"
-            android:textSize="@dimen/text_subtitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_currency_market"
-            tools:text="$2,00,000" />
-
-        <TextView
-            android:id="@+id/detail_currency_low"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_items"
-            android:textSize="@dimen/text_subtitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_currency_market"
-            tools:text="$2,00,000" />
-
-        <TextView
-            android:id="@+id/detail_currency_high_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/item_label"
-            android:textColor="@color/green"
-            app:layout_constraintEnd_toEndOf="@+id/detail_currency_high"
-            app:layout_constraintStart_toStartOf="@+id/detail_currency_high"
-            app:layout_constraintTop_toBottomOf="@+id/detail_currency_high"
-            android:text="@string/high" />
-
-        <TextView
-            android:id="@+id/detail_currency_low_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/item_label"
-            android:textColor="@color/red"
-            app:layout_constraintEnd_toEndOf="@+id/detail_currency_low"
-            app:layout_constraintStart_toStartOf="@+id/detail_currency_low"
-            app:layout_constraintTop_toBottomOf="@+id/detail_currency_low"
-            android:text="@string/low" />
-
-        <TextView
             android:id="@+id/detail_currency_trades"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_items"
+            android:text="@string/latest_market_trades"
+            android:textColor="@color/darkGray"
+            android:textSize="@dimen/subtitle_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detail_currency_market" />
+
+        <TextView
+            android:id="@+id/detail_currency_tab_bids"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_items"
             android:textSize="@dimen/text_subtitle"
             android:textStyle="bold"
-            android:textColor="@color/gray"
+            android:textColor="@color/darkGray"
+            android:paddingEnd="@dimen/layout_padding"
+            android:paddingStart="@dimen/layout_padding"
+            android:background="@drawable/borderbottom"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/detail_currency_tab_asks"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_currency_high_label"
-            android:text="@string/latest_market_trades" />
+            app:layout_constraintTop_toBottomOf="@id/detail_currency_trades"
+            android:text="@string/bids" />
 
+        <TextView
+            android:id="@+id/detail_currency_tab_asks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/layout_padding"
+            android:paddingStart="@dimen/layout_padding"
+            android:textColor="@color/darkGray"
+            android:textSize="@dimen/text_subtitle"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBaseline_toBaselineOf="@+id/detail_currency_tab_bids"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/detail_currency_tab_bids"
+            android:text="@string/asks" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/trades_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_items_cards"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/detail_currency_tab_bids"
+            tools:itemCount="10"
+            tools:layout_editor_absoluteX="16dp"
+            tools:listitem="@layout/item_trades" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/trades_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/margin_items_cards"
-                app:layout_constraintTop_toBottomOf="@id/detail_currency_trades"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_trades"
-                tools:itemCount="10"
-                />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="20dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

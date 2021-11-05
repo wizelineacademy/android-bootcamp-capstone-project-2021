@@ -20,7 +20,7 @@ fun String.getCurrencyCode(): String {
 fun String.formatCurrency(): String{
     if(this.isEmpty()) return ""
 
-    val formatter: NumberFormat = DecimalFormat("$ #,###.###")
+    val formatter: NumberFormat = DecimalFormat("$#,###.###")
     return formatter.format(this.toFloat())
 }
 

@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jbc7ag.cryptso.data.model.Bids
 import com.jbc7ag.cryptso.data.model.BookDetail
+import com.jbc7ag.cryptso.data.model.OrderDetail
 import com.jbc7ag.cryptso.data.repository.CurrencyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -20,8 +20,8 @@ class CurrencyViewModel @Inject constructor(
     val bookTicker: LiveData<BookDetail>
         get() = _bookTicker
 
-    private val _orders= MutableLiveData<List<Bids>>()
-    val orders: LiveData<List<Bids>>
+    private val _orders= MutableLiveData<OrderDetail>()
+    val orders: LiveData<OrderDetail>
         get() = _orders
 
     private val _error = MutableLiveData<String>()
@@ -60,7 +60,7 @@ class CurrencyViewModel @Inject constructor(
                 if (it.isSuccessful) {
                     val successData = it.body()?.success
                     if(successData == true){
-                        _orders.postValue(it.body()?.payload?.bids)
+                        _orders.postValue(it.body()?.payload)
                     }else{
                         _error.postValue("${it.body()?.error?.code}: ${it.body()?.error?.message}")
                     }

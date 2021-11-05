@@ -30,7 +30,7 @@ class BidsAdapter ( ):
         fun bind(bids: Bids) {
             binding.apply {
                 itemTradesPrice.text = bids.price.formatCurrency()
-                itemTradesAmount.text = bids.amount.formatCurrency()
+                itemTradesAmount.text = bids.amount
                 itemTradesTotal.text = (bids.price.toFloat() * bids.amount.toFloat()).toString().formatCurrency()
             }
         }
