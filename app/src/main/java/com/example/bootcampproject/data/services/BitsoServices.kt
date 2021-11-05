@@ -1,12 +1,13 @@
 package com.example.bootcampproject.data.services
 
+import com.example.bootcampproject.data.mock.AvailableBook
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Path
+
 
 interface BitsoServices {
     @GET(value = "available_books/")
-    fun getAvailableBooks()
+    fun getAvailableBooks():Call<AvailableBook>
 
     @GET(value = "ticker/")
     fun getTicker()
