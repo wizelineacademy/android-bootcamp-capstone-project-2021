@@ -6,4 +6,11 @@
 
     <!-- adapter -->
     <string name="maximum_price">Maximum Price: %1$s</string>
+    <string name="last_price">Last Price</string>
+    <string name="high">High</string>
+    <string name="low">Low</string>
+    <string name="latest_market_trades">Latest market trades</string>
+    <string name="price">Price</string>
+    <string name="amount">Amount</string>
+    <string name="total">Total</string>
 </resources>

@@ -18,8 +18,3 @@ data class Book(
     @SerializedName("minimum_value") val minValue: String,
     @SerializedName("maximum_value") val maxValue: String,
 )
-
-data class Error(
-    @SerializedName("message") val message: String,
-    @SerializedName("code") val code: String
-)

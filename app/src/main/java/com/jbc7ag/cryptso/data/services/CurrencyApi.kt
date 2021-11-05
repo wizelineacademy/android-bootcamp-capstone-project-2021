@@ -1,6 +1,8 @@
 package com.jbc7ag.cryptso.data.services
 
 import com.jbc7ag.cryptso.data.model.AvailableBooks
+import com.jbc7ag.cryptso.data.model.Orders
+import com.jbc7ag.cryptso.data.model.Ticker
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -16,10 +18,10 @@ interface CurrencyApi {
     @GET("ticker")
     suspend fun getTicker(
         @Query("book") book: String
-    ): Response<AvailableBooks>
+    ): Response<Ticker>
 
     @GET("order_book")
     suspend fun getOrder(
         @Query("book") book: String
-    ): Response<AvailableBooks>
+    ): Response<Orders>
 }
