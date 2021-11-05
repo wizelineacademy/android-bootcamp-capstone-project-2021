@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Wizeline</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">List Fragment</string>
+    
+    
+    <string name="list__price_label">Price</string>
+    <string name="list__amount_label">Amount</string>
+    <string name="list__value_label">Value</string>
+    
+    <string name="list__minimum_placeholder">Min: %1$s</string>
+    <string name="list__maximum_placeholder">Max: %1$s</string>
+    
+    <string name="network__unknown_error">Oops, algo salió mal obteniendo los datos</string>
+</resources>
