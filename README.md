@@ -62,7 +62,7 @@ Based on the self-study material and mentorship covered until this deliverable, 
 - Search fo images that represent the currencies and add the image in the list of currencies.
 - Work with MVVM and LiveData in order to design the application.
   - Create a screen that will show the list of currencies by using the available-books service
-  - Create a detail screen that will show the price and also add the last order of the specific currency by using the ticker and order-book services
+  - Create a detail screen that will show the last price, higher and lower price. Also, display the list of asks and bids for the specific currency by using the ticker and order-book services
 - Use best practices
 
 > Note: what’s listed in this deliverable is just for guidance and to help you distribute your workload; you can deliver more or fewer items if necessary. However, if you deliver fewer items at this point, you have to cover the remaining tasks in the next deliverable.
