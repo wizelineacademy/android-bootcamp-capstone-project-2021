@@ -1,5 +1,6 @@
 package dev.ricsarabia.cryptochallenge.di
 
+import dev.ricsarabia.cryptochallenge.services.BitsoService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -14,7 +15,7 @@ import java.util.concurrent.TimeUnit
 object NetworkingModule {
     private const val BITSO_BASE_URL = "https://api.bitso.com/v3/"
 
-    fun provideRetrofitClient(): Retrofit {
+    private fun provideRetrofitClient(): Retrofit {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
@@ -29,5 +30,9 @@ object NetworkingModule {
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    fun provideBitsoService(): BitsoService {
+        return provideRetrofitClient().create(BitsoService::class.java)
     }
 }
