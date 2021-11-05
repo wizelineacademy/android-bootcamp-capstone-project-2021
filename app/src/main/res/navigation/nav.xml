@@ -19,6 +19,6 @@
         android:label="" >
         <argument
             android:name="currency_id"
-            app:argType="long" />
+            app:argType="string" />
     </fragment>
 </navigation>

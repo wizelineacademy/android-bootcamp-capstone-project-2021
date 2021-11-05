@@ -4,18 +4,61 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/layout_padding">
 
     <TextView
-        android:id="@+id/texty"
-        android:clickable="true"
-        android:focusable="true"
+        android:id="@+id/txt_currencies_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="HELLO"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/cryptso_market"
+        android:textSize="@dimen/text_title"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_currencies_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_items"
+        android:layout_marginStart="@dimen/margin_items_cards"
+        android:text="@string/available_currencies"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/subtitle_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_currencies_title" />
+
+    <TextView
+        android:id="@+id/txt_currencies_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/currencies_filter"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/subtitle_size"
+        android:layout_marginEnd="@dimen/margin_items_cards"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_currencies_subtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txt_currencies_subtitle" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/margin_items_cards"
+        app:layout_constraintTop_toBottomOf="@id/txt_currencies_subtitle">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/currencies_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_currencies"
+            tools:itemCount="10"
+            />
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

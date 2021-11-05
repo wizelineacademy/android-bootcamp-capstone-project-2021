@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Cryptso</string>
+    <string name="cryptso_market">Cryptso Market</string>
+    <string name="available_currencies">Available currencies</string>
+    <string name="currencies_filter">Market</string>
+
+    <!-- adapter -->
+    <string name="maximum_price">Maximum Price: %1$s</string>
 </resources>
