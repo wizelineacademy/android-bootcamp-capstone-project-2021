@@ -16,25 +16,17 @@
   <component name="ChangeListManager">
     <list default="true" id="b97cd992-0b52-4f0a-b363-4d2e2bc7d84b" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/data/src/main/java/com/serranoie/data/crypteck/di/CrypteckDataDIProvider.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/src/main/java/com/serranoie/data/crypteck/di/CrypteckQualifiers.kt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/data/src/main/java/com/serranoie/data/crypteck/di/DIProvider.kt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/data/src/main/java/com/serranoie/data/crypteck/dto/book/BookDto.kt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/data/src/main/java/com/serranoie/data/crypteck/dto/trade/TradeDto.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/src/main/java/com/serranoie/data/crypteck/errors/ErrorCodes.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/src/main/java/com/serranoie/data/crypteck/networking/BitsoApi.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/src/main/java/com/serranoie/data/crypteck/repository/book/RemoteBookRepositoryImpl.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/src/main/java/com/serranoie/data/crypteck/repository/trade/RemoteTradeRepositoryImpl.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/src/main/java/com/serranoie/crypteck/domain/models/Asks.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/src/main/java/com/serranoie/crypteck/domain/models/AvailableBooks.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/src/main/java/com/serranoie/crypteck/domain/models/Bids.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/src/main/java/com/serranoie/crypteck/domain/models/OrderBook.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/src/main/java/com/serranoie/crypteck/domain/models/Payload.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/src/main/java/com/serranoie/crypteck/domain/models/Ticker.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/src/main/java/com/serranoie/crypteck/domain/models/Trades.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/src/main/java/com/serranoie/crypteck/domain/repositories/BookRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/src/main/java/com/serranoie/crypteck/domain/repositories/TradeRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/src/main/java/com/serranoie/crypteck/domain/usecases/UseCaseResult.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/src/main/java/com/serranoie/crypteck/domain/usecases/book/GetAvailableBooksUseCase.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/src/main/java/com/serranoie/crypteck/domain/usecases/book/GetOpenOrdersBookUseCase.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/src/main/java/com/serranoie/crypteck/domain/usecases/trade/GetRecentTradesUseCase.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/src/main/java/com/serranoie/crypteck/domain/usecases/trade/GetTickersUseCase.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/src/main/java/com/serranoie/crypteck/domain/MyClass.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/src/main/java/com/serranoie/crypteck/domain/repositories/BookRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/domain/src/main/java/com/serranoie/crypteck/domain/repositories/BookRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/src/main/java/com/serranoie/crypteck/domain/repositories/TradeRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/domain/src/main/java/com/serranoie/crypteck/domain/repositories/TradeRepository.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +58,7 @@
         <option value="valueResourceFile" />
         <option value="Kotlin Interface" />
         <option value="Kotlin Object" />
+        <option value="Kotlin File" />
         <option value="Kotlin Class" />
       </list>
     </option>
