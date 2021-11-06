@@ -2,6 +2,8 @@ package com.alexbar10.cryptotrack.utils
 
 import com.alexbar10.cryptotrack.R
 import com.alexbar10.cryptotrack.domain.Cryptocurrency
+import com.alexbar10.cryptotrack.domain.Order
+import com.alexbar10.cryptotrack.domain.OrderDetailItem
 import java.text.DecimalFormat
 
 const val prefix_btc = "btc"
@@ -61,11 +63,19 @@ fun getNameFor(cryptocurrency: Cryptocurrency): Int {
 
 fun getMarketFor(cryptocurrency: Cryptocurrency) = getPostfixFor(cryptocurrency)
 
+fun getMarketFor(order: OrderDetailItem) = order.book.substringAfter("_")
+
 fun getPrefixFor(cryptocurrency: Cryptocurrency) = cryptocurrency.book.substringBefore("_")
 
 fun getPostfixFor(cryptocurrency: Cryptocurrency) = cryptocurrency.book.substringAfter("_")
 
-fun currencyFormat(cryptocurrency: Cryptocurrency): String? {
+enum class PriceType {
+    LAST,
+    HIGH,
+    LOW
+}
+
+fun currencyFormat(cryptocurrency: Cryptocurrency, forPrice: PriceType = PriceType.LAST): String? {
     cryptocurrency.ticker?.let {
         // Check if crypto is in bitcoin market, in that case use 8 decimals
         var formatter: DecimalFormat = if (getMarketFor(cryptocurrency) == prefix_btc) {
@@ -73,7 +83,23 @@ fun currencyFormat(cryptocurrency: Cryptocurrency): String? {
         } else {
             DecimalFormat("###,###,##0.00")
         }
-        return formatter.format(it.last)
+
+        return when (forPrice) {
+            PriceType.LAST -> formatter.format(it.last)
+            PriceType.HIGH -> formatter.format(it.high)
+            PriceType.LOW -> formatter.format(it.low)
+        }
     }
     return null
+}
+
+fun currencyFormat(order: OrderDetailItem, total: Double? = null): String? {
+    // Check if crypto is in bitcoin market, in that case use 8 decimals
+    var formatter: DecimalFormat = if (getMarketFor(order) == prefix_btc) {
+        DecimalFormat("0.00000000")
+    } else {
+        DecimalFormat("###,###,##0.00")
+    }
+
+    return formatter.format(total ?: order.price)
 }
