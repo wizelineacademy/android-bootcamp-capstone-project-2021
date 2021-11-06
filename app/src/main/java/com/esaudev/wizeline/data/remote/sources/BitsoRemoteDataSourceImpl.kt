@@ -2,6 +2,7 @@ package com.esaudev.wizeline.data.remote.sources
 
 import android.util.Log
 import com.esaudev.wizeline.data.remote.api.BitsoApi
+import com.esaudev.wizeline.data.remote.responses.TickerResponse
 import com.esaudev.wizeline.data.remote.responses.mapToDomain
 import com.esaudev.wizeline.model.AvailableBook
 import com.esaudev.wizeline.model.OrderBook
@@ -26,7 +27,20 @@ class BitsoRemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun getTickerFromBook(book: String): DataState<Ticker> {
-        return DataState.Error(NETWORK_UNKNOWN_ERROR) // TODO Hacer esto
+
+        return try {
+            val response = bitsoApi.getTicker(book)
+
+            if (response.isSuccessful){
+                val ticker = response.body()?.payload?.mapToDomain()!!
+
+                DataState.Success(ticker)
+            } else {
+                DataState.Error(NETWORK_UNKNOWN_ERROR)
+            }
+        } catch (e:Exception) {
+            DataState.Error(NETWORK_UNKNOWN_ERROR)
+        }
     }
 
     override suspend fun getOrderBook(book: String): DataState<OrderBook> {

@@ -6,21 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.esaudev.wizeline.R
 import com.esaudev.wizeline.databinding.FragmentDetailBinding
-import com.esaudev.wizeline.databinding.FragmentListBinding
 import com.esaudev.wizeline.extensions.mapToQuery
 import com.esaudev.wizeline.extensions.toast
 import com.esaudev.wizeline.model.AvailableBook
 import com.esaudev.wizeline.model.OrderBook
-import com.esaudev.wizeline.ui.adapters.BindAdapter
-import com.esaudev.wizeline.ui.adapters.BookAdapter
-import com.esaudev.wizeline.ui.list.ListViewModel
+import com.esaudev.wizeline.model.Ticker
+import com.esaudev.wizeline.ui.adapters.AskAdapter
+import com.esaudev.wizeline.ui.adapters.BidAdapter
 import com.esaudev.wizeline.utils.Constants
 import com.esaudev.wizeline.utils.Constants.BOOK_BUNDLE
 import com.esaudev.wizeline.utils.DataState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.item_book.*
 
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
@@ -30,7 +29,8 @@ class DetailFragment : Fragment() {
         get() = _binding!!
 
     private val viewModel: DetailViewModel by viewModels()
-    private var listAdapter: BindAdapter? = null
+    private var bidAdapter: BidAdapter? = null
+    private var askAdapter: AskAdapter? = null
 
     private lateinit var book: AvailableBook
 
@@ -62,28 +62,54 @@ class DetailFragment : Fragment() {
 
     private fun init(){
         initComponents()
-        viewModel.getAvailableBooks(book.book.mapToQuery())
+        viewModel.getTickerFromBook(book.book.mapToQuery())
+    }
+
+    private fun initMinMax(ticker: Ticker){
+        with(binding){
+            tvHeader.text = book.book
+            tvMaximum.text = ticker.high
+            tvMinimum.text = ticker.low
+        }
     }
 
     private fun initComponents(){
-        listAdapter = BindAdapter(requireContext())
-        binding.rvBinds.adapter = listAdapter
+        bidAdapter = BidAdapter(requireContext())
+        askAdapter = AskAdapter(requireContext())
+
+        binding.rvBinds.adapter = bidAdapter
+        binding.rvAsks.adapter = askAdapter
     }
 
     private fun initObservers(){
-        viewModel.getOrderBooks.observe(viewLifecycleOwner, { dataState ->
+
+        viewModel.getTicker.observe(viewLifecycleOwner,{ dataState ->
             when(dataState){
                 is DataState.Loading -> showProgressBar()
-                is DataState.Success -> handleSuccess(dataState.data)
+                is DataState.Success -> handleTickerSuccess(dataState.data)
+                is DataState.Error -> handleError(dataState.error)
+                else -> Unit
+            }
+        })
+
+        viewModel.getOrderBooks.observe(viewLifecycleOwner, { dataState ->
+            when(dataState){
+                is DataState.Success -> handleOrderBookSuccess(dataState.data)
                 is DataState.Error -> handleError(dataState.error)
                 else -> Unit
             }
         })
     }
 
-    private fun handleSuccess(orderBook: OrderBook){
+    private fun handleTickerSuccess(ticker: Ticker){
+        initMinMax(ticker)
+        viewModel.getOrderBooks(book.book.mapToQuery())
+    }
+
+    private fun handleOrderBookSuccess(orderBook: OrderBook){
         hideProgressBar()
-        listAdapter?.submitList(orderBook.bids)
+        bidAdapter?.submitList(orderBook.bids)
+        askAdapter?.submitList(orderBook.asks)
     }
 
     private fun handleError(error: String){

@@ -13,7 +13,9 @@ interface BitsoApi {
     suspend fun getAvailableBooks(): Response<AvailableBooksResponse>
 
     @GET("ticker/")
-    suspend fun getTicker(): Response<TickerResponse>
+    suspend fun getTicker(
+        @Query("book") book: String
+    ): Response<TickerResponse>
 
     @GET("order_book/")
     suspend fun getOrderBook(

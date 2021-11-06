@@ -6,100 +6,147 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.detail.DetailFragment">
 
-    <TextView
-        android:id="@+id/tvHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="24dp"
-        tools:text="BTC - MXN"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tvMinimumLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/detail__minimum_label"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/tvHeader"
-        app:layout_constraintEnd_toStartOf="@id/tvMaximumLabel"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <TextView
-        android:id="@+id/tvMaximumLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/detail__maximum_label"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="@id/tvMinimumLabel"
-        app:layout_constraintStart_toEndOf="@+id/tvMinimumLabel"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <TextView
-        android:id="@+id/tvMinimum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        tools:text="0.00013"
-        app:layout_constraintTop_toBottomOf="@id/tvMinimumLabel"
-        app:layout_constraintStart_toStartOf="@id/tvMinimumLabel"
-        app:layout_constraintEnd_toEndOf="@id/tvMinimumLabel"/>
-
-    <TextView
-        android:id="@+id/tvMaximum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        tools:text="1000001"
-        app:layout_constraintTop_toBottomOf="@id/tvMaximumLabel"
-        app:layout_constraintStart_toStartOf="@id/tvMaximumLabel"
-        app:layout_constraintEnd_toEndOf="@id/tvMaximumLabel"/>
-
-    <TextView
-        android:id="@+id/tvBindsLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginStart="24dp"
-        android:text="@string/detail__binds_label"
-        app:layout_constraintTop_toBottomOf="@id/tvMinimum"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvBinds"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_centerVertical="true"
-        tools:listitem="@layout/item_bind"
-        app:layout_constraintTop_toBottomOf="@id/tvBindsLabel"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <ProgressBar
-        android:id="@+id/pbDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/gData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:constraint_referenced_ids="tvHeader, tvBindsLabel, tvMaximum, tvMaximumLabel, tvMinimum, tvMinimumLabel, rvBinds"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/gLoading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:constraint_referenced_ids="pbDetail"/>
+            <TextView
+                android:id="@+id/tvHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="24dp"
+                android:textStyle="bold"
+                tools:text="BTC - MXN"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvMinimumLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/detail__minimum_label"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/tvHeader"
+                app:layout_constraintEnd_toStartOf="@id/tvMaximumLabel"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvMaximumLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail__maximum_label"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/tvMinimumLabel"
+                app:layout_constraintStart_toEndOf="@+id/tvMinimumLabel"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvMinimum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                tools:text="0.00013"
+                app:layout_constraintTop_toBottomOf="@id/tvMinimumLabel"
+                app:layout_constraintStart_toStartOf="@id/tvMinimumLabel"
+                app:layout_constraintEnd_toEndOf="@id/tvMinimumLabel"/>
+
+            <TextView
+                android:id="@+id/tvMaximum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                tools:text="1000001"
+                app:layout_constraintTop_toBottomOf="@id/tvMaximumLabel"
+                app:layout_constraintStart_toStartOf="@id/tvMaximumLabel"
+                app:layout_constraintEnd_toEndOf="@id/tvMaximumLabel"/>
+
+            <TextView
+                android:id="@+id/tvBindsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginStart="24dp"
+                android:text="@string/detail__binds_label"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/tvMinimum"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvBinds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:clipToPadding="false"
+                android:layout_centerVertical="true"
+                android:overScrollMode="never"
+                tools:listitem="@layout/item_bind"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/tvBindsLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvAsksLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="24dp"
+                android:text="@string/detail__asks_label"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/rvBinds"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAsks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:clipToPadding="false"
+                android:layout_centerVertical="true"
+                android:overScrollMode="never"
+                tools:listitem="@layout/item_bind"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/tvAsksLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <ProgressBar
+                android:id="@+id/pbDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/gData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:constraint_referenced_ids="tvHeader, tvBindsLabel, tvAsksLabel, tvMaximum, tvMaximumLabel, tvMinimum, tvMinimumLabel, rvBinds, rvAsks"/>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/gLoading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="pbDetail"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

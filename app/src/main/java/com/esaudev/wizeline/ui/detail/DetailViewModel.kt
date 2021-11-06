@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.esaudev.wizeline.model.AvailableBook
 import com.esaudev.wizeline.model.OrderBook
+import com.esaudev.wizeline.model.Ticker
 import com.esaudev.wizeline.repository.BitsoRepository
 import com.esaudev.wizeline.utils.Constants
 import com.esaudev.wizeline.utils.DataState
@@ -22,7 +23,7 @@ class DetailViewModel @Inject constructor(
     private var _getOrderBooks = MutableLiveData<DataState<OrderBook>>()
     val getOrderBooks: LiveData<DataState<OrderBook>> = _getOrderBooks
 
-    fun getAvailableBooks(book: String){
+    fun getOrderBooks(book: String){
         viewModelScope.launch {
             try{
                 _getOrderBooks.value = DataState.Loading
@@ -30,6 +31,21 @@ class DetailViewModel @Inject constructor(
                 _getOrderBooks.value = data
             } catch (e: Exception) {
                 _getOrderBooks.value = DataState.Error(Constants.NETWORK_UNKNOWN_ERROR)
+            }
+        }
+    }
+
+    private var _getTicker = MutableLiveData<DataState<Ticker>>()
+    val getTicker: LiveData<DataState<Ticker>> = _getTicker
+
+    fun getTickerFromBook(book: String){
+        viewModelScope.launch {
+            try {
+                _getTicker.value = DataState.Loading
+                val data = repository.getTickerFromBook(book)
+                _getTicker.value = data
+            } catch (e: Exception) {
+                _getTicker.value = DataState.Error(Constants.NETWORK_UNKNOWN_ERROR)
             }
         }
     }

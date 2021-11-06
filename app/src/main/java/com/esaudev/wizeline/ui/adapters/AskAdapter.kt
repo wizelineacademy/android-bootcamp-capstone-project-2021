@@ -10,16 +10,17 @@ import com.esaudev.wizeline.data.remote.responses.BidResponse
 import com.esaudev.wizeline.databinding.ItemBindBinding
 import com.esaudev.wizeline.databinding.ItemBookBinding
 import com.esaudev.wizeline.extensions.load
+import com.esaudev.wizeline.model.Ask
 import com.esaudev.wizeline.model.AvailableBook
 import com.esaudev.wizeline.model.Bid
 
-class BindAdapter(
+class AskAdapter(
     private val context: Context
-): ListAdapter<Bid, BaseViewHolder<*>>(DiffUtilCallback) {
+): ListAdapter<Ask, BaseViewHolder<*>>(DiffUtilCallback) {
 
-    private object DiffUtilCallback: DiffUtil.ItemCallback<Bid>() {
-        override fun areItemsTheSame(oldItem: Bid, newItem: Bid): Boolean = oldItem.book == newItem.book
-        override fun areContentsTheSame(oldItem: Bid, newItem: Bid): Boolean = oldItem == newItem
+    private object DiffUtilCallback: DiffUtil.ItemCallback<Ask>() {
+        override fun areItemsTheSame(oldItem: Ask, newItem: Ask): Boolean = oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: Ask, newItem: Ask): Boolean = oldItem == newItem
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
@@ -34,8 +35,8 @@ class BindAdapter(
         }
     }
 
-    inner class BindViewHolder(private val binding: ItemBindBinding): BaseViewHolder<Bid>(binding.root) {
-        override fun bind(item: Bid, position: Int) = with(binding) {
+    inner class BindViewHolder(private val binding: ItemBindBinding): BaseViewHolder<Ask>(binding.root) {
+        override fun bind(item: Ask, position: Int) = with(binding) {
 
             tvHeader.text = item.book
             tvPrice.text = item.price
