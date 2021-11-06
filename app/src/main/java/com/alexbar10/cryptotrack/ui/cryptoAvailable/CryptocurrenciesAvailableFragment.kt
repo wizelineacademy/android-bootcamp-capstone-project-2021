@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.alexbar10.cryptotrack.MainActivity
+import com.alexbar10.cryptotrack.R
 import com.alexbar10.cryptotrack.databinding.FragmentCryptocurrenciesAvailableBinding
 import com.alexbar10.cryptotrack.domain.Cryptocurrency
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,8 +40,12 @@ class CryptocurrenciesAvailableFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         cryptocurrenciesAdapter = CryptocurrenciesAdapter {  cryptocurrencySelected ->
-            println(cryptocurrencySelected)
+            CryptocurrenciesAvailableFragmentDirections
+                .actionCryptocurrenciesAvailableFragmentToCryptocurrencyDetailsFragment(cryptocurrencySelected)
+                .let { navController.navigate(it) }
         }
+        navController = findNavController()
+        (requireActivity() as MainActivity).supportActionBar?.title = getString(R.string.app_name)
 
         binding.cryptocurrenciesRecyclerView.run {
             adapter = cryptocurrenciesAdapter
