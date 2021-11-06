@@ -2,6 +2,8 @@
 
 ## Introduction
 
+![Alt text](demo.gif)
+
 Thank you for participating in the Android Apprenticeship Program!
 Here, you'll find instructions for completing the challenge.
 

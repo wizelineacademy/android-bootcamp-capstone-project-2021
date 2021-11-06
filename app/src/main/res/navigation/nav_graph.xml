@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/cryptocurrenciesAvailableFragment">
+    <fragment
+        android:id="@+id/cryptocurrenciesAvailableFragment"
+        android:name="com.alexbar10.cryptotrack.ui.cryptoAvailable.CryptocurrenciesAvailableFragment"
+        android:label="fragment_cryptocurrencies_available"
+        tools:layout="@layout/fragment_cryptocurrencies_available" >
+        <action
+            android:id="@+id/action_cryptocurrenciesAvailableFragment_to_cryptocurrencyDetailsFragment"
+            app:destination="@id/cryptocurrencyDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cryptocurrencyDetailsFragment"
+        android:name="com.alexbar10.cryptotrack.ui.cryptoDetails.CryptocurrencyDetailsFragment"
+        android:label="fragment_cryptocurrency_details"
+        tools:layout="@layout/fragment_cryptocurrency_details" >
+        <argument
+            android:name="cryptocurrencyToShow"
+            app:argType="com.alexbar10.cryptotrack.domain.Cryptocurrency" />
+    </fragment>
+</navigation>

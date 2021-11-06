@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">CryptoTrack</string>
+
+    <string name="name_btc">Bitcoin</string>
+    <string name="name_eth">Ether</string>
+    <string name="name_xrp">XRP</string>
+    <string name="name_ltc">Litecoin</string>
+    <string name="name_bch">Bitcoin cash</string>
+    <string name="name_tusd">TrueUSD</string>
+    <string name="name_mana">MANA</string>
+    <string name="name_bat">BAT</string>
+    <string name="name_dai">Dai</string>
+    <string name="name_usd">USD stablecoins</string>
+    <string name="name_comp">Compound</string>
+    <string name="name_link">Chainlink Token</string>
+    <string name="name_uni">Uniswap</string>
+    <string name="name_aave">Aave</string>
+
+    <string name="market_mxn">MXN Mexican pesos</string>
+    <string name="market_bitcoin">BTC Bitcoin</string>
+    <string name="market_usd">USD Stablecoins</string>
+    <string name="market_dai">DAI</string>
+    <string name="market_arg">ARG Argentine pesos</string>
+    <string name="market_brl">BRL Brazilian reais</string>
+    <string name="markets">Markets</string>
+    <string name="cryptocurrencies">Cryptocurrencies</string>
+
+    <string name="buy_orders">Buy orders</string>
+    <string name="sell_orders">Sell orders</string>
+    <string name="order_title_price">Price</string>
+    <string name="order_title_amount">Amount</string>
+    <string name="order_title_total">Total</string>
+    <string name="last_price">Last Price</string>
+    <string name="high_price">High</string>
+    <string name="low_price">Low</string>
+</resources>
