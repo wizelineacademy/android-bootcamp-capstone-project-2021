@@ -1,13 +1,11 @@
 package com.esaudev.wizeline.data.remote.responses
 
-import com.google.gson.annotations.SerializedName
-
-data class TicketResponse(
-    val payload: TicketPayload,
+data class TickerResponse(
+    val payload: TickerPayload,
     val success: Boolean
 )
 
-data class TicketPayload(
+data class TickerPayload(
     val ask: String,
     val bid: String,
     val book: String,

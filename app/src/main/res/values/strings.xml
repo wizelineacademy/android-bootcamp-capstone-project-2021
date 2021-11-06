@@ -11,5 +11,10 @@
     <string name="list__minimum_placeholder">Min: %1$s</string>
     <string name="list__maximum_placeholder">Max: %1$s</string>
 
+    <string name="detail__minimum_label">Minimum</string>
+    <string name="detail__maximum_label">Maximum</string>
+    <string name="detail__binds_label">Binds</string>
+    <string name="detail__asks_label">Asks</string>
+
     <string name="network__unknown_error">Oops, algo salió mal obteniendo los datos</string>
 </resources>

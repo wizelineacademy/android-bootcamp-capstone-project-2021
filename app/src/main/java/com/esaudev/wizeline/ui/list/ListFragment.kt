@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.esaudev.wizeline.R
@@ -14,6 +16,7 @@ import com.esaudev.wizeline.databinding.FragmentListBinding
 import com.esaudev.wizeline.extensions.toast
 import com.esaudev.wizeline.model.AvailableBook
 import com.esaudev.wizeline.ui.adapters.BookAdapter
+import com.esaudev.wizeline.utils.Constants.BOOK_BUNDLE
 import com.esaudev.wizeline.utils.Constants.NETWORK_UNKNOWN_ERROR
 import com.esaudev.wizeline.utils.DataState
 import dagger.hilt.android.AndroidEntryPoint
@@ -72,7 +75,6 @@ class ListFragment : Fragment(), BookAdapter.OnBookClickListener {
 
     private fun handleSuccess(list: List<AvailableBook>){
         hideProgressBar()
-        Log.d("TAG_VIEW", list.toString())
         listAdapter?.submitList(list)
     }
 
@@ -95,7 +97,7 @@ class ListFragment : Fragment(), BookAdapter.OnBookClickListener {
     }
 
     override fun onBookClickListener(book: AvailableBook) {
-        activity?.toast("Book clickeado")
+        findNavController().navigate(R.id.listFragmentToDetailFragment, bundleOf(BOOK_BUNDLE to book))
     }
 
 }

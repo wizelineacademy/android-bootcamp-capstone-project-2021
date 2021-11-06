@@ -14,3 +14,4 @@ data class AvailableBook (
     val minimum_value: String,
     val icon: String
 ): Parcelable
+
