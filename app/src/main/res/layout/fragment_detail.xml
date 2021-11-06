@@ -31,15 +31,35 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/tvMinimumLabel"
+                android:id="@+id/tvLastPriceLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:text="@string/list__price_label"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvHeader"
+                app:layout_constraintEnd_toStartOf="@id/tvMinimumLabel"/>
+
+            <TextView
+                android:id="@+id/tvLastPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                tools:text="1240449.60"
+                app:layout_constraintTop_toBottomOf="@id/tvLastPriceLabel"
+                app:layout_constraintStart_toStartOf="@id/tvLastPriceLabel"
+                app:layout_constraintEnd_toEndOf="@id/tvLastPriceLabel"/>
+
+            <TextView
+                android:id="@+id/tvMinimumLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/detail__minimum_label"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/tvHeader"
+                app:layout_constraintTop_toTopOf="@id/tvLastPriceLabel"
                 app:layout_constraintEnd_toStartOf="@id/tvMaximumLabel"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toEndOf="@id/tvLastPriceLabel"/>
 
             <TextView
                 android:id="@+id/tvMaximumLabel"
@@ -135,7 +155,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                app:constraint_referenced_ids="tvHeader, tvBindsLabel, tvAsksLabel, tvMaximum, tvMaximumLabel, tvMinimum, tvMinimumLabel, rvBinds, rvAsks"/>
+                app:constraint_referenced_ids="tvHeader, tvLastPriceLabel, tvLastPrice, tvBindsLabel, tvAsksLabel, tvMaximum, tvMaximumLabel, tvMinimum, tvMinimumLabel, rvBinds, rvAsks"/>
 
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/gLoading"

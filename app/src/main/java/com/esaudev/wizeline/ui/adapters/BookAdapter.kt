@@ -43,13 +43,13 @@ class BookAdapter(
             tvBook.text = item.book
 
             tvPriceMin.text = context.getString(R.string.list__minimum_placeholder, item.minimum_price)
-            tvPriceMax.text = context.getString(R.string.list__minimum_placeholder, item.maximum_price)
+            tvPriceMax.text = context.getString(R.string.list__maximum_placeholder, item.maximum_price)
 
             tvAmountMin.text = context.getString(R.string.list__minimum_placeholder, item.minimum_amount)
-            tvAmountMax.text = context.getString(R.string.list__minimum_placeholder, item.maximum_amount)
+            tvAmountMax.text = context.getString(R.string.list__maximum_placeholder, item.maximum_amount)
 
             tvValueMin.text = context.getString(R.string.list__minimum_placeholder, item.minimum_value)
-            tvValueMax.text = context.getString(R.string.list__minimum_placeholder, item.maximum_value)
+            tvValueMax.text = context.getString(R.string.list__maximum_placeholder, item.maximum_value)
 
             mcvBook.setOnClickListener { itemClickListener.onBookClickListener(item) }
         }

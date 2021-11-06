@@ -70,6 +70,7 @@ class DetailFragment : Fragment() {
             tvHeader.text = book.book
             tvMaximum.text = ticker.high
             tvMinimum.text = ticker.low
+            tvLastPrice.text = ticker.last
         }
     }
 
