@@ -46,8 +46,7 @@ class CryptocurrenciesAvailableViewModel @Inject constructor(
 
                 // Download the ticker to get the last price of each crypto
                 currenciesResponse.data.payload?.forEach {
-                    if (it.book == "btc_mxn" || it.book == "eth_btc")
-                        getTickerFor(it)
+                    getTickerFor(it)
                 }
 
                 // Show all markets the first time

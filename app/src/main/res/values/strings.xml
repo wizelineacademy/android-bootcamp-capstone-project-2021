@@ -27,4 +27,10 @@
 
     <string name="buy_orders">Buy orders</string>
     <string name="sell_orders">Sell orders</string>
+    <string name="order_title_price">Price</string>
+    <string name="order_title_amount">Amount</string>
+    <string name="order_title_total">Total</string>
+    <string name="last_price">Last Price</string>
+    <string name="high_price">High</string>
+    <string name="low_price">Low</string>
 </resources>

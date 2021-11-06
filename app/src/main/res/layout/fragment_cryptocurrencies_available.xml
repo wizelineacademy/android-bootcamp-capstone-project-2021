@@ -10,12 +10,12 @@
         android:id="@+id/markets_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/margin_big"
+        android:layout_marginStart="@dimen/margin_small"
         android:fontFamily="@font/montserrat_bold"
         android:text="@string/markets"
         android:textColor="@color/text_light"
-        android:textSize="18sp"
+        android:textSize="@dimen/text_size_header"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,81 +23,63 @@
         android:id="@+id/market_mxn_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:fontFamily="@font/montserrat_medium"
+        android:layout_marginTop="@dimen/margin_small"
         android:text="@string/market_mxn"
-        android:textColor="@color/text_light"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/markets_txt" />
+        app:layout_constraintTop_toBottomOf="@+id/markets_txt"
+        style="@style/style_check_box" />
 
     <CheckBox
         android:id="@+id/market_bitcoin_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:checked="true"
         android:text="@string/market_bitcoin"
-        android:fontFamily="@font/montserrat_medium"
-        android:textColor="@color/text_light"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/market_mxn_checkbox" />
+        app:layout_constraintTop_toBottomOf="@+id/market_mxn_checkbox"
+        style="@style/style_check_box"/>
 
     <CheckBox
         android:id="@+id/market_usd_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:checked="true"
-        android:fontFamily="@font/montserrat_medium"
-        android:textColor="@color/text_light"
         android:text="@string/market_usd"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/market_bitcoin_checkbox" />
+        app:layout_constraintTop_toBottomOf="@+id/market_bitcoin_checkbox"
+        style="@style/style_check_box" />
 
     <CheckBox
         android:id="@+id/market_dai_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:checked="true"
-        android:fontFamily="@font/montserrat_medium"
         android:text="@string/market_dai"
-        android:textColor="@color/text_light"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="@+id/market_mxn_checkbox" />
+        app:layout_constraintTop_toTopOf="@+id/market_mxn_checkbox"
+        style="@style/style_check_box" />
 
     <CheckBox
         android:id="@+id/market_arg_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:checked="true"
-        android:fontFamily="@font/montserrat_medium"
-        android:textColor="@color/text_light"
         android:text="@string/market_arg"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/market_dai_checkbox" />
+        app:layout_constraintTop_toBottomOf="@+id/market_dai_checkbox"
+        style="@style/style_check_box" />
 
     <CheckBox
         android:id="@+id/market_brl_checkbox"
         android:layout_width="wrap_content"
-        android:fontFamily="@font/montserrat_medium"
-        android:textColor="@color/text_light"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:checked="true"
         android:text="@string/market_brl"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/market_arg_checkbox" />
+        app:layout_constraintTop_toBottomOf="@+id/market_arg_checkbox"
+        style="@style/style_check_box" />
 
     <TextView
         android:id="@+id/cryptos_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_huge"
         android:fontFamily="@font/montserrat_bold"
         android:text="@string/cryptocurrencies"
         android:textColor="@color/text_light"
@@ -109,7 +91,7 @@
         android:id="@+id/cryptocurrencies_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/margin_big"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -119,8 +101,8 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/loaderAnimationView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="@dimen/loader_size"
+        android:layout_height="@dimen/loader_size"
         android:layout_gravity="center"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
