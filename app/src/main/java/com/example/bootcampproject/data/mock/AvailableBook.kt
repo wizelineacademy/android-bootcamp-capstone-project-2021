@@ -1,7 +1,9 @@
 package com.example.bootcampproject.data.mock
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.Parcelize
 
 @JsonClass(generateAdapter = true)
 data class AvailableBook (
@@ -10,6 +12,7 @@ data class AvailableBook (
     @Json(name = "payload") val payload : List<Payload>,
 )
 
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class Payload (
 
@@ -23,24 +26,29 @@ data class Payload (
     @Json(name = "tick_size") val tick_size : Double,
     @Json(name = "default_chart") val default_chart : String,
     @Json(name = "fees") val fees : Fees ,
-)
+): Parcelable
+
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class Fees (
 
     @Json(name ="flat_rate") val flat_rate : FlatRate,
     @Json(name ="structure") val structure : List<Structure>
-)
+): Parcelable
+
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class FlatRate (
 
     @Json(name ="maker") val maker : Double,
     @Json(name ="taker") val taker : Double,
-)
+): Parcelable
 
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class Structure (
 
     @Json(name ="volume") val volume : Double,
     @Json(name ="maker") val maker : Double,
     @Json(name ="taker") val taker : Double,
-)
+): Parcelable
