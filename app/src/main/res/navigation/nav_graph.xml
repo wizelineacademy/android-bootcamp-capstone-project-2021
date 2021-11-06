@@ -7,5 +7,21 @@
     <fragment
         android:id="@+id/currencyFragment"
         android:name="com.example.bootcampproject.ui.generalinfocurrency.CurrencyFragment"
-        android:label="CurrencyFragment" />
+        android:label="CurrencyFragment" >
+        <action
+            android:id="@+id/toavailableBooksFragmentFragment"
+            app:destination="@id/availableBooksFragmentFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
+    <fragment
+        android:id="@+id/availableBooksFragmentFragment"
+        android:name="com.example.bootcampproject.ui.availablebooks.AvailableBooksFragmentFragment"
+        android:label="AvailableBooksFragmentFragment" >
+        <argument
+            android:name="availableBooks"
+            app:argType="com.example.bootcampproject.data.mock.Payload[]" />
+    </fragment>
 </navigation>
