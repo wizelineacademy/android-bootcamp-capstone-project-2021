@@ -1,5 +1,18 @@
 <resources>
     <string name="app_name">CryptoTrack</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="name_btc">Bitcoin</string>
+    <string name="name_eth">Ether</string>
+    <string name="name_xrp">XRP</string>
+    <string name="name_ltc">Litecoin</string>
+    <string name="name_bch">Bitcoin cash</string>
+    <string name="name_tusd">TrueUSD</string>
+    <string name="name_mana">MANA</string>
+    <string name="name_bat">BAT</string>
+    <string name="name_dai">Dai</string>
+    <string name="name_usd">USD stablecoins</string>
+    <string name="name_comp">Compound</string>
+    <string name="name_link">Chainlink Token</string>
+    <string name="name_uni">Uniswap</string>
+    <string name="name_aave">Aave</string>
 </resources>
