@@ -2,6 +2,7 @@ package com.alexbar10.cryptotrack.utils
 
 import com.alexbar10.cryptotrack.R
 import com.alexbar10.cryptotrack.domain.Cryptocurrency
+import java.text.DecimalFormat
 
 const val prefix_btc = "btc"
 const val prefix_eth = "eth"
@@ -63,3 +64,16 @@ fun getMarketFor(cryptocurrency: Cryptocurrency) = getPostfixFor(cryptocurrency)
 fun getPrefixFor(cryptocurrency: Cryptocurrency) = cryptocurrency.book.substringBefore("_")
 
 fun getPostfixFor(cryptocurrency: Cryptocurrency) = cryptocurrency.book.substringAfter("_")
+
+fun currencyFormat(cryptocurrency: Cryptocurrency): String? {
+    cryptocurrency.ticker?.let {
+        // Check if crypto is in bitcoin market, in that case use 8 decimals
+        var formatter: DecimalFormat = if (getMarketFor(cryptocurrency) == prefix_btc) {
+            DecimalFormat("0.00000000")
+        } else {
+            DecimalFormat("###,###,##0.00")
+        }
+        return formatter.format(it.last)
+    }
+    return null
+}

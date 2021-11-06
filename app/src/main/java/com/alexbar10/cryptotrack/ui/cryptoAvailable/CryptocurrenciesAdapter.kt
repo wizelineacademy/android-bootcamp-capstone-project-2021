@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alexbar10.cryptotrack.databinding.CryptocurrencyItemBinding
 import com.alexbar10.cryptotrack.domain.Cryptocurrency
+import com.alexbar10.cryptotrack.utils.currencyFormat
 import com.alexbar10.cryptotrack.utils.getImageResourceFor
 import com.alexbar10.cryptotrack.utils.getMarketFor
 import com.alexbar10.cryptotrack.utils.getNameFor
@@ -44,6 +45,9 @@ class CryptocurrenciesAdapter(
             binding.currencyNameLabel.text = binding.root.context.getString(getNameFor(cryptocurrency))
             binding.currencyMarketLabel.text = getMarketFor(cryptocurrency).uppercase()
             binding.currencyImageView.setImageResource(getImageResourceFor(cryptocurrency))
+            cryptocurrency.ticker?.last.let {
+                binding.currencyCostLabel.text = currencyFormat(cryptocurrency) + " " + getMarketFor(cryptocurrency).uppercase()
+            }
 
             binding.cardView.setOnClickListener { onCryptocurrencySelected(cryptocurrency) }
         }

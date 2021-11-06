@@ -35,9 +35,37 @@ class CryptocurrenciesAvailableViewModel @Inject constructor(
 
             if (currenciesResponse is Success) {
                 _cryptoAvailableDetailsLiveData.postValue(currenciesResponse.data.payload)
+
+                // Download the ticker to get the last price of each crypto
+                currenciesResponse.data.payload?.forEach {
+                    if (it.book == "btc_mxn" || it.book == "eth_btc")
+                        getTickerFor(it)
+                }
             } else {
                 val failure = currenciesResponse as Failure
                 _errorLiveData.postValue(failure.error)
+            }
+        }
+    }
+
+    private fun getTickerFor(cryptocurrency: Cryptocurrency) {
+        viewModelScope.launch {
+            val tickerResponse = cryptocurrenciesRepo.getTicketFor(cryptocurrency.book)
+
+            if (tickerResponse is Success) {
+                cryptocurrency.ticker = tickerResponse.data.payload
+
+                // Update list of cryptos with the new ticker
+                val list = _cryptoAvailableDetailsLiveData.value?.toMutableList()
+                list?.let {
+                    var currencyIndex = list.indexOf(cryptocurrency)
+                    list[currencyIndex] = cryptocurrency
+                }
+                _cryptoAvailableDetailsLiveData.postValue(list?.toList())
+
+            } else {
+                val failure = tickerResponse as Failure
+                println("Error getting ticker: ${failure.error}")
             }
         }
     }
