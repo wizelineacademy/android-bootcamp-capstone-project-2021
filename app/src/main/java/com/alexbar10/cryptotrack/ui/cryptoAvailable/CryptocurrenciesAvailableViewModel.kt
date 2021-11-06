@@ -34,6 +34,7 @@ class CryptocurrenciesAvailableViewModel @Inject constructor(
     val marketsLiveData: LiveData<MutableSet<String>> get() = _marketsLiveData
 
     fun getCryptocurrenciesAvailable() {
+        _cryptoAvailableDetailsLiveData.postValue(emptyList())
         _loadingLiveData.postValue(true)
 
         viewModelScope.launch {

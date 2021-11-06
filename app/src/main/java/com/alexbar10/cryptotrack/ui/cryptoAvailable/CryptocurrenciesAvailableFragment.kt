@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -64,10 +66,10 @@ class CryptocurrenciesAvailableFragment : Fragment() {
 
     private fun setupObservables() {
         viewModel.loadingLiveData.observe(viewLifecycleOwner, Observer { value: Boolean ->
-            println("Error $value")
+            binding.loaderAnimationView.isVisible = value
         })
         viewModel.errorLiveData.observe(viewLifecycleOwner, Observer {
-            println("Error $it")
+            Toast.makeText(requireContext(), it?.message, Toast.LENGTH_LONG).show()
         })
         viewModel.cryptoAvailableDetailsLiveData.observe(viewLifecycleOwner, Observer { cryptocurrencies: List<Cryptocurrency> ->
             cryptocurrenciesAdapter.setData(cryptocurrencies)
@@ -75,6 +77,7 @@ class CryptocurrenciesAvailableFragment : Fragment() {
         })
         viewModel.cryptoFilterLiveData.observe(viewLifecycleOwner, Observer { value: List<Cryptocurrency> ->
             cryptocurrenciesAdapter.setData(value)
+            binding.cryptocurrenciesRecyclerView.visibility = View.VISIBLE
         })
     }
 
