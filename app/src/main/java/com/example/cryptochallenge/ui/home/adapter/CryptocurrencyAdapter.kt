@@ -7,7 +7,13 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.cryptochallenge.databinding.ItemCryptocurrencyBinding
 import com.example.cryptochallenge.domain.availablebook.Payload
 
+/**
+ * Adapter for cryptocurrency records
+ */
 class CryptocurrencyAdapter : ListAdapter<Payload, CryptocurrencyViewHolder>(DIFF_CALLBACK) {
+    /**
+     * Listener for select an item
+     */
     var onItemSelect: ((String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CryptocurrencyViewHolder {
@@ -18,6 +24,13 @@ class CryptocurrencyAdapter : ListAdapter<Payload, CryptocurrencyViewHolder>(DIF
         holder.bind(getItem(position))
     }
 
+    /**
+     * Create and set a [CryptocurrencyViewHolder]
+     *
+     * @param parent The ViewGroup into which the new View will be added after it is bound to an
+     * adapter position
+     * @return ViewHolder
+     */
     private fun returnCryptoViewHolder(parent: ViewGroup): CryptocurrencyViewHolder {
         val holder = CryptocurrencyViewHolder(
             ItemCryptocurrencyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -29,6 +42,9 @@ class CryptocurrencyAdapter : ListAdapter<Payload, CryptocurrencyViewHolder>(DIF
     }
 
     companion object {
+        /**
+         * Property for calculate differences between items
+         */
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Payload>() {
             override fun areItemsTheSame(oldItem: Payload, newItem: Payload): Boolean {
                 return oldItem.book == newItem.book &&

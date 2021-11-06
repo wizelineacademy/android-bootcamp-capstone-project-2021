@@ -2,6 +2,12 @@ package com.example.cryptochallenge.domain
 
 import com.example.cryptochallenge.R
 
+/**
+ * List of Cryptocurrency Types
+ *
+ * @property realNameId ID that represent the real name of the specific cryptocurrency
+ * @property imgId ID that represent the image of the cryptocurrency
+ */
 enum class CryptoCurrencyType(val realNameId: Int, val imgId: Int) {
     BTC(R.string.btc_name, R.drawable.btc),
     MXN(R.string.mxn_name, R.drawable.mxn),

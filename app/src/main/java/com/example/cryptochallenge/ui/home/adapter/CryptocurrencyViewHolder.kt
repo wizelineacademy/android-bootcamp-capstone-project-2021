@@ -1,8 +1,6 @@
 package com.example.cryptochallenge.ui.home.adapter
 
 import android.view.View
-import androidx.recyclerview.widget.RecyclerView
-import com.example.cryptochallenge.R
 import com.example.cryptochallenge.databinding.ItemCryptocurrencyBinding
 import com.example.cryptochallenge.domain.CryptoCurrencyType
 import com.example.cryptochallenge.domain.availablebook.Payload
@@ -10,21 +8,36 @@ import com.example.cryptochallenge.ui.Extensions.Companion.MAJOR
 import com.example.cryptochallenge.ui.Extensions.Companion.MINOR
 import com.example.cryptochallenge.ui.Extensions.Companion.getMajorAndMinor
 import com.example.cryptochallenge.ui.Extensions.Companion.loadCurrencyImg
+import com.example.cryptochallenge.ui.commons.BaseHolder
 import java.lang.Exception
 
+/**
+ * ViewHolder for cryptocurrency records
+ *
+ * @property binding Item view
+ */
 class CryptocurrencyViewHolder(private val binding: ItemCryptocurrencyBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+    BaseHolder<Payload>(binding.root) {
 
-    val resources = binding.root.resources
+    override fun bind(item: Payload?) {
+        if (item !is Payload)
+            return
 
-    fun bind(item: Payload) {
         setMajorAndMinorImg(item.book ?: "")
     }
 
+    /**
+     * Set listener for select an item
+     */
     fun setOnClickListener(listener: View.OnClickListener) {
         binding.root.setOnClickListener(listener)
     }
 
+    /**
+     * Get Major and Minor currency and set them in view
+     *
+     * @param bookName Book name
+     */
     private fun setMajorAndMinorImg(bookName: String) {
         val values = bookName.getMajorAndMinor()
 

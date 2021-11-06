@@ -9,6 +9,11 @@ import com.example.cryptochallenge.ui.Extensions.Companion.loadCurrencyImg
 import com.example.cryptochallenge.ui.commons.BaseHolder
 import java.lang.Exception
 
+/**
+ * ViewHolder for Header Detail
+ *
+ * @property binding Item' view
+ */
 class HeaderDetailViewHolder(private val binding: ItemHeaderDetailBinding) :
     BaseHolder<DetailSectionItem>(binding.root) {
 

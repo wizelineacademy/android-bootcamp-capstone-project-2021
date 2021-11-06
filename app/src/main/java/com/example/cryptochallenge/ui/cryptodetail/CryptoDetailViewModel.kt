@@ -10,23 +10,52 @@ import com.example.cryptochallenge.ui.commons.SingleLiveEvent
 import com.example.cryptochallenge.usecases.GetOrderBook
 import com.example.cryptochallenge.usecases.GetTicker
 
+/**
+ * ViewModel for Cryptocurrency detail
+ */
 class CryptoDetailViewModel : ViewModel() {
+    /**
+     * Property to handle [CryptoRepository]
+     */
     private val cryptoRepository = CryptoRepository()
 
+    /**
+     * LiveData for load sections
+     */
     private val _sections = SingleLiveEvent<MutableList<DetailSectionItem>>()
     val sections: LiveData<MutableList<DetailSectionItem>> get() = _sections
 
+    /**
+     * LiveData for show or hide loader
+     */
     private val _showLoader = SingleLiveEvent<Boolean>()
     val showLoader: LiveData<Boolean> get() = _showLoader
 
+    /**
+     * Get ticker information of a specific book
+     *
+     * @param bookName Book name
+     * @return [LiveData] with webservice response
+     */
     fun getTicker(bookName: String): LiveData<Payload?> {
         return GetTicker(cryptoRepository).execute(bookName)
     }
 
+    /**
+     * Get Order book information of a specific book
+     *
+     * @param bookName Book name
+     * @return [LiveData] with webservice response
+     */
     fun getOrderBook(bookName: String): LiveData<com.example.cryptochallenge.domain.orderbook.Payload?> {
         return GetOrderBook(cryptoRepository).execute(bookName)
     }
 
+    /**
+     * Process section information to show it
+     *
+     * @param item Section information
+     */
     fun setItem(item: Any?) {
         when (item) {
             is String -> addSection(DetailSectionItem(SectionType.HEADER, item))
@@ -38,6 +67,11 @@ class CryptoDetailViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Add section information to section list
+     *
+     * @param section Section information
+     */
     private fun addSection(section: DetailSectionItem) {
         var sections = _sections.value
         if (sections.isNullOrEmpty()) {
@@ -84,12 +118,21 @@ class CryptoDetailViewModel : ViewModel() {
             _showLoader.value = false
     }
 
-    private fun getIndexOfSectionByType(type: SectionType, sections: List<DetailSectionItem>): Int {
-        return sections.indexOfFirst {
+    /**
+     * Get index of a section by section type
+     *
+     * @param type Section type
+     * @param sections Section list
+     * @return [Int] that represent section index
+     */
+    private fun getIndexOfSectionByType(type: SectionType, sections: List<DetailSectionItem>) =
+        sections.indexOfFirst {
             it.type == type
         }
-    }
 
+    /**
+     * Clean disposable property
+     */
     fun clean() {
         cryptoRepository.clear()
     }

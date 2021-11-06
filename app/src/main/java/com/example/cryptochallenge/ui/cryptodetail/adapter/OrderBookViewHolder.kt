@@ -4,6 +4,11 @@ import com.example.cryptochallenge.databinding.ItemOrderBookPayloadBinding
 import com.example.cryptochallenge.domain.orderbook.PayloadObject
 import com.example.cryptochallenge.ui.commons.BaseHolder
 
+/**
+ * ViewHolder for order book items
+ *
+ * @property binding Item' view
+ */
 class OrderBookViewHolder(private val binding: ItemOrderBookPayloadBinding) :
     BaseHolder<PayloadObject>(binding.root) {
 

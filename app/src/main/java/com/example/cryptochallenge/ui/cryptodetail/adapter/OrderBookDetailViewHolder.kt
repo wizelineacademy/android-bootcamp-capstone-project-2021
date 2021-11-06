@@ -6,6 +6,11 @@ import com.example.cryptochallenge.domain.DetailSectionItem
 import com.example.cryptochallenge.domain.orderbook.PayloadObject
 import com.example.cryptochallenge.ui.commons.BaseHolder
 
+/**
+ * ViewHolder for show order books in cryptocurrency details
+ *
+ * @property binding Item' view
+ */
 class OrderBookDetailViewHolder(private val binding: ItemOrderBookDetailBinding) :
     BaseHolder<DetailSectionItem>(binding.root) {
 
@@ -23,6 +28,11 @@ class OrderBookDetailViewHolder(private val binding: ItemOrderBookDetailBinding)
         }
     }
 
+    /**
+     * Set title section
+     *
+     * @param sectionName Section name
+     */
     fun setTitleSection(sectionName: String) {
         binding.tvOrderBookLabel.text = sectionName
     }

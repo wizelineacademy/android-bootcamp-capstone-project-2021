@@ -12,6 +12,9 @@ import com.example.cryptochallenge.domain.DetailSectionItem
 import com.example.cryptochallenge.domain.SectionType
 import com.example.cryptochallenge.ui.commons.BaseHolder
 
+/**
+ * Adapter for Detail' Sections
+ */
 class SectionsAdapter :
     ListAdapter<DetailSectionItem, BaseHolder<DetailSectionItem>>(DIFF_CALLBACK) {
 
@@ -44,6 +47,13 @@ class SectionsAdapter :
         return getItem(position).type.ordinal
     }
 
+    /**
+     * Create an [OrderBookViewHolder] and set section title
+     *
+     * @param type Type' section
+     * @param parent The ViewGroup into which the new View will be added after it is bound to an
+     * adapter position
+     */
     private fun createOrderBookViewHolder(
         type: Int,
         parent: ViewGroup
@@ -66,6 +76,9 @@ class SectionsAdapter :
     }
 
     companion object {
+        /**
+         * Property for calculate differences between items
+         */
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DetailSectionItem>() {
             override fun areItemsTheSame(
                 oldItem: DetailSectionItem,

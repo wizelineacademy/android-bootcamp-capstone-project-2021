@@ -8,6 +8,9 @@ import com.example.cryptochallenge.databinding.ItemOrderBookPayloadBinding
 import com.example.cryptochallenge.domain.orderbook.PayloadObject
 import com.example.cryptochallenge.ui.commons.BaseHolder
 
+/**
+ * Adapter for order books elements
+ */
 class OrderBooksAdapter : ListAdapter<PayloadObject, BaseHolder<PayloadObject>>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder<PayloadObject> {
@@ -21,6 +24,9 @@ class OrderBooksAdapter : ListAdapter<PayloadObject, BaseHolder<PayloadObject>>(
     }
 
     companion object {
+        /**
+         * Property for calculate differences between items
+         */
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PayloadObject>() {
             override fun areItemsTheSame(oldItem: PayloadObject, newItem: PayloadObject): Boolean {
                 return oldItem == newItem

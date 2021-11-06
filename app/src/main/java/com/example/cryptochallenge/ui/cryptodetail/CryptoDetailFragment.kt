@@ -14,10 +14,24 @@ import com.example.cryptochallenge.ui.cryptodetail.adapter.SectionsAdapter
 import com.example.cryptochallenge.ui.home.HomeFragment.Companion.CRYPTO_NAME
 import com.google.android.material.snackbar.Snackbar
 
+/**
+ * Fragment to show crypto detail information
+ */
 class CryptoDetailFragment : Fragment() {
 
+    /**
+     * Property that represent fragment' view
+     */
     private var binding: FragmentCryptoDetailBinding? = null
+
+    /**
+     * Property that represent viewModel
+     */
     private val viewModel by viewModels<CryptoDetailViewModel>()
+
+    /**
+     * Property that represent section adapter
+     */
     private val sectionsAdapter = SectionsAdapter()
 
     override fun onCreateView(
@@ -40,6 +54,9 @@ class CryptoDetailFragment : Fragment() {
         }
     }
 
+    /**
+     * Set up view elements
+     */
     private fun setUpView() {
         binding?.rvSectionList?.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -47,6 +64,9 @@ class CryptoDetailFragment : Fragment() {
         }
     }
 
+    /**
+     * Set [viewModel] listeners
+     */
     private fun setViewModelListener(cryptoName: String) {
         viewModel.getTicker(cryptoName).observe(viewLifecycleOwner) {
             viewModel.setItem(it)
@@ -66,6 +86,9 @@ class CryptoDetailFragment : Fragment() {
         }
     }
 
+    /**
+     * Show an error message and back to previous fragment
+     */
     private fun sendErrorAndExit() {
         binding?.root?.let {
             Snackbar.make(it, getString(R.string.error_message), Snackbar.LENGTH_SHORT)
@@ -74,6 +97,11 @@ class CryptoDetailFragment : Fragment() {
         findNavController().popBackStack()
     }
 
+    /**
+     * Show or hide the loader
+     *
+     * @param show Indicator that determines if the loader should be shown or hidden
+     */
     private fun showLoader(show: Boolean) {
         binding?.iLoader?.root?.visibility = if (show) View.VISIBLE else View.GONE
     }

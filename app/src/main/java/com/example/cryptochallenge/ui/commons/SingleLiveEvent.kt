@@ -6,6 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
 
+/**
+ * Handler of events
+ *
+ * @property T Event's Type
+ */
 class SingleLiveEvent<T> : MutableLiveData<T>() {
     private val mPending = AtomicBoolean(false)
 
@@ -30,9 +35,5 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
     @MainThread
     fun call() {
         setValue(null)
-    }
-
-    companion object {
-        private val TAG = "SingleLiveEvent"
     }
 }

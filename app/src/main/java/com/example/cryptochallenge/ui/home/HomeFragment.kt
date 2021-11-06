@@ -15,10 +15,23 @@ import com.example.cryptochallenge.domain.availablebook.AvailableBook
 import com.example.cryptochallenge.domain.availablebook.Payload
 import com.example.cryptochallenge.ui.home.adapter.CryptocurrencyAdapter
 
+/**
+ * Fragment to show available books list
+ */
 class HomeFragment : Fragment() {
+    /**
+     * Property that represent fragment' view
+     */
     private var binding: FragmentHomeBinding? = null
+
+    /**
+     * Property that represent viewModel
+     */
     private val viewModel by viewModels<HomeViewModel>()
 
+    /**
+     * Property that represent available books adapter
+     */
     private val cryptoCurrencyAdapter = CryptocurrencyAdapter()
 
     override fun onCreateView(
@@ -36,6 +49,9 @@ class HomeFragment : Fragment() {
         setViewModelListener()
     }
 
+    /**
+     * Set [viewModel] listeners
+     */
     private fun setViewModelListener() {
         viewModel.getAvailableBooks().observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty())
@@ -52,6 +68,9 @@ class HomeFragment : Fragment() {
         }
     }
 
+    /**
+     * Set up view elements
+     */
     private fun setUpView() {
         binding?.rvCryptocurrencyList?.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -63,20 +82,40 @@ class HomeFragment : Fragment() {
         }
     }
 
+    /**
+     * Set available books in adapter
+     *
+     * @param cryptoCurrencyList Available books list
+     */
     private fun setAvailableBooks(cryptoCurrencyList: List<Payload>) {
         showEmtpyState(false)
         cryptoCurrencyAdapter.submitList(cryptoCurrencyList)
     }
 
+    /**
+     * Show or hide empty state
+     *
+     * @param show Indicator that determines if the empty state should be shown or hidden
+     */
     private fun showEmtpyState(show: Boolean) {
         binding?.rvCryptocurrencyList?.visibility = if (show) View.GONE else View.VISIBLE
         binding?.tvEmptyState?.visibility = if (show) View.VISIBLE else View.GONE
     }
 
+    /**
+     * Show or hide the loader
+     *
+     * @param show Indicator that determines if the loader should be shown or hidden
+     */
     private fun showLoader(show: Boolean) {
         binding?.iLoader?.root?.visibility = if (show) View.VISIBLE else View.GONE
     }
 
+    /**
+     * Show available book detail
+     *
+     * @param cryptoName Available book name
+     */
     private fun toCryptoDetail(cryptoName: String) {
         val bundle = bundleOf(CRYPTO_NAME to cryptoName)
         findNavController().navigate(R.id.toCryptoDetail, bundle)
@@ -88,6 +127,9 @@ class HomeFragment : Fragment() {
     }
 
     companion object {
+        /**
+         * Property to send and set available book
+         */
         const val CRYPTO_NAME = "cryptoName"
     }
 }

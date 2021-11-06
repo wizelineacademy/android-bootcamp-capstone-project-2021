@@ -5,6 +5,11 @@ import com.example.cryptochallenge.domain.DetailSectionItem
 import com.example.cryptochallenge.domain.ticker.Payload
 import com.example.cryptochallenge.ui.commons.BaseHolder
 
+/**
+ * ViewHolder for show Ticker in Detail Section
+ *
+ * @property binding Item' view
+ */
 class TickerDetailViewHolder(private val binding: ItemTickerDetailBinding) :
     BaseHolder<DetailSectionItem>(binding.root) {
 

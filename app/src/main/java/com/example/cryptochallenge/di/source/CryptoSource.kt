@@ -10,7 +10,13 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
+/**
+ * Perform the calls to web services and returns responses
+ */
 class CryptoSource : ICryptoSource {
+    /**
+     * Property for dispose web service calls when fragment destroy
+     */
     private val compositeDisposable = CompositeDisposable()
 
     override fun getAvailableBooks(): LiveData<List<Payload>?> {
@@ -69,6 +75,9 @@ class CryptoSource : ICryptoSource {
     }
 
     companion object {
+        /**
+         * Property to send book name to web service call
+         */
         private const val BOOK = "book"
     }
 }

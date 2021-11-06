@@ -1,9 +1,18 @@
 package com.example.cryptochallenge.usecases
 
 import com.example.cryptochallenge.data.repository.CryptoRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
+/**
+ * Use case that get available books list
+ *
+ * @property repository Instance of [CryptoRepository]
+ */
 class GetAvailableBooks(private val repository: CryptoRepository) {
+
+    /**
+     * Execute use case that get available books list
+     *
+     * @return Web service response
+     */
     fun execute() = repository.getAvailableBooks()
 }
