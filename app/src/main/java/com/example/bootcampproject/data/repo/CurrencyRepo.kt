@@ -1,5 +1,6 @@
 package com.example.bootcampproject.data.repo
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.bootcampproject.data.mock.AvailableBook
 import com.example.bootcampproject.data.services.BitsoServices
@@ -19,7 +20,7 @@ private const val CURRENCY_BASE_IMAGE_URL = "https://cryptoicon-api.vercel.app/a
 class CurrencyRepo @Inject constructor(
     private val bitsoServices :BitsoServices
 ){
-    val _currencies = mutableListOf<Currency>()
+    val _currencies = mutableMapOf<String,Currency>()
 
     fun getCurrencies(currencies: MutableLiveData<List<Currency>>){
         CoroutineScope(Dispatchers.IO).launch {
@@ -34,15 +35,22 @@ class CurrencyRepo @Inject constructor(
                     response.body()?.let { availableBooks ->
                         for(availableBook in availableBooks.payload){
                             val splitNameBook= availableBook.book.split("_")
-                            val tempCurrency = Currency(
-                                code = splitNameBook[0],
-                                name = splitNameBook[0],
-                                imageUrl = CURRENCY_BASE_IMAGE_URL+splitNameBook[0]
-                            )
-                            if(!_currencies.contains(tempCurrency))
-                                _currencies.add(tempCurrency)
+
+                            if(!_currencies.containsKey(splitNameBook[0])){
+                                val tempCurrency = Currency(
+                                    code = splitNameBook[0],
+                                    name = splitNameBook[0],
+                                    imageUrl = CURRENCY_BASE_IMAGE_URL+splitNameBook[0]
+
+                                )
+                                tempCurrency.books.add(availableBook)
+                                _currencies[splitNameBook[0]] = tempCurrency
+                            }else{
+                                _currencies[splitNameBook[0]]?.books?.add(availableBook)
+                            }
+
                         }
-                        currencies.postValue(_currencies)
+                        currencies.postValue(_currencies.values.toList())
                     }
                 }
 
