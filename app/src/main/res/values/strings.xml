@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">CryptoChallenge</string>
+    <string name="empty_result">No hay resultados que mostrar</string>
+    <string name="error_message">An error occurred, please try later</string>
+    <string name="trading_information">Trading Information</string>
+    <string name="ticker_high_label">Last 24 hours price high</string>
+    <string name="ticker_last_label">Last traded price</string>
+    <string name="ticker_low_label">Last 24 hours price low</string>
+    <string name="open_orders">Open Orders</string>
+    <string name="order_book_ask">Ask</string>
+    <string name="order_book_bid">Bid</string>
+    <string name="order_book_price">Price per unit</string>
+    <string name="order_book_amount">Major amount</string>
+    <string name="btc_name">Bitcoin</string>
+    <string name="mxn_name">Peso Mexicano</string>
+    <string name="eth_name">Ethereum</string>
+    <string name="xrp_name">Ripple</string>
+    <string name="ltc_name">Litecoin</string>
+    <string name="bch_name">Bitcoin Cash</string>
+    <string name="tusd_name">TrueUSD</string>
+    <string name="mana_name">Decentraland</string>
+    <string name="bat_name">Basic Attention Token</string>
+    <string name="ars_name">Aeriscoin</string>
+    <string name="dai_name">DAI</string>
+    <string name="usd_name">Dólar Estadounidense</string>
+    <string name="brl_name">Real brasileño</string>
+    <string name="usdt_name">Tether</string>
+    <string name="comp_name">Compound</string>
+    <string name="link_name">Chainlink</string>
+    <string name="uni_name">Uniswap</string>
+    <string name="aave_name">AAVE</string>
+    <string name="default_name">Unknown</string>
+</resources>
