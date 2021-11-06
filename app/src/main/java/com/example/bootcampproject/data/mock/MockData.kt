@@ -2,7 +2,7 @@ package com.example.bootcampproject.data.mock
 
 import com.example.bootcampproject.domain.Currency
 
-val mockLogos = listOf(
+/*val mockLogos = listOf(
     Currency (code = "btc", name = "Bitcoin", imageUrl = "https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=014"),
     Currency( code = "eth", name = "Ethereum", imageUrl = "https://cryptologos.cc/logos/ethereum-eth-logo.png?v=014"),
     Currency( code = "xrp", name = "Xrp", imageUrl = "https://cryptologos.cc/logos/xrp-xrp-logo.png?v=014"),
@@ -20,4 +20,4 @@ val mockLogos = listOf(
 
 
 
-    )
+    )*/
