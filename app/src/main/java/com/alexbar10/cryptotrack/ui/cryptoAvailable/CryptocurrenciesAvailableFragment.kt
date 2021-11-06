@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.alexbar10.cryptotrack.databinding.FragmentCryptocurrenciesAvailableBinding
 import com.alexbar10.cryptotrack.domain.Cryptocurrency
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,6 +21,7 @@ class CryptocurrenciesAvailableFragment : Fragment() {
         get() = _binding!!
     private lateinit var navController: NavController
     private val viewModel: CryptocurrenciesAvailableViewModel by viewModels()
+    private lateinit var cryptocurrenciesAdapter: CryptocurrenciesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +36,15 @@ class CryptocurrenciesAvailableFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        cryptocurrenciesAdapter = CryptocurrenciesAdapter {  cryptocurrencySelected ->
+            println(cryptocurrencySelected)
+        }
+
+        binding.cryptocurrenciesRecyclerView.run {
+            adapter = cryptocurrenciesAdapter
+            layoutManager = GridLayoutManager(context, 2)
+        }
+
         viewModel.getCryptocurrenciesAvailable()
         setupObservables()
     }
@@ -46,7 +57,8 @@ class CryptocurrenciesAvailableFragment : Fragment() {
             println("Error $it")
         })
         viewModel.cryptoAvailableDetailsLiveData.observe(viewLifecycleOwner, Observer { cryptocurrencies: List<Cryptocurrency> ->
-            println("Result $cryptocurrencies")
+            cryptocurrenciesAdapter.setData(cryptocurrencies)
+            binding.cryptocurrenciesRecyclerView.visibility = View.VISIBLE
         })
     }
 
