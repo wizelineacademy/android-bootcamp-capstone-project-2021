@@ -8,6 +8,7 @@ import com.alexbar10.cryptotrack.domain.Cryptocurrency
 import com.alexbar10.cryptotrack.domain.Failure
 import com.alexbar10.cryptotrack.domain.Success
 import com.alexbar10.cryptotrack.networking.repo.CryptocurrenciesRepo
+import com.alexbar10.cryptotrack.utils.getMarketFor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,6 +27,12 @@ class CryptocurrenciesAvailableViewModel @Inject constructor(
     private val _errorLiveData = MutableLiveData<Throwable?>()
     val errorLiveData: LiveData<Throwable?> get() = _errorLiveData
 
+    private val _cryptoFilterLiveData = MutableLiveData<List<Cryptocurrency>>()
+    val cryptoFilterLiveData: LiveData<List<Cryptocurrency>> get() = _cryptoFilterLiveData
+
+    private val _marketsLiveData = MutableLiveData<MutableSet<String>>()
+    val marketsLiveData: LiveData<MutableSet<String>> get() = _marketsLiveData
+
     fun getCryptocurrenciesAvailable() {
         _loadingLiveData.postValue(true)
 
@@ -41,6 +48,9 @@ class CryptocurrenciesAvailableViewModel @Inject constructor(
                     if (it.book == "btc_mxn" || it.book == "eth_btc")
                         getTickerFor(it)
                 }
+
+                // Show all markets the first time
+                _marketsLiveData.value = mutableSetOf("mxn","btc","ars", "brl", "dai", "usd")
             } else {
                 val failure = currenciesResponse as Failure
                 _errorLiveData.postValue(failure.error)
@@ -67,6 +77,23 @@ class CryptocurrenciesAvailableViewModel @Inject constructor(
                 val failure = tickerResponse as Failure
                 println("Error getting ticker: ${failure.error}")
             }
+        }
+    }
+
+    // return the list of cryptos of the markets selected
+    fun showCryptocurrenciesFor(market: String, isAdded: Boolean){
+        var list = _marketsLiveData.value
+
+        list?.let {
+            if (isAdded) {
+                list.add(market)
+            } else {
+                list.remove(market)
+            }
+
+            // Filter main list
+            val listFiltered = _cryptoAvailableDetailsLiveData.value?.filter { currency -> getMarketFor(currency) in list }
+            _cryptoFilterLiveData.postValue(listFiltered)
         }
     }
 }

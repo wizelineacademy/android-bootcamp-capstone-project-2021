@@ -15,4 +15,13 @@
     <string name="name_link">Chainlink Token</string>
     <string name="name_uni">Uniswap</string>
     <string name="name_aave">Aave</string>
+
+    <string name="market_mxn">MXN Mexican pesos</string>
+    <string name="market_bitcoin">BTC Bitcoin</string>
+    <string name="market_usd">USD Stablecoins</string>
+    <string name="market_dai">DAI</string>
+    <string name="market_arg">ARG Argentine pesos</string>
+    <string name="market_brl">BRL Brazilian reais</string>
+    <string name="markets">Markets</string>
+    <string name="cryptocurrencies">Cryptocurrencies</string>
 </resources>

@@ -44,6 +44,12 @@ class CryptocurrenciesAvailableFragment : Fragment() {
             adapter = cryptocurrenciesAdapter
             layoutManager = GridLayoutManager(context, 2)
         }
+        binding.marketMxnCheckbox.setOnCheckedChangeListener { _, isChecked -> viewModel.showCryptocurrenciesFor("mxn", isChecked) }
+        binding.marketArgCheckbox.setOnCheckedChangeListener { _, isChecked -> viewModel.showCryptocurrenciesFor("ars", isChecked) }
+        binding.marketBitcoinCheckbox.setOnCheckedChangeListener { _, isChecked -> viewModel.showCryptocurrenciesFor("btc", isChecked) }
+        binding.marketBrlCheckbox.setOnCheckedChangeListener { _, isChecked -> viewModel.showCryptocurrenciesFor("brl", isChecked) }
+        binding.marketDaiCheckbox.setOnCheckedChangeListener { _, isChecked -> viewModel.showCryptocurrenciesFor("dai", isChecked) }
+        binding.marketUsdCheckbox.setOnCheckedChangeListener { _, isChecked -> viewModel.showCryptocurrenciesFor("usd", isChecked) }
 
         viewModel.getCryptocurrenciesAvailable()
         setupObservables()
@@ -59,6 +65,9 @@ class CryptocurrenciesAvailableFragment : Fragment() {
         viewModel.cryptoAvailableDetailsLiveData.observe(viewLifecycleOwner, Observer { cryptocurrencies: List<Cryptocurrency> ->
             cryptocurrenciesAdapter.setData(cryptocurrencies)
             binding.cryptocurrenciesRecyclerView.visibility = View.VISIBLE
+        })
+        viewModel.cryptoFilterLiveData.observe(viewLifecycleOwner, Observer { value: List<Cryptocurrency> ->
+            cryptocurrenciesAdapter.setData(value)
         })
     }
 
