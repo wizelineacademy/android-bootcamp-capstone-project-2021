@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import dev.ricsarabia.cryptochallenge.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import dev.ricsarabia.cryptochallenge.databinding.MainFragmentBinding
+import dev.ricsarabia.cryptochallenge.domain.Book
 import dev.ricsarabia.cryptochallenge.ui.MainViewModel
 
 class MainFragment : Fragment() {
@@ -16,16 +18,24 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
+    private lateinit var binding: MainFragmentBinding
     private lateinit var viewModel: MainViewModel
+    private val booksAdapter = BooksAdapter{ onBookClick(it) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        binding = MainFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        //Visual components
+        binding.booksLinearLayout.layoutManager = LinearLayoutManager(context)
+        binding.booksLinearLayout.adapter = booksAdapter
+
+        //Setting viewModel
         viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
         // Retrieving books data
@@ -33,7 +43,7 @@ class MainFragment : Fragment() {
 
         // Observers
         viewModel.books.observe(viewLifecycleOwner, {
-            Log.wtf("books",it.toString())
+            booksAdapter.books = it
         })
         viewModel.loading.observe(viewLifecycleOwner, {
             Log.wtf("loading", it.toString())
@@ -41,6 +51,11 @@ class MainFragment : Fragment() {
         viewModel.errorMessage.observe(viewLifecycleOwner, {
             Log.wtf("errorMessage", it)
         })
+    }
+
+    private fun onBookClick(book: Book) {
+        viewModel.selectedBook.value = book.book
+        Log.wtf("onBookClick", book.toString())
     }
 
 }
