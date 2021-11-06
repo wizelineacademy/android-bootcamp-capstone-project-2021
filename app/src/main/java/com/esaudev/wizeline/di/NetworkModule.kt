@@ -10,6 +10,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -31,9 +33,11 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideBitsoRepository(
-        remoteDataSource: BitsoRemoteDataSource
+        remoteDataSource: BitsoRemoteDataSource,
+        networkDispatcher: CoroutineDispatcher
     ): BitsoRepository = BitsoRepositoryImpl(
-        remoteDataSource
+        remoteDataSource,
+        networkDispatcher
     )
 
     @Provides
@@ -43,5 +47,9 @@ object NetworkModule {
     ): BitsoRemoteDataSource = BitsoRemoteDataSourceImpl(
         bitsoApi
     )
+
+    @Provides
+    @Singleton
+    fun provideNetworkDispatcher(): CoroutineDispatcher = Dispatchers.IO
 
 }
