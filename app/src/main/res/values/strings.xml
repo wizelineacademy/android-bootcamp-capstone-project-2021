@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Crypto Challenge</string>
+
+    <string name="available_currencies">Available currencies</string>
+    <string name="currency">Currency</string>
+    <string name="error_message">Something went wrong...</string>
+    <string name="volume">Last 24 hours volume: %1$s</string>
+    <string name="high">Last 24 hours price high:</string>
+    <string name="last">Last traded price:</string>
+    <string name="low">Last 24 hours price low:</string>
+    <string name="vwap">Last 24 hours volume weighted average price:</string>
+    <string name="ask">Lowest sell order:</string>
+    <string name="bid">Highest buy order:</string>
+</resources>
