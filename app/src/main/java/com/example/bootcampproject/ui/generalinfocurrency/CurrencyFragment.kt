@@ -10,7 +10,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bootcampproject.data.mock.mockLogos
 import com.example.bootcampproject.databinding.FragmentCurrencyBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,13 +39,15 @@ class CurrencyFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        currencyAdapter=CurrencyAdapter {  }
-        /* currencyAdapter = CurrencyAdapter { pokemonId ->
-            FeaturedPokemonFragmentDirections
-                .toPokemonDetailFragment(pokemonId)
-                .let { navController.navigate(it) }
+
+         currencyAdapter = CurrencyAdapter { availableBooks ->
+             if (availableBooks != null) {
+                 CurrencyFragmentDirections
+                     .toavailableBooksFragmentFragment(availableBooks.toTypedArray())
+                     .let { navController.navigate(it) }
+             }
         }
-        navController = findNavController()*/
+        navController = findNavController()
         viewModel.getActualCurrencies()
         viewModel.currencies.observe(viewLifecycleOwner,{currencies->
             binding.currencyList.run {
@@ -58,9 +59,6 @@ class CurrencyFragment : Fragment() {
                     }
                 }
             }
-            /*  currencyAdapter=CurrencyAdapter {  }
-              binding.currencyList.layoutManager = LinearLayoutManager(this.context)
-              binding.currencyList.adapter=currencyAdapter*/
             currencyAdapter.submitList(currencies)
         })
 
