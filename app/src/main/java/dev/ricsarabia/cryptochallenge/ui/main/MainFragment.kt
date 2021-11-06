@@ -18,7 +18,7 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var binding: MainFragmentBinding
+    private lateinit var binding: MainFragmentBinding // TODO: correct this horrible screen design
     private lateinit var viewModel: MainViewModel
     private val booksAdapter = BooksAdapter{ onBookClick(it) }
 
