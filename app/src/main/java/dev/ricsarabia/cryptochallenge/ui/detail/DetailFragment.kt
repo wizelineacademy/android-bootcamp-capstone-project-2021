@@ -40,7 +40,8 @@ class DetailFragment : Fragment() {
 
         viewModel.getBookPrices()
         viewModel.getBookOrders()
-
+        // TODO: Show a "loading" animation while retrieving data
+        
         viewModel.selectedBookPrices.observe(viewLifecycleOwner, {
             binding.lastPriceTextView.text = "last " + it.last
             binding.higherPriceTextView.text = "higher " + it.high

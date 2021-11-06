@@ -16,6 +16,7 @@ class MainViewModel : ViewModel() {
     val selectedBook = MutableLiveData("")
     val selectedBookPrices = MutableLiveData(BookPrices("","","",""))
     val selectedBookOrders = MutableLiveData(BookOrders(listOf(),listOf()))
+    // TODO: Create private variables in order to expose livedata correctly
 
     fun getBooks() {
         loading.value = true
