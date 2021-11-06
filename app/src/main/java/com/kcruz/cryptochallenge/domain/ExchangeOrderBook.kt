@@ -1,5 +1,7 @@
 package com.kcruz.cryptochallenge.domain
 
+//TODO: Add documentation
+
 data class ExchangeOrderBook(
     val book: String,
     val minimumAmount: String,

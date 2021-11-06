@@ -2,6 +2,8 @@ package com.kcruz.cryptochallenge.data.source.remote
 
 import com.kcruz.cryptochallenge.commons.Response
 
+//TODO: Add documentation
+
 interface IBookRemoteSource {
     suspend fun getAvailableBooks(): Response
 

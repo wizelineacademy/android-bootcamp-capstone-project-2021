@@ -14,6 +14,8 @@ import com.kcruz.cryptochallenge.presentation.commons.SingleLiveEvent
 import com.kcruz.cryptochallenge.usecase.GetAvailableBooks
 import kotlinx.coroutines.launch
 
+//TODO: Add documentation
+
 class CurrenciesViewModel: ViewModel() {
 
     private val _availableBooks = MutableLiveData<List<ExchangeOrderBook>> ()

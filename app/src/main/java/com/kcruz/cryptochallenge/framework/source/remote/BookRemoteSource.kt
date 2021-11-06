@@ -4,6 +4,8 @@ import com.kcruz.cryptochallenge.commons.Response
 import com.kcruz.cryptochallenge.data.source.remote.IBookRemoteSource
 import com.kcruz.cryptochallenge.framework.client.ApiClient
 
+//TODO: Add documentation
+
 class BookRemoteSource : IBookRemoteSource {
 
     override suspend fun getAvailableBooks(): Response {

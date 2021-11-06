@@ -11,13 +11,18 @@
         android:label="fragment_currencies_list"
         tools:layout="@layout/fragment_currencies" >
         <action
-            android:id="@+id/action_currenciesListFragment_to_currencyDetail"
+            android:id="@+id/action_currenciesFragment_to_currencyDetail"
             app:destination="@id/currencyDetail" />
     </fragment>
 
     <fragment
         android:id="@+id/currencyDetail"
-        android:name="com.kcruz.cryptochallenge.presentation.currencydetail.CurrencyDetail"
+        android:name="com.kcruz.cryptochallenge.presentation.currencydetail.CurrencyDetailFragment"
         android:label="fragment_currency_detail"
-        tools:layout="@layout/fragment_currency_detail" />
+        tools:layout="@layout/fragment_currency_detail" >
+        <argument
+            android:name="id"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -2,6 +2,8 @@ package com.kcruz.cryptochallenge.usecase.data
 
 import com.kcruz.cryptochallenge.commons.Response
 
+//TODO: Add documentation
+
 interface IBookRepository {
 
     suspend fun getAvailableBooks(): Response

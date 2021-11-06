@@ -11,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/blue_28"
-        app:titleTextColor="@color/white"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/available_currencies" />
+        app:title="@string/available_currencies"
+        app:titleTextColor="@color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_currencies"

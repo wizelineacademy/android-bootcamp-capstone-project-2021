@@ -3,6 +3,8 @@ package com.kcruz.cryptochallenge.data.repository
 import com.kcruz.cryptochallenge.data.source.remote.IBookRemoteSource
 import com.kcruz.cryptochallenge.usecase.data.IBookRepository
 
+//TODO: Add documentation
+
 class BookRepository(private val remoteSource: IBookRemoteSource): IBookRepository {
 
     override suspend fun getAvailableBooks() = remoteSource.getAvailableBooks()

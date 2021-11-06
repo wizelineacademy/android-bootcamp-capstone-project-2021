@@ -1,5 +1,7 @@
 package com.kcruz.cryptochallenge.domain
 
+//TODO: Add documentation
+
 data class Book(
     val book: String,
     val volume: String,

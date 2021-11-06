@@ -5,6 +5,8 @@ import com.kcruz.cryptochallenge.usecase.data.IBookRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+//TODO: Add documentation
+
 class GetAvailableBooks(private val bookRepository: IBookRepository) {
 
     suspend fun getAvailableBooks(): Response {
