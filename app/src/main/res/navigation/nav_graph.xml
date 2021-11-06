@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/cryptocurrenciesAvailableFragment">
-
     <fragment
         android:id="@+id/cryptocurrenciesAvailableFragment"
-        android:name="com.alexbar10.cryptotrack.ui.CryptocurrenciesAvailableFragment"
+        android:name="com.alexbar10.cryptotrack.ui.cryptoAvailable.CryptocurrenciesAvailableFragment"
         android:label="fragment_cryptocurrencies_available"
         tools:layout="@layout/fragment_cryptocurrencies_available" />
 </navigation>

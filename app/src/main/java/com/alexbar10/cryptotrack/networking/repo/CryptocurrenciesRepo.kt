@@ -7,22 +7,22 @@ import javax.inject.Singleton
 
 @Singleton
 class CryptocurrenciesRepo @Inject constructor(private val remoteApiServices: CryptocurrenciesServices) {
-    suspend fun getAvailableCurrencies(): Result<CryptocurrenciesListResponse> = try {
-        val data = remoteApiServices.getAvailableCurrencies()
+    suspend fun getCryptocurrenciesAvailable(): Result<CryptocurrenciesListResponse> = try {
+        val data = remoteApiServices.getCryptocurrenciesAvailable()
         Success(data)
     } catch (error: Throwable) {
         Failure(error)
     }
 
-    suspend fun getTicketFor(currency: String): Result<TickerResponse> = try {
-        val data = remoteApiServices.getTickerFor(currency)
+    suspend fun getTicketFor(cryptocurrency: String): Result<TickerResponse> = try {
+        val data = remoteApiServices.getTickerFor(cryptocurrency)
         Success(data)
     }  catch (error: Throwable) {
         Failure(error)
     }
 
-    suspend fun getOrderFor(currency: String): Result<OrderResponse> = try {
-        val data = remoteApiServices.getOrderFor(currency)
+    suspend fun getOrderFor(cryptocurrency: String): Result<OrderResponse> = try {
+        val data = remoteApiServices.getOrderFor(cryptocurrency)
         Success(data)
     }  catch (error: Throwable) {
         Failure(error)

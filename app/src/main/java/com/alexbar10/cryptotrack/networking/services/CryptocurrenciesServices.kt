@@ -8,11 +8,11 @@ import retrofit2.http.Query
 
 interface CryptocurrenciesServices {
     @GET("available_books/")
-    suspend fun getAvailableCurrencies(): CryptocurrenciesListResponse
+    suspend fun getCryptocurrenciesAvailable(): CryptocurrenciesListResponse
 
     @GET("ticker/")
-    suspend fun getTickerFor(@Query("book") currency: String): TickerResponse
+    suspend fun getTickerFor(@Query("book") cryptocurrency: String): TickerResponse
 
     @GET("order_book/")
-    suspend fun getOrderFor(@Query("book") currency: String): OrderResponse
+    suspend fun getOrderFor(@Query("book") cryptocurrency: String): OrderResponse
 }
