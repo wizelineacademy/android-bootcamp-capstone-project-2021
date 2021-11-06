@@ -3,6 +3,7 @@ package dev.ricsarabia.cryptochallenge.ui.main
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import dev.ricsarabia.cryptochallenge.databinding.BookItemBinding
 import dev.ricsarabia.cryptochallenge.domain.Book
 
@@ -26,5 +27,6 @@ class BooksViewHolder(val binding: BookItemBinding) : RecyclerView.ViewHolder(bi
     fun bind(book: Book, onBookClick: (Book)->Unit) {
         binding.root.setOnClickListener { onBookClick(book) }
         binding.bookNameTextView.text = book.book
+        Glide.with(binding.root).load(book.imageUrl).into(binding.bookImageView)
     }
 }
