@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import dev.ricsarabia.cryptochallenge.R
+import dev.ricsarabia.cryptochallenge.ui.detail.DetailFragment
 import dev.ricsarabia.cryptochallenge.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
@@ -24,9 +25,14 @@ class MainActivity : AppCompatActivity() {
         //Observers
         viewModel.selectedBook.observe(this, {
             if (it.isEmpty()) return@observe
-            // TODO: implement navigation
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, DetailFragment.newInstance())
+                .commitNow()
+            // TODO: implement navigation correctly
         })
     }
 
-    override fun onBackPressed() { }
+    override fun onBackPressed() {
+        //TODO: implement navigation
+    }
 }

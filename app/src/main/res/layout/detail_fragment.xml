@@ -1,13 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.detail.DetailFragment">
 
     <TextView
+        android:id="@+id/lastPriceTextView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello from detail" />
+        android:layout_height="wrap_content"
+        android:text="Last price" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/higherPriceTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Higher price" />
+
+    <TextView
+        android:id="@+id/lowerPriceTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lower price" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/asksLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/bidsLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

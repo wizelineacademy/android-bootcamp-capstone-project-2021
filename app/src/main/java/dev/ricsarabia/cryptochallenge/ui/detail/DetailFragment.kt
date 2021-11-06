@@ -8,18 +8,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dev.ricsarabia.cryptochallenge.R
+import dev.ricsarabia.cryptochallenge.databinding.DetailFragmentBinding
+import dev.ricsarabia.cryptochallenge.databinding.MainFragmentBinding
 import dev.ricsarabia.cryptochallenge.ui.MainViewModel
 
 class DetailFragment : Fragment() {
     companion object { fun newInstance() = DetailFragment() }
 
+    private lateinit var binding: DetailFragmentBinding
     private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.detail_fragment, container, false)
+        binding = DetailFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,7 +33,9 @@ class DetailFragment : Fragment() {
         viewModel.getBookOrders()
 
         viewModel.selectedBookPrices.observe(viewLifecycleOwner, {
-            Log.wtf("selectedBookPrices", it.toString())
+            binding.lastPriceTextView.text = "last " + it.last
+            binding.higherPriceTextView.text = "higher " + it.high
+            binding.lowerPriceTextView.text = "lower " + it.low
         })
         viewModel.selectedBookOrders.observe(viewLifecycleOwner, {
             Log.wtf("selectedBookOrders", it.toString())
