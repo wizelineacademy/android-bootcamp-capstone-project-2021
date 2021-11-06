@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dev.ricsarabia.cryptochallenge.R
+import dev.ricsarabia.cryptochallenge.ui.MainViewModel
 
 class MainFragment : Fragment() {
 
@@ -25,7 +26,7 @@ class MainFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
         // Retrieving books data
         viewModel.getBooks()

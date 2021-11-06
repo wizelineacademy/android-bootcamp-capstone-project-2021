@@ -7,14 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dev.ricsarabia.cryptochallenge.R
+import dev.ricsarabia.cryptochallenge.ui.MainViewModel
 
 class DetailFragment : Fragment() {
+    companion object { fun newInstance() = DetailFragment() }
 
-    companion object {
-        fun newInstance() = DetailFragment()
-    }
-
-    private lateinit var viewModel: DetailViewModel
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,8 +22,6 @@ class DetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
     }
-
 }
