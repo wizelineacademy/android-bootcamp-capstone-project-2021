@@ -7,17 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import dev.ricsarabia.cryptochallenge.R
 import dev.ricsarabia.cryptochallenge.databinding.MainFragmentBinding
 import dev.ricsarabia.cryptochallenge.domain.Book
 import dev.ricsarabia.cryptochallenge.ui.MainViewModel
 
 class MainFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = MainFragment()
-    }
-
     private lateinit var binding: MainFragmentBinding // TODO: correct this horrible screen design
     private lateinit var viewModel: MainViewModel
     private val booksAdapter = BooksAdapter{ onBookClick(it) }
@@ -56,7 +53,6 @@ class MainFragment : Fragment() {
 
     private fun onBookClick(book: Book) {
         viewModel.selectedBook.value = book.book
-        Log.wtf("onBookClick", book.toString())
+        findNavController().navigate(R.id.detailFragment_to_detailFragment)
     }
-
 }
