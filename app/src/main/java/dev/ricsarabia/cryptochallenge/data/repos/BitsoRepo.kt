@@ -3,6 +3,10 @@ package dev.ricsarabia.cryptochallenge.data.repos
 import dev.ricsarabia.cryptochallenge.di.BitsoNetworkingModule
 import dev.ricsarabia.cryptochallenge.domain.*
 
+/**
+ * Created by Ricardo Sarabia on 2021/11/04.
+ * Class to retrieve Bitso data from different sources.
+ */
 class BitsoRepo {
     suspend fun getBooks(): BooksData {
         val response = BitsoNetworkingModule.provideBitsoService().getAvailableBooks()

@@ -16,7 +16,7 @@ import dev.ricsarabia.cryptochallenge.ui.MainViewModel
 
 class MainFragment : Fragment() {
     private lateinit var binding: MainFragmentBinding // TODO: correct this horrible screen design
-    private lateinit var viewModel: MainViewModel
+    private val viewModel by lazy { ViewModelProvider(requireActivity()).get(MainViewModel::class.java) }
     private val booksAdapter = BooksAdapter{ onBookClick(it) }
 
     override fun onCreateView(
@@ -28,27 +28,18 @@ class MainFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        //Visual components
+        // Init components
         binding.booksLinearLayout.layoutManager = LinearLayoutManager(context)
         binding.booksLinearLayout.adapter = booksAdapter
 
-        //Setting viewModel
-        viewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        // Init observers
+        viewModel.books.observe(viewLifecycleOwner, { booksAdapter.books = it })
+        viewModel.loading.observe(viewLifecycleOwner, { Log.wtf("loading", it.toString()) })
+        viewModel.errorMessage.observe(viewLifecycleOwner, { Log.wtf("errorMessage", it) })
 
         // Retrieving books data
         viewModel.getBooks()
         // TODO: Show a "loading" animation while retrieving data
-
-        // Observers
-        viewModel.books.observe(viewLifecycleOwner, {
-            booksAdapter.books = it
-        })
-        viewModel.loading.observe(viewLifecycleOwner, {
-            Log.wtf("loading", it.toString())
-        })
-        viewModel.errorMessage.observe(viewLifecycleOwner, {
-            Log.wtf("errorMessage", it)
-        })
     }
 
     private fun onBookClick(book: Book) {

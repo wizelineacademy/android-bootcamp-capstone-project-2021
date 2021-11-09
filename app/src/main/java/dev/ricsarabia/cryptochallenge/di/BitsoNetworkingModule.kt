@@ -11,9 +11,8 @@ import java.util.concurrent.TimeUnit
  * Created by Ricardo Sarabia on 2021/11/04.
  * Object to initialize and configure Retrofit's api to execute web requests.
  */
-
 object BitsoNetworkingModule {
-    private const val BITSO_BASE_URL = "https://api.bitso.com/v3/"
+    private const val BITSO_BASE_URL = "https://api.bitso.com/v3/" //TODO: Configure environments
 
     private fun provideRetrofitClient(): Retrofit {
         val loggingInterceptor = HttpLoggingInterceptor()
