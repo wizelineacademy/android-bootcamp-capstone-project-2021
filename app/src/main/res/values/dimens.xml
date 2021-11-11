@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--text sizes-->
+    <dimen name="text_title">26sp</dimen>
+    <dimen name="text_subtitle">18sp</dimen>
+    <dimen name="subtitle_size">14sp</dimen>
+    <dimen name="item_label">12sp</dimen>
+
+    <!--item sizes-->
+    <dimen name="layout_padding">16dp</dimen>
+    <dimen name="margin_items">24dp</dimen>
+    <dimen name="margin_items_cards">8dp</dimen>
+    <dimen name="card_detail_height">200dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+
+    <!-- image sizes -->
+    <dimen name="currency_list_image">50dp</dimen>
+    <dimen name="currency_detail_image">100dp</dimen>
+
+</resources>
