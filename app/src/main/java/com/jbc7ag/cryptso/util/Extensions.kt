@@ -8,9 +8,6 @@ import retrofit2.Response
 import java.text.DecimalFormat
 import java.text.NumberFormat
 
-const val EMPTY_STRING = ""
-const val DELIMITER = "_"
-
 
 fun String.getmarketFormat(): String {
     if (this.isEmpty()) return EMPTY_STRING
