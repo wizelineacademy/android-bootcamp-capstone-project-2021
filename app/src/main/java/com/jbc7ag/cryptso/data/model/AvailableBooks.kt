@@ -6,7 +6,7 @@ data class AvailableBooks(
     @SerializedName("success") val success: Boolean,
     @SerializedName("error") val error: Error,
     @SerializedName("payload") val payload: List<Book>,
-    )
+)
 
 data class Book(
     var name: String,

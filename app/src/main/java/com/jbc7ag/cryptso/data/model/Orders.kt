@@ -3,7 +3,7 @@ package com.jbc7ag.cryptso.data.model
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-data class Orders (
+data class Orders(
     @SerializedName("success") val success: Boolean,
     @SerializedName("error") val error: Error,
     @SerializedName("payload") val payload: OrderDetail,

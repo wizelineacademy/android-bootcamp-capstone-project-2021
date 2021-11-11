@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/margin_items_cards"
-            app:cardElevation="2dp"
+            app:cardElevation="@dimen/card_elevation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -182,13 +182,6 @@
             tools:itemCount="10"
             tools:layout_editor_absoluteX="16dp"
             tools:listitem="@layout/item_trades" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="20dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

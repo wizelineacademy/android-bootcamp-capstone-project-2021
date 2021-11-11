@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.jbc7ag.cryptso.data.model.BookDetail
 import com.jbc7ag.cryptso.data.model.OrderDetail
 import com.jbc7ag.cryptso.data.repository.CurrencyRepository
+import com.jbc7ag.cryptso.util.getOrderError
+import com.jbc7ag.cryptso.util.getTickerError
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,11 +18,11 @@ class CurrencyViewModel @Inject constructor(
     private val currencyRepository: CurrencyRepository
 ) : ViewModel() {
 
-    private val _bookTicker= MutableLiveData<BookDetail>()
+    private val _bookTicker = MutableLiveData<BookDetail>()
     val bookTicker: LiveData<BookDetail>
         get() = _bookTicker
 
-    private val _orders= MutableLiveData<OrderDetail>()
+    private val _orders = MutableLiveData<OrderDetail>()
     val orders: LiveData<OrderDetail>
         get() = _orders
 
@@ -29,7 +31,7 @@ class CurrencyViewModel @Inject constructor(
         get() = _error
 
 
-    fun getTicker(book: String)  = viewModelScope.launch {
+    fun getTicker(book: String) = viewModelScope.launch {
 
         try {
             val result = currencyRepository.getTicker(book)
@@ -37,21 +39,21 @@ class CurrencyViewModel @Inject constructor(
             result.let {
                 if (it.isSuccessful) {
                     val successData = it.body()?.success
-                    if(successData == true){
-                        _bookTicker.postValue(it.body()?.payload)
-                    }else{
-                        _error.postValue("${it.body()?.error?.code}: ${it.body()?.error?.message}")
+                    if (successData == true) {
+                        _bookTicker.value = it.body()?.payload
+                    } else {
+                        _error.value = it.getTickerError()
                     }
                 } else {
-                    _error.postValue(it.errorBody().toString())
+                    _error.value = it.errorBody().toString()
                 }
             }
-        }catch (ex: Exception){
-            _error.postValue(ex.localizedMessage)
+        } catch (ex: Exception) {
+            _error.value = ex.localizedMessage
         }
     }
 
-    fun getOrders(book: String)  = viewModelScope.launch {
+    fun getOrders(book: String) = viewModelScope.launch {
 
         try {
             val result = currencyRepository.getOrders(book)
@@ -59,17 +61,17 @@ class CurrencyViewModel @Inject constructor(
             result.let {
                 if (it.isSuccessful) {
                     val successData = it.body()?.success
-                    if(successData == true){
-                        _orders.postValue(it.body()?.payload)
-                    }else{
-                        _error.postValue("${it.body()?.error?.code}: ${it.body()?.error?.message}")
+                    if (successData == true) {
+                        _orders.value = it.body()?.payload
+                    } else {
+                        _error.value = it.getOrderError()
                     }
                 } else {
-                    _error.postValue(it.errorBody().toString())
+                    _error.value = it.errorBody().toString()
                 }
             }
-        }catch (ex: Exception){
-            _error.postValue(ex.localizedMessage)
+        } catch (ex: Exception) {
+            _error.value = ex.localizedMessage
         }
     }
 }

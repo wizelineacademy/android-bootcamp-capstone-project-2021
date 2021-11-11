@@ -11,4 +11,10 @@
     <dimen name="margin_items">24dp</dimen>
     <dimen name="margin_items_cards">8dp</dimen>
     <dimen name="card_detail_height">200dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+
+    <!-- image sizes -->
+    <dimen name="currency_list_image">50dp</dimen>
+    <dimen name="currency_detail_image">100dp</dimen>
+
 </resources>

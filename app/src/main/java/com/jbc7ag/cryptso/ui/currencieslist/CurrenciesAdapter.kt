@@ -10,12 +10,13 @@ import com.bumptech.glide.request.RequestOptions
 import com.jbc7ag.cryptso.R
 import com.jbc7ag.cryptso.data.model.Book
 import com.jbc7ag.cryptso.databinding.ItemCurrenciesBinding
+import com.jbc7ag.cryptso.util.IMAGES_URL
 import com.jbc7ag.cryptso.util.formatPrice
 import com.jbc7ag.cryptso.util.getmarketFormat
 
 typealias OnCurrencyClick = (String) -> Unit
 
-class CurrenciesAdapter ( private val onCurrencyClick: OnCurrencyClick):
+class CurrenciesAdapter(private val onCurrencyClick: OnCurrencyClick) :
     ListAdapter<Book, CurrenciesAdapter.BookViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
@@ -35,19 +36,22 @@ class CurrenciesAdapter ( private val onCurrencyClick: OnCurrencyClick):
 
         fun bind(book: Book) {
             binding.apply {
+                val imageSize =
+                    binding.root.resources.getDimension(R.dimen.currency_list_image).toInt()
                 val currencyCode = book.name
                 itemCurrenciesName.text = currencyCode.uppercase()
                 itemCurrenciesData.text = book.maxPrice.formatPrice(book.book)
                 itemCurrenciesValue.text = book.book.getmarketFormat()
 
+
                 Glide.with(itemCurrenciesImage)
-                    .load("https://cryptoicon-api.vercel.app/api/icon/${currencyCode}")
+                    .load(IMAGES_URL + currencyCode)
                     .fitCenter()
                     .placeholder(R.drawable.ic_baseline_monetization_on_24)
-                    .apply(RequestOptions().override(80, 80))
+                    .apply(RequestOptions().override(imageSize, imageSize))
                     .into(itemCurrenciesImage)
 
-                root.setOnClickListener{
+                root.setOnClickListener {
                     onCurrencyClick(book.book)
                 }
             }

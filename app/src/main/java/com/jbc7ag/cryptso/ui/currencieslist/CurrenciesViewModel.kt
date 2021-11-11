@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jbc7ag.cryptso.data.model.Book
 import com.jbc7ag.cryptso.data.repository.CurrencyRepository
+import com.jbc7ag.cryptso.util.getBooksError
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,7 +25,7 @@ class CurrenciesViewModel @Inject constructor(
         get() = _error
 
 
-    fun getAvailableBooks()  = viewModelScope.launch {
+    fun getAvailableBooks() = viewModelScope.launch {
 
         try {
             val result = currencyRepository.getAvailableBooks()
@@ -32,17 +33,17 @@ class CurrenciesViewModel @Inject constructor(
             result.let {
                 if (it.isSuccessful) {
                     val successData = it.body()?.success
-                    if(successData == true){
-                        _availableBooks.postValue(it.body()?.payload)
-                    }else{
-                        _error.postValue("${it.body()?.error?.code}: ${it.body()?.error?.message}")
+                    if (successData == true) {
+                        _availableBooks.value = it.body()?.payload
+                    } else {
+                        _error.value = it.getBooksError()
                     }
                 } else {
-                    _error.postValue(it.errorBody().toString())
+                    _error.value = it.errorBody().toString()
                 }
             }
-        }catch (ex: Exception){
-            _error.postValue(ex.localizedMessage)
+        } catch (ex: Exception) {
+            _error.value = ex.localizedMessage
         }
     }
 }

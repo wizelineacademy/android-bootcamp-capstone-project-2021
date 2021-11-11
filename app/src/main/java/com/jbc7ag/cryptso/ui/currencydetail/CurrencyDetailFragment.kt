@@ -17,13 +17,11 @@ import com.jbc7ag.cryptso.databinding.FragmentCurrencyDetailsBinding
 import com.jbc7ag.cryptso.util.*
 import dagger.hilt.android.AndroidEntryPoint
 
-enum class LISTTYPE{
-    BIDS, ASKS
-}
 @AndroidEntryPoint
-class CurrencyDetailFragment: Fragment() {
+class CurrencyDetailFragment : Fragment() {
 
-    private lateinit var binding: FragmentCurrencyDetailsBinding
+    private var _binding: FragmentCurrencyDetailsBinding? = null
+    private val binding get() = _binding
     private val viewModel: CurrencyViewModel by viewModels()
     private lateinit var bidsAdapter: BidsAdapter
 
@@ -34,77 +32,90 @@ class CurrencyDetailFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         return FragmentCurrencyDetailsBinding.inflate(layoutInflater, container, false)
-            .apply { binding = this }
+            .apply { _binding = this }
             .root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val bookName = requireArguments().getString("currency_id")
+
+        val args = CurrencyDetailFragmentArgs.fromBundle(requireArguments())
+        val bookName = args.currencyId
         viewModel.getTicker(bookName ?: "")
         viewModel.getOrders(bookName ?: "")
-        observers()
+        bidsAdapter = BidsAdapter()
+
+        initObservers()
         tabclickListeners()
     }
 
-    private fun observers(){
+    private fun initObservers() {
         viewModel.apply {
             error.observe(viewLifecycleOwner, {
                 Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
             })
-            bookTicker.observe(viewLifecycleOwner,{
+            bookTicker.observe(viewLifecycleOwner, {
                 fillDataTicker(it)
             })
-            orders.observe(viewLifecycleOwner,{
+            orders.observe(viewLifecycleOwner, {
                 fillOrderList(it)
             })
         }
     }
 
-    private fun fillDataTicker(data: BookDetail){
-        binding.apply {
+    private fun fillDataTicker(data: BookDetail) {
+        binding?.apply {
             val currencyCode = data.book.getCurrencyCode()
             detailCurrencyHigh.text = data.high.formatCurrency()
             detailCurrencyLow.text = data.low.formatCurrency()
             detailCurrencyMarket.text = data.book.getmarketFormat()
             detailCurrencyPrice.text = data.last.formatCurrency()
 
+            val imageSize = resources.getDimension(R.dimen.currency_detail_image).toInt()
+
             Glide.with(detailCurrencyImage)
-                .load("https://cryptoicon-api.vercel.app/api/icon/${currencyCode}")
+                .load(IMAGES_URL + currencyCode)
                 .fitCenter()
                 .placeholder(R.drawable.ic_baseline_monetization_on_24)
-                .apply(RequestOptions().override(200, 200))
+                .apply(RequestOptions().override(imageSize, imageSize))
                 .into(detailCurrencyImage)
         }
     }
 
-    private fun fillOrderList(data: OrderDetail){
-        bidsAdapter = BidsAdapter()
-        binding.tradesList.run {
-            adapter = bidsAdapter
-        }
+    private fun fillOrderList(data: OrderDetail) {
+        binding?.tradesList?.adapter = bidsAdapter
         bidsAdapter.submitList(data.bids)
     }
 
-    private fun fillData(type: LISTTYPE){
-        if(type == LISTTYPE.BIDS) {
+    private fun fillData(type: TYPES) {
+        if (type == TYPES.BIDS) {
             bidsAdapter.submitList(viewModel.orders.value?.bids)
-        }else{
+        } else {
             bidsAdapter.submitList(viewModel.orders.value?.asks)
         }
     }
 
-    private fun tabclickListeners(){
-        binding.detailCurrencyTabBids.setOnClickListener {
-            it.background = context?.let { context -> ContextCompat.getDrawable(context, R.drawable.borderbottom) }
-            binding.detailCurrencyTabAsks.background = null
-            fillData(LISTTYPE.BIDS)
+    private fun tabclickListeners() {
+        binding?.detailCurrencyTabBids?.setOnClickListener {
+            it.background = context?.let { context ->
+                ContextCompat.getDrawable(
+                    context,
+                    R.drawable.borderbottom
+                )
+            }
+            binding?.detailCurrencyTabAsks?.background = null
+            fillData(TYPES.BIDS)
         }
 
-        binding.detailCurrencyTabAsks.setOnClickListener {
-            it.background = context?.let { context -> ContextCompat.getDrawable(context, R.drawable.borderbottom) }
-            binding.detailCurrencyTabBids.background = null
-            fillData(LISTTYPE.ASKS)
+        binding?.detailCurrencyTabAsks?.setOnClickListener {
+            it.background = context?.let { context ->
+                ContextCompat.getDrawable(
+                    context,
+                    R.drawable.borderbottom
+                )
+            }
+            binding?.detailCurrencyTabBids?.background = null
+            fillData(TYPES.ASKS)
         }
     }
 }

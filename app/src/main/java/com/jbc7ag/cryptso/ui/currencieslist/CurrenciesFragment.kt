@@ -11,14 +11,15 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.jbc7ag.cryptso.data.model.Book
 import com.jbc7ag.cryptso.databinding.FragmentCurrenciesBinding
-import com.jbc7ag.cryptso.util.filterCurrencies
 import com.jbc7ag.cryptso.util.setNameCurrencies
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CurrenciesFragment: Fragment() {
+class CurrenciesFragment : Fragment() {
 
-    private lateinit var binding: FragmentCurrenciesBinding
+    private var _binding: FragmentCurrenciesBinding? = null
+    private val binding get() = _binding
+
     private lateinit var navController: NavController
     private lateinit var currenciesAdapter: CurrenciesAdapter
     private val viewModel: CurrenciesViewModel by viewModels()
@@ -30,39 +31,42 @@ class CurrenciesFragment: Fragment() {
     ): View {
 
         return FragmentCurrenciesBinding.inflate(layoutInflater, container, false)
-            .apply { binding = this }
+            .apply { _binding = this }
             .root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getAvailableBooks()
-        observers()
+        initObservers()
         navController = findNavController()
     }
 
-    private fun observers(){
+    private fun initObservers() {
         viewModel.apply {
             error.observe(viewLifecycleOwner, {
                 Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
             })
-            availableBooks.observe(viewLifecycleOwner,{
+            availableBooks.observe(viewLifecycleOwner, {
                 showCurrencyList(it)
             })
         }
     }
 
-    private fun showCurrencyList(data: List<Book>){
+    private fun showCurrencyList(data: List<Book>) {
         currenciesAdapter = CurrenciesAdapter { book ->
-            CurrenciesFragmentDirections.actionCurrenciesFragmentToCurrencyDetailFragment(book).let{
-                navController.navigate(it)
-            }
+            CurrenciesFragmentDirections.actionCurrenciesFragmentToCurrencyDetailFragment(book)
+                .let {
+                    navController.navigate(it)
+                }
         }
-
-        binding.currenciesList.run {
-            adapter = currenciesAdapter
-        }
+        binding?.currenciesList?.adapter = currenciesAdapter
         data.setNameCurrencies()
-        currenciesAdapter.submitList(data.filterCurrencies())
+        currenciesAdapter.submitList(data)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

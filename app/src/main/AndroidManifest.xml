@@ -9,7 +9,7 @@
         android:allowBackup="true"
         android:name=".CryptsoApp"
         android:icon="@mipmap/ic_launcher"
-        android:label="Cryptso"
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Cryptso">

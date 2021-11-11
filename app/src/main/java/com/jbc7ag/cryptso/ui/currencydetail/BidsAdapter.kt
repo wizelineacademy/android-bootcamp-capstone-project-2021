@@ -10,8 +10,7 @@ import com.jbc7ag.cryptso.databinding.ItemTradesBinding
 import com.jbc7ag.cryptso.util.formatCurrency
 
 
-class BidsAdapter ( ):
-    ListAdapter<Bids, BidsAdapter.BidsViewHolder>(DIFF_CALLBACK) {
+class BidsAdapter : ListAdapter<Bids, BidsAdapter.BidsViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BidsViewHolder {
         return LayoutInflater.from(parent.context)
@@ -31,7 +30,8 @@ class BidsAdapter ( ):
             binding.apply {
                 itemTradesPrice.text = bids.price.formatCurrency()
                 itemTradesAmount.text = bids.amount
-                itemTradesTotal.text = (bids.price.toFloat() * bids.amount.toFloat()).toString().formatCurrency()
+                itemTradesTotal.text =
+                    (bids.price.toFloat() * bids.amount.toFloat()).toString().formatCurrency()
             }
         }
     }

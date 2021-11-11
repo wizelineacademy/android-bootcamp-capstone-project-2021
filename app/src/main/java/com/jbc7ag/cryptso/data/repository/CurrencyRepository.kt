@@ -9,11 +9,12 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class CurrencyRepository  @Inject constructor(
-        private val client: CurrencyApi) {
-        suspend fun getAvailableBooks(): Response<AvailableBooks> = client.getAvailableBooks()
-        suspend fun getTicker(book: String): Response<Ticker> = client.getTicker(book)
-        suspend fun getOrders(book: String): Response<Orders> = client.getOrder(book)
+class CurrencyRepository @Inject constructor(
+    private val client: CurrencyApi
+) {
+    suspend fun getAvailableBooks(): Response<AvailableBooks> = client.getAvailableBooks()
+    suspend fun getTicker(book: String): Response<Ticker> = client.getTicker(book)
+    suspend fun getOrders(book: String): Response<Orders> = client.getOrder(book)
 
 
 }

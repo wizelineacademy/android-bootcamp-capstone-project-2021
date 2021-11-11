@@ -15,7 +15,6 @@ private const val BASE_URL = "https://api.bitso.com/v3/"
 @InstallIn(SingletonComponent::class)
 object Network {
 
-
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit {
