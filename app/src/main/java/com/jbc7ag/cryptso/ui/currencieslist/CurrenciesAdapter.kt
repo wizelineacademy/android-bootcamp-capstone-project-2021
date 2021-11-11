@@ -11,7 +11,7 @@ import com.jbc7ag.cryptso.R
 import com.jbc7ag.cryptso.data.model.Book
 import com.jbc7ag.cryptso.databinding.ItemCurrenciesBinding
 import com.jbc7ag.cryptso.util.IMAGES_URL
-import com.jbc7ag.cryptso.util.formatPrice
+import com.jbc7ag.cryptso.util.formatMaxPrice
 import com.jbc7ag.cryptso.util.getmarketFormat
 
 typealias OnCurrencyClick = (String) -> Unit
@@ -40,7 +40,7 @@ class CurrenciesAdapter(private val onCurrencyClick: OnCurrencyClick) :
                     binding.root.resources.getDimension(R.dimen.currency_list_image).toInt()
                 val currencyCode = book.name
                 itemCurrenciesName.text = currencyCode.uppercase()
-                itemCurrenciesData.text = book.maxPrice.formatPrice(book.book)
+                itemCurrenciesData.text = book.maxPrice.formatMaxPrice(book.book, binding.root.context)
                 itemCurrenciesValue.text = book.book.getmarketFormat()
 
 

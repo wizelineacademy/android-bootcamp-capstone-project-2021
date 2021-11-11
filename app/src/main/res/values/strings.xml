@@ -5,7 +5,7 @@
     <string name="currencies_filter">Market</string>
 
     <!-- adapter -->
-    <string name="maximum_price">Maximum Price: %1$s</string>
+    <string name="maximum_price">Max:</string>
     <string name="last_price">Last Price</string>
     <string name="high">High</string>
     <string name="low">Low</string>

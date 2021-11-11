@@ -1,5 +1,7 @@
 package com.jbc7ag.cryptso.util
 
+import android.content.Context
+import com.jbc7ag.cryptso.R
 import com.jbc7ag.cryptso.data.model.AvailableBooks
 import com.jbc7ag.cryptso.data.model.Book
 import com.jbc7ag.cryptso.data.model.Orders
@@ -29,11 +31,11 @@ fun String.formatCurrency(): String {
     return formatter.format(this.toFloat())
 }
 
-fun String.formatPrice(code: String): String {
+fun String.formatMaxPrice(code: String, context: Context): String {
     if (code.isEmpty()) return EMPTY_STRING
 
     val convertCode = code.substring(code.indexOf(DELIMITER) + 1, code.length).uppercase()
-    return "Max: ${this.formatCurrency()} ${convertCode.uppercase()}"
+    return "${context.getString(R.string.maximum_price)} ${this.formatCurrency()} ${convertCode.uppercase()}"
 }
 
 
