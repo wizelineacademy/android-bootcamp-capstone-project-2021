@@ -23,6 +23,9 @@ class DetailViewModel @Inject constructor(
     private var _getOrderBooks = MutableLiveData<DataState<OrderBook>>()
     val getOrderBooks: LiveData<DataState<OrderBook>> = _getOrderBooks
 
+    private var _getTicker = MutableLiveData<DataState<Ticker>>()
+    val getTicker: LiveData<DataState<Ticker>> = _getTicker
+
     fun getOrderBooks(book: String){
         viewModelScope.launch {
             try{
@@ -34,9 +37,6 @@ class DetailViewModel @Inject constructor(
             }
         }
     }
-
-    private var _getTicker = MutableLiveData<DataState<Ticker>>()
-    val getTicker: LiveData<DataState<Ticker>> = _getTicker
 
     fun getTickerFromBook(book: String){
         viewModelScope.launch {
