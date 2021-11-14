@@ -34,7 +34,7 @@
                 android:id="@+id/tvLastPriceLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/coin_details_margin_top"
                 android:text="@string/list__price_label"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -154,14 +154,14 @@
                 android:id="@+id/gData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:constraint_referenced_ids="tvHeader, tvLastPriceLabel, tvLastPrice, tvBindsLabel, tvAsksLabel, tvMaximum, tvMaximumLabel, tvMinimum, tvMinimumLabel, rvBinds, rvAsks"/>
 
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/gLoading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:constraint_referenced_ids="pbDetail"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="coin_details_margin_top">16dp</dimen>
+</resources>
