@@ -11,12 +11,12 @@ fun AvailableBooksPayload.mapToDomain(): AvailableBook {
 
     return AvailableBook(
         book = bookName,
-        maximum_amount = this.maximum_amount,
-        maximum_price = this.maximum_price,
-        maximum_value = this.maximum_value,
-        minimum_amount = this.minimum_amount,
-        minimum_price = this.minimum_price,
-        minimum_value = this.minimum_value,
+        maximum_amount = this.maximumAmount,
+        maximum_price = this.maximumPrice,
+        maximum_value = this.maximumValue,
+        minimum_amount = this.minimumAmount,
+        minimum_price = this.minimumPrice,
+        minimum_value = this.minimumValue,
         icon = iconBook
     )
 }

@@ -8,6 +8,6 @@ fun OrderBookPayload.mapToDomain(): OrderBook {
         asks = asks.mapToAskList(),
         bids = bids.mapToBidList(),
         sequence = sequence,
-        updated_at = updated_at
+        updated_at = updatedAt
     )
 }
