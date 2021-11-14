@@ -1,9 +1,7 @@
 package com.esaudev.wizeline.data.remote.sources
 
-import android.util.Log
 import com.esaudev.wizeline.data.remote.api.BitsoApi
-import com.esaudev.wizeline.data.remote.responses.TickerResponse
-import com.esaudev.wizeline.data.remote.responses.mapToDomain
+import com.esaudev.wizeline.data.remote.extensions.mapToDomain
 import com.esaudev.wizeline.model.AvailableBook
 import com.esaudev.wizeline.model.OrderBook
 import com.esaudev.wizeline.model.Ticker
