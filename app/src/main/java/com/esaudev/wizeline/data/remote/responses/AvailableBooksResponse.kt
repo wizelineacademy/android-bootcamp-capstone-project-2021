@@ -1,6 +1,7 @@
 package com.esaudev.wizeline.data.remote.responses
 
 import com.esaudev.wizeline.model.AvailableBook
+import com.esaudev.wizeline.utils.Constants.BITSO_ICON_BASE_URL
 
 data class AvailableBooksResponse(
     val payload: List<AvailableBooksPayload>,
@@ -20,7 +21,7 @@ data class AvailableBooksPayload(
 fun AvailableBooksPayload.mapToDomain(): AvailableBook {
     val bookArray = this.book.split("_")
     val bookName = "${bookArray.first().uppercase()} - ${bookArray.last().uppercase()}"
-    val iconBook = ICON_BASE_URL + bookArray.first()
+    val iconBook = BITSO_ICON_BASE_URL + bookArray.first()
 
     return AvailableBook(
         book = bookName,
@@ -37,6 +38,4 @@ fun AvailableBooksPayload.mapToDomain(): AvailableBook {
 fun List<AvailableBooksPayload>.mapToDomain(): List<AvailableBook> {
     return this.map { it.mapToDomain() }
 }
-
-const val ICON_BASE_URL = "https://cryptoicon-api.vercel.app/api/icon/"
 
