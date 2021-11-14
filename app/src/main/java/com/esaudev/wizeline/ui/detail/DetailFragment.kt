@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.esaudev.wizeline.R
 import com.esaudev.wizeline.databinding.FragmentDetailBinding
+import com.esaudev.wizeline.extensions.hide
 import com.esaudev.wizeline.extensions.mapToQuery
+import com.esaudev.wizeline.extensions.show
 import com.esaudev.wizeline.extensions.toast
 import com.esaudev.wizeline.model.AvailableBook
 import com.esaudev.wizeline.model.OrderBook
@@ -122,13 +124,13 @@ class DetailFragment : Fragment() {
     }
 
     private fun showProgressBar(){
-        binding.gLoading.visibility = View.VISIBLE
-        binding.gData.visibility = View.GONE
+        binding.gLoading.show()
+        binding.gData.hide()
     }
 
     private fun hideProgressBar(){
-        binding.gLoading.visibility = View.GONE
-        binding.gData.visibility = View.VISIBLE
+        binding.gLoading.hide()
+        binding.gData.show()
     }
 
 }

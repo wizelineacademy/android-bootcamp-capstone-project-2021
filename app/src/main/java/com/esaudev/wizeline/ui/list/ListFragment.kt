@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.esaudev.wizeline.R
 import com.esaudev.wizeline.databinding.FragmentListBinding
+import com.esaudev.wizeline.extensions.hide
+import com.esaudev.wizeline.extensions.show
 import com.esaudev.wizeline.extensions.toast
 import com.esaudev.wizeline.model.AvailableBook
 import com.esaudev.wizeline.ui.adapters.BookAdapter
@@ -87,13 +89,13 @@ class ListFragment : Fragment(), BookAdapter.OnBookClickListener {
     }
 
     private fun showProgressBar(){
-        binding.pbList.visibility = View.VISIBLE
-        binding.rvList.visibility = View.GONE
+        binding.pbList.show()
+        binding.rvList.hide()
     }
 
     private fun hideProgressBar(){
-        binding.pbList.visibility = View.GONE
-        binding.rvList.visibility = View.VISIBLE
+        binding.pbList.hide()
+        binding.rvList.show()
     }
 
     override fun onBookClickListener(book: AvailableBook) {
