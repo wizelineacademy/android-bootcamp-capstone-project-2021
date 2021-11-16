@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import dev.ricsarabia.cryptochallenge.R
 import dev.ricsarabia.cryptochallenge.databinding.MainFragmentBinding
 import dev.ricsarabia.cryptochallenge.domain.Book
@@ -29,7 +29,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // Init components
-        binding.booksLinearLayout.layoutManager = LinearLayoutManager(context)
+        binding.booksLinearLayout.layoutManager = GridLayoutManager(context, 2)
         binding.booksLinearLayout.adapter = booksAdapter
 
         // Init observers

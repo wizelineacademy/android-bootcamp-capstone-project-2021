@@ -23,6 +23,7 @@ class MainViewModel : ViewModel() {
         viewModelScope.launch {
             when (val availableBooks = repo.getBooks()) {
                 is BooksData.Data -> books.value = availableBooks.books
+                    .sortedWith(compareBy({ it.major }, { it.minor }))
                 is BooksData.Error -> errorMessage.value = availableBooks.message
             }
             loading.value = false
