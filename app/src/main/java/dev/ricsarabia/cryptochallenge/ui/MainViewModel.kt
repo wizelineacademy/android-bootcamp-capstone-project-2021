@@ -14,16 +14,16 @@ class MainViewModel : ViewModel() {
 
     val books = MutableLiveData(listOf<Book>())
     val selectedBook = MutableLiveData("")
-    val selectedBookPrices = MutableLiveData(BookPrices("","","",""))
-    val selectedBookOrders = MutableLiveData(BookOrders(listOf(),listOf()))
+    val selectedBookPrices = MutableLiveData(BookPrices("", "", "", ""))
+    val selectedBookOrders = MutableLiveData(BookOrders(listOf(), listOf()))
     // TODO: Create private variables in order to expose livedata correctly
 
     fun getBooks() {
         loading.value = true
         viewModelScope.launch {
-            when (val availableBooks = repo.getBooks()){
+            when (val availableBooks = repo.getBooks()) {
                 is BooksData.Data -> books.value = availableBooks.books
-                is BooksData.Error -> {errorMessage.value = availableBooks.message}
+                is BooksData.Error -> errorMessage.value = availableBooks.message
             }
             loading.value = false
         }
@@ -31,7 +31,7 @@ class MainViewModel : ViewModel() {
 
     fun getBookPrices() {
         viewModelScope.launch {
-            when (val prices = repo.getBookPrices(selectedBook.value!!)){
+            when (val prices = repo.getBookPrices(selectedBook.value!!)) {
                 is BookPricesData.Data -> selectedBookPrices.value = prices.bookPrices
                 is BookPricesData.Error -> errorMessage.value = prices.message
             }
@@ -40,7 +40,7 @@ class MainViewModel : ViewModel() {
 
     fun getBookOrders() {
         viewModelScope.launch {
-            when (val orders = repo.getBookOrders(selectedBook.value!!)){
+            when (val orders = repo.getBookOrders(selectedBook.value!!)) {
                 is BookOrdersData.Data -> selectedBookOrders.value = orders.bookOrders
                 is BookOrdersData.Error -> errorMessage.value = orders.message
             }

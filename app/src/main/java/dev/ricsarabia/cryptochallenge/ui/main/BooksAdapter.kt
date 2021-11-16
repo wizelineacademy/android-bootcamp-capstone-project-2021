@@ -7,9 +7,11 @@ import com.bumptech.glide.Glide
 import dev.ricsarabia.cryptochallenge.databinding.BookItemBinding
 import dev.ricsarabia.cryptochallenge.domain.Book
 
-class BooksAdapter(val onBookClick: (Book)->Unit): RecyclerView.Adapter<BooksViewHolder>() {
+class BooksAdapter(val onBookClick: (Book) -> Unit) : RecyclerView.Adapter<BooksViewHolder>() {
     var books = listOf<Book>()
-        set(value) { field = value; notifyDataSetChanged() }
+        set(value) {
+            field = value; notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BooksViewHolder {
         val binding = BookItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -24,7 +26,7 @@ class BooksAdapter(val onBookClick: (Book)->Unit): RecyclerView.Adapter<BooksVie
 }
 
 class BooksViewHolder(val binding: BookItemBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(book: Book, onBookClick: (Book)->Unit) {
+    fun bind(book: Book, onBookClick: (Book) -> Unit) {
         binding.root.setOnClickListener { onBookClick(book) }
         binding.bookNameTextView.text = book.book
         Glide.with(binding.root).load(book.imageUrl).into(binding.bookImageView)

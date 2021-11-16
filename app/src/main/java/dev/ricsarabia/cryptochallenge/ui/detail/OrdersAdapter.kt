@@ -6,9 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import dev.ricsarabia.cryptochallenge.databinding.OrderItemBinding
 import dev.ricsarabia.cryptochallenge.domain.BookOrder
 
-class OrdersAdapter: RecyclerView.Adapter<OrdersViewHolder>() {
+class OrdersAdapter : RecyclerView.Adapter<OrdersViewHolder>() {
     var orders = listOf<BookOrder>()
-        set(value) { field = value; notifyDataSetChanged() }
+        set(value) {
+            field = value; notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrdersViewHolder {
         val binding = OrderItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)

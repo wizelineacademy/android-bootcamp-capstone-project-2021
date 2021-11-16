@@ -17,7 +17,7 @@ import dev.ricsarabia.cryptochallenge.ui.MainViewModel
 class MainFragment : Fragment() {
     private lateinit var binding: MainFragmentBinding // TODO: correct this horrible screen design
     private val viewModel by lazy { ViewModelProvider(requireActivity()).get(MainViewModel::class.java) }
-    private val booksAdapter = BooksAdapter{ onBookClick(it) }
+    private val booksAdapter = BooksAdapter { onBookClick(it) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
