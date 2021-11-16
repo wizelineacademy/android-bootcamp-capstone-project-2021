@@ -28,7 +28,8 @@ class BooksAdapter(val onBookClick: (Book) -> Unit) : RecyclerView.Adapter<Books
 class BooksViewHolder(val binding: BookItemBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(book: Book, onBookClick: (Book) -> Unit) {
         binding.root.setOnClickListener { onBookClick(book) }
-        binding.bookNameTextView.text = book.book
+        binding.majorTextView.text = book.major.uppercase()
+        binding.minorTextView.text = book.minor.uppercase()
         Glide.with(binding.root).load(book.imageUrl).into(binding.bookImageView)
     }
 }
