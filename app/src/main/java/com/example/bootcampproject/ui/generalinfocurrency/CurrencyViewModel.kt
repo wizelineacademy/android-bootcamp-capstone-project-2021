@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.example.bootcampproject.data.repo.CurrencyRepo
 import com.example.bootcampproject.domain.Currency
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,6 +19,9 @@ class CurrencyViewModel @Inject constructor(
     val currencies: LiveData<List<Currency>> = _currencies
 
     fun getActualCurrencies(){
-        currencyRepo.getCurrencies(_currencies)
+        CoroutineScope(Dispatchers.IO).launch {
+            _currencies.postValue( currencyRepo.getCurrencies() )
+        }
     }
+
 }

@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bootcampproject.databinding.FragmentCurrencyBinding
+import com.example.bootcampproject.domain.Currency
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val VIEW_HOLDER_SCREEN_PROPORTION = 1.0 / 5.0
@@ -40,28 +41,30 @@ class CurrencyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-         currencyAdapter = CurrencyAdapter { availableBooks ->
-             if (availableBooks != null) {
+         currencyAdapter = CurrencyAdapter { codeBook ->
                  CurrencyFragmentDirections
-                     .toavailableBooksFragmentFragment(availableBooks.toTypedArray())
+                     .toavailableBooksFragment(codeBook)
                      .let { navController.navigate(it) }
-             }
         }
         navController = findNavController()
         viewModel.getActualCurrencies()
         viewModel.currencies.observe(viewLifecycleOwner,{currencies->
-            binding.currencyList.run {
-                adapter = currencyAdapter
-                layoutManager = object : LinearLayoutManager(requireContext()) {
-                    override fun checkLayoutParams(lp: RecyclerView.LayoutParams?): Boolean {
-                        lp?.height = (height * VIEW_HOLDER_SCREEN_PROPORTION).toInt()
-                        return true
-                    }
-                }
-            }
-            currencyAdapter.submitList(currencies)
+            fillInfoCurrency(currencies)
         })
 
 
     }
+    private fun fillInfoCurrency(currencies: List<Currency>){
+        binding.currencyList.run {
+            adapter = currencyAdapter
+            layoutManager = object : LinearLayoutManager(requireContext()) {
+                override fun checkLayoutParams(lp: RecyclerView.LayoutParams?): Boolean {
+                    lp?.height = (height * VIEW_HOLDER_SCREEN_PROPORTION).toInt()
+                    return true
+                }
+            }
+        }
+        currencyAdapter.submitList(currencies)
+    }
+
 }

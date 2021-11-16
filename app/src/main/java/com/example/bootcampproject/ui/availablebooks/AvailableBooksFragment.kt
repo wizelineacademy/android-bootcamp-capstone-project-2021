@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bootcampproject.data.mock.Payload
+import com.example.bootcampproject.data.mock.AvailableBook
 import com.example.bootcampproject.databinding.FragmentAvailableBooksBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,6 +22,7 @@ class AvailableBooksFragmentFragment : Fragment() {
     private val binding: FragmentAvailableBooksBinding
         get() = _binding!!
 
+    private val viewModel: AvailablebooksViewModel by viewModels()
 
     private lateinit var navController: NavController
 
@@ -37,9 +40,20 @@ class AvailableBooksFragmentFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        availableBooksAdapter= AvailableBooksAdapter {  }
-        val books=requireArguments()
-       // val temp =books.getParcelable<Payload>("Bundle")
+        availableBooksAdapter= AvailableBooksAdapter{codeBook ->
+            AvailableBooksFragmentFragmentDirections
+                .toorderBooksFragment(codeBook)
+                .let { navController.navigate(it) }
+        }
+        navController = findNavController()
+        val code = requireArguments().getString("code")
+        viewModel.getAvailableBooks(code)
+        viewModel.books.observe(viewLifecycleOwner,{ books->
+            fillInfoBooks(books)
+        })
+
+    }
+    fun fillInfoBooks(books:List<AvailableBook>){
         binding.availableBooksList.run {
             adapter = availableBooksAdapter
             layoutManager = object : LinearLayoutManager(requireContext()) {
@@ -49,7 +63,6 @@ class AvailableBooksFragmentFragment : Fragment() {
                 }
             }
         }
-       // availableBooksAdapter.submitList(mockPokemons)
-
+        availableBooksAdapter.submitList(books)
     }
 }

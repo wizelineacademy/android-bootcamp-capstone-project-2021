@@ -1,21 +1,25 @@
 package com.example.bootcampproject.data.mock
 
-import android.os.Parcelable
+
+import androidx.room.Entity
+import androidx.room.Index
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import kotlinx.parcelize.Parcelize
 
+
+@JsonClass(generateAdapter = true)
+data class StatusAvailableBooks (
+
+    @Json(name = "success") val success : Boolean,
+    @Json(name = "payload") val payload : List<AvailableBook>,
+)
+
+@Entity( indices = [Index(value = ["book"], unique = true)])
 @JsonClass(generateAdapter = true)
 data class AvailableBook (
 
-    @Json(name = "success") val success : Boolean,
-    @Json(name = "payload") val payload : List<Payload>,
-)
-
-@Parcelize
-@JsonClass(generateAdapter = true)
-data class Payload (
-
+    @PrimaryKey(autoGenerate = true) val id :Int?=null,
     @Json(name = "book") val book : String,
     @Json(name = "minimum_price") val minimum_price : Double,
     @Json(name = "maximum_price") val maximum_price : Double,
@@ -25,30 +29,29 @@ data class Payload (
     @Json(name = "maximum_value") val maximum_value : Double,
     @Json(name = "tick_size") val tick_size : Double,
     @Json(name = "default_chart") val default_chart : String,
-    @Json(name = "fees") val fees : Fees ,
-): Parcelable
+    //@Json(name = "fees") val fees : Fees ,
+)
 
-@Parcelize
+
 @JsonClass(generateAdapter = true)
 data class Fees (
 
     @Json(name ="flat_rate") val flat_rate : FlatRate,
     @Json(name ="structure") val structure : List<Structure>
-): Parcelable
+)
 
-@Parcelize
+
 @JsonClass(generateAdapter = true)
 data class FlatRate (
 
     @Json(name ="maker") val maker : Double,
     @Json(name ="taker") val taker : Double,
-): Parcelable
+)
 
-@Parcelize
 @JsonClass(generateAdapter = true)
 data class Structure (
 
     @Json(name ="volume") val volume : Double,
     @Json(name ="maker") val maker : Double,
     @Json(name ="taker") val taker : Double,
-): Parcelable
+)

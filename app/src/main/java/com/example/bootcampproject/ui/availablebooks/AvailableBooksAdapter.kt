@@ -5,15 +5,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bootcampproject.data.mock.Payload
+import com.bumptech.glide.Glide
+import com.example.bootcampproject.data.mock.AvailableBook
 import com.example.bootcampproject.databinding.ItemAvailableBooksBinding
+import com.example.bootcampproject.util.reformatNumber
+import com.example.bootcampproject.util.returnURLImage
 
+private const val ARROW_IMAGE_URL = "https://thypix.com/wp-content/uploads/2020/04/white-arrow-86.png"
 
-typealias OnAvailableBooksClicked = (Long) -> Unit
+typealias OnAvailableBooksClicked = (String) -> Unit
 
 class AvailableBooksAdapter(
     private val onAvailableBooksClicked: OnAvailableBooksClicked,
-): ListAdapter<Payload, AvailableBooksAdapter.AvailableBooksViewHolder>(DIFF_CALLBACK){
+): ListAdapter<AvailableBook, AvailableBooksAdapter.AvailableBooksViewHolder>(DIFF_CALLBACK){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType:Int):AvailableBooksViewHolder{
         return LayoutInflater.from(parent.context)
@@ -29,21 +33,31 @@ class AvailableBooksAdapter(
         private val binding: ItemAvailableBooksBinding,
         private val onAvailableBooksClicked: OnAvailableBooksClicked,
     ): RecyclerView.ViewHolder(binding.root){
-        fun bind(payLoads: Payload){
-            binding.textMinPrice.text=payLoads.minimum_price.toString()
-            binding.textMaxPrice.text=payLoads.maximum_price.toString()
-            binding.textMinAmount.text=payLoads.minimum_amount.toString()
-            binding.textMaxAmount.text=payLoads.maximum_amount.toString()
-            binding.textMinValue.text=payLoads.minimum_value.toString()
-            binding.textMaxValue.text=payLoads.maximum_value.toString()
+        fun bind(payLoads: AvailableBook){
+
+            binding.textMinPrice.text=payLoads.minimum_price.reformatNumber()
+            binding.textMaxPrice.text=payLoads.maximum_price.reformatNumber()
+            Glide.with(binding.imageOriginalCurrency)
+                .load(returnURLImage(payLoads.book.split("_")[0]))
+                .into(binding.imageOriginalCurrency)
+            Glide.with(binding.imageArrow)
+                .load(ARROW_IMAGE_URL)
+                .into(binding.imageArrow)
+            Glide.with(binding.imageCurrencyExchange)
+                .load(returnURLImage(payLoads.book.split("_")[1]))
+                .into(binding.imageCurrencyExchange)
+            binding.booktext.text=payLoads.book
+            binding.cardViewContainer.setOnClickListener {
+                onAvailableBooksClicked.invoke(payLoads.book)
+            }
         }
     }
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Payload>() {
-            override fun areItemsTheSame(oldItem: Payload, newItem: Payload): Boolean =
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<AvailableBook>() {
+            override fun areItemsTheSame(oldItem: AvailableBook, newItem: AvailableBook): Boolean =
                 oldItem.book == newItem.book
 
-            override fun areContentsTheSame(oldItem: Payload, newItem: Payload): Boolean =
+            override fun areContentsTheSame(oldItem: AvailableBook, newItem: AvailableBook): Boolean =
                 oldItem == newItem
         }
     }

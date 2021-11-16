@@ -18,13 +18,18 @@
             android:id="@+id/nameCurrency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed-light"
             android:text="@string/textview"
+            android:textAllCaps="false"
+            android:textColor="#D4D4A9"
+            android:textSize="20sp"
+            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.589"
+            app:layout_constraintHorizontal_bias="0.218"
             app:layout_constraintStart_toEndOf="@+id/imageCurrency"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.503">
+            app:layout_constraintVertical_bias="0.502">
 
         </TextView>
 
@@ -32,10 +37,10 @@
             android:id="@+id/imageCurrency"
             android:layout_width="136dp"
             android:layout_height="104dp"
+            android:scaleType="centerInside"
+            android:layout_marginStart="18dp"
             android:contentDescription="@string/textview"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.105"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 

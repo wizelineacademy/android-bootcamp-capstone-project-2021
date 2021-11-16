@@ -9,19 +9,34 @@
         android:name="com.example.bootcampproject.ui.generalinfocurrency.CurrencyFragment"
         android:label="CurrencyFragment" >
         <action
-            android:id="@+id/toavailableBooksFragmentFragment"
-            app:destination="@id/availableBooksFragmentFragment"
+            android:id="@+id/toavailableBooksFragment"
+            app:destination="@id/availableBooksFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment
-        android:id="@+id/availableBooksFragmentFragment"
+        android:id="@+id/availableBooksFragment"
         android:name="com.example.bootcampproject.ui.availablebooks.AvailableBooksFragmentFragment"
-        android:label="AvailableBooksFragmentFragment" >
+        android:label="AvailableBooksFragment">
         <argument
-            android:name="availableBooks"
-            app:argType="com.example.bootcampproject.data.mock.Payload[]" />
+            android:name="code"
+            app:argType="string" />
+        <action
+            android:id="@+id/toorderBooksFragment"
+            app:destination="@id/orderBooksFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
+    <fragment
+        android:id="@+id/orderBooksFragment"
+        android:name="com.example.bootcampproject.ui.orderbooks.OrderBooksFragment"
+        android:label="OrderBooksFragment" >
+        <argument
+            android:name="code"
+            app:argType="string"/>
     </fragment>
 </navigation>

@@ -6,12 +6,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.bootcampproject.data.mock.Payload
 import com.example.bootcampproject.databinding.ItemCurrencyBinding
 import com.example.bootcampproject.domain.Currency
+import com.example.bootcampproject.util.attachedName
 
 
-typealias OnCurrencyClicked = (MutableList<Payload>?) -> Unit
+typealias OnCurrencyClicked = (String) -> Unit
 
 class CurrencyAdapter(
     private val onCurrencyClicked: OnCurrencyClicked,
@@ -32,12 +32,13 @@ class CurrencyAdapter(
         private val onCurrencyClicked: OnCurrencyClicked,
     ):RecyclerView.ViewHolder(binding.root){
         fun bind(currency: Currency){
-            binding.nameCurrency.text=currency.name
+            binding.nameCurrency.text=currency.name.attachedName()
             Glide.with(binding.imageCurrency)
                 .load(currency.imageUrl)
                 .into(binding.imageCurrency)
+
             binding.cardViewContainer.setOnClickListener {
-                onCurrencyClicked.invoke(currency.books)
+                onCurrencyClicked.invoke(currency.name)
             }
         }
     }

@@ -1,17 +1,22 @@
 package com.example.bootcampproject.data.services
 
-import com.example.bootcampproject.data.mock.AvailableBook
-import retrofit2.Call
-import retrofit2.http.GET
+import com.example.bootcampproject.data.mock.StatusAvailableBooks
+import com.example.bootcampproject.data.mock.StatusOrderBook
+import com.example.bootcampproject.data.mock.StatusTicker
+import retrofit2.Response
+import retrofit2.http.*
 
 
 interface BitsoServices {
+    @Headers("User-Agent: demo")
     @GET(value = "available_books/")
-    fun getAvailableBooks():Call<AvailableBook>
+    suspend fun getAvailableBooks():Response<StatusAvailableBooks>
 
+    @Headers("User-Agent: demo")
     @GET(value = "ticker/")
-    fun getTicker()
+    suspend fun getTicker(@Query(value = "book")id: String?):Response<StatusTicker>
 
+    @Headers("User-Agent: demo")
     @GET(value = "order_book/")
-    fun getOrderBook()
+    suspend fun getOrderBook(@Query(value = "book") id: String?):Response<StatusOrderBook>
 }

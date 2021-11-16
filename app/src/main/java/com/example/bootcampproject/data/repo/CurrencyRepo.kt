@@ -1,16 +1,10 @@
 package com.example.bootcampproject.data.repo
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.example.bootcampproject.data.mock.AvailableBook
+import com.example.bootcampproject.data.local.CurrencyDao
+import com.example.bootcampproject.data.mock.StatusAvailableBooks
 import com.example.bootcampproject.data.services.BitsoServices
 import com.example.bootcampproject.domain.Currency
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,48 +12,60 @@ private const val CURRENCY_BASE_IMAGE_URL = "https://cryptoicon-api.vercel.app/a
 
 @Singleton
 class CurrencyRepo @Inject constructor(
-    private val bitsoServices :BitsoServices
+    private val bitsoServices :BitsoServices,
+    private val currencyDao: CurrencyDao
 ){
-    val _currencies = mutableMapOf<String,Currency>()
 
-    fun getCurrencies(currencies: MutableLiveData<List<Currency>>){
-        CoroutineScope(Dispatchers.IO).launch {
+   suspend fun getCurrencies():List<Currency>{
+
+       val _currencies = mutableListOf<Currency>()
+       try {
+           val call = bitsoServices.getAvailableBooks()
+           if(call.isSuccessful){
+               addCurrencies(call.body(),_currencies)
+               currencyDao.insertAll(_currencies)
+               return _currencies
+           }
+           return currencyDao.getAll()
+       }catch (e:Exception){
+           return currencyDao.getAll()
+       }
+       /* CoroutineScope(Dispatchers.IO).launch {
             val call = bitsoServices.getAvailableBooks()
 
-            call.enqueue(object : Callback<AvailableBook> {
+            call.enqueue(object : Callback<StatusAvailableBooks> {
                 override fun onResponse(
-                    call: Call<AvailableBook>,
-                    response: Response<AvailableBook>,
+                    call: Call<StatusAvailableBooks>,
+                    response: Response<StatusAvailableBooks>,
                 ) {
 
                     response.body()?.let { availableBooks ->
-                        for(availableBook in availableBooks.payload){
-                            val splitNameBook= availableBook.book.split("_")
-
-                            if(!_currencies.containsKey(splitNameBook[0])){
-                                val tempCurrency = Currency(
-                                    code = splitNameBook[0],
-                                    name = splitNameBook[0],
-                                    imageUrl = CURRENCY_BASE_IMAGE_URL+splitNameBook[0]
-
-                                )
-                                tempCurrency.books.add(availableBook)
-                                _currencies[splitNameBook[0]] = tempCurrency
-                            }else{
-                                _currencies[splitNameBook[0]]?.books?.add(availableBook)
-                            }
-
-                        }
-                        currencies.postValue(_currencies.values.toList())
+                        addCurrencies(availableBooks,_currencies)
+                        currencies.postValue(_currencies)
                     }
                 }
-
-                override fun onFailure(call: Call<AvailableBook>, t: Throwable) {
+                override fun onFailure(call: Call<StatusAvailableBooks>, t: Throwable) {
                     call.cancel()
                 }
 
             })
 
+        }*/
+    }
+    private fun addCurrencies(availableBooks:StatusAvailableBooks?, _currencies:MutableList<Currency>){
+        if (availableBooks != null) {
+            for(availableBook in availableBooks.payload){
+                val splitNameBook= availableBook.book.split("_")
+                val tempCurrency = Currency(
+                    code = splitNameBook[0],
+                    name = splitNameBook[0],
+                    imageUrl = CURRENCY_BASE_IMAGE_URL+splitNameBook[0]
+                )
+                if(!_currencies.contains(tempCurrency)){
+                    _currencies.add(tempCurrency)
+                }
+            }
         }
     }
+
 }
