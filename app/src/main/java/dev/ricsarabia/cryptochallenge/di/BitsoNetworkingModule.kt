@@ -1,6 +1,7 @@
 package dev.ricsarabia.cryptochallenge.di
 
 import dev.ricsarabia.cryptochallenge.data.services.BitsoService
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,7 +19,16 @@ object BitsoNetworkingModule {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
+        val networkInterceptor = Interceptor { chain ->
+            chain.proceed(
+                chain.request().newBuilder()
+                    .addHeader("User-Agent", System.getProperty("http.agent"))
+                    .build()
+            )
+        }
+
         val client = OkHttpClient.Builder()
+            .addInterceptor(networkInterceptor)
             .addInterceptor(loggingInterceptor)
             .readTimeout(60, TimeUnit.SECONDS)
             .connectTimeout(60, TimeUnit.SECONDS)
