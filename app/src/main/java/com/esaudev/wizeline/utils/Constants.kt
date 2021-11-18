@@ -10,4 +10,7 @@ object Constants {
 
     // Bundle
     const val BOOK_BUNDLE = "book_bundle"
+
+    // Local cache
+    const val BITSO_DATABASE = "bitso_db"
 }

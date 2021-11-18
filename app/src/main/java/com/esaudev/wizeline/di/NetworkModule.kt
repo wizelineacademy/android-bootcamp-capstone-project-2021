@@ -1,5 +1,7 @@
 package com.esaudev.wizeline.di
 
+import com.esaudev.wizeline.data.local.BitsoDao
+import com.esaudev.wizeline.data.local.sources.BitsoLocalDataSource
 import com.esaudev.wizeline.data.remote.api.BitsoApi
 import com.esaudev.wizeline.data.remote.sources.BitsoRemoteDataSource
 import com.esaudev.wizeline.data.remote.sources.BitsoRemoteDataSourceImpl
@@ -34,9 +36,11 @@ object NetworkModule {
     @Singleton
     fun provideBitsoRepository(
         remoteDataSource: BitsoRemoteDataSource,
+        localDataSource: BitsoLocalDataSource,
         networkDispatcher: CoroutineDispatcher
     ): BitsoRepository = BitsoRepositoryImpl(
         remoteDataSource,
+        localDataSource,
         networkDispatcher
     )
 
