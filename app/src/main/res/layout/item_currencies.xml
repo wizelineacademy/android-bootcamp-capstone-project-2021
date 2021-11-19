@@ -2,9 +2,10 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:cardElevation="2dp"
     android:background="?attr/selectableItemBackground"
     android:layout_margin="@dimen/margin_items_cards"
+    app:cardCornerRadius="@dimen/card_radius"
+    app:cardElevation="0dp"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -12,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/margin_items_cards">
+        android:padding="@dimen/padding_card">
 
         <ImageView
             android:id="@+id/item_currencies_image"
@@ -28,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="14sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/item_currencies_data"
             app:layout_constraintStart_toEndOf="@+id/item_currencies_image"
             app:layout_constraintStart_toStartOf="@+id/item_currencies_data"
@@ -40,23 +41,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_items"
-            android:textSize="12sp"
+            android:textSize="14sp"
+            android:fontFamily="@font/imprima"
             android:textColor="@color/darkGray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/item_currencies_image"
             app:layout_constraintTop_toBottomOf="@+id/item_currencies_name"
             tools:text="currencyData" />
 
-        <TextView
-            android:id="@+id/item_currencies_value"
+        <ImageView
+            android:id="@+id/item_currencies_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/item_currencies_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/item_currencies_image"
-            tools:text="currency Value" />
+            android:src="@drawable/ic_baseline_keyboard_arrow_right_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

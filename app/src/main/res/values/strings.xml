@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Cryptso</string>
-    <string name="cryptso_market">Cryptso Market</string>
-    <string name="available_currencies">Available currencies</string>
+    <string name="cryptso_market">Cryptso</string>
+    <string name="available_currencies">Available Currencies</string>
     <string name="currencies_filter">Market</string>
 
     <!-- adapter -->
@@ -15,4 +15,8 @@
     <string name="total">Total</string>
     <string name="bids">Bids</string>
     <string name="asks">Asks</string>
+
+    <!--content description-->
+    <string name="logo_content_description">currency logo</string>
+    <string name="check_content_description">Check selected filter mark</string>
 </resources>

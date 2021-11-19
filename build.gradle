@@ -5,6 +5,11 @@ buildscript {
     ext.retrofit_version = "2.9.0"
     ext.nav_version = "2.3.5"
     ext.hilt_version = "2.38.1"
+    ext.coingecko_version = "2.1"
+    ext.ktor_version = "1.6.5"
+    ext.coingecko_version = "0.2.1"
+    ext.room_version = "2.3.0"
+    ext.okhttp_version = "3.14.9"
 
 
     repositories {
@@ -16,7 +21,6 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
-
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

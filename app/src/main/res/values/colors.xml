@@ -7,6 +7,8 @@
     <color name="darkGray">#696969</color>
     <color name="green">#27B966</color>
     <color name="red">#B92727</color>
+    <color name="lightgray">#F9F9F9</color>
+    <color name="borderColor">#F3F3F3</color>
 
 
 </resources>

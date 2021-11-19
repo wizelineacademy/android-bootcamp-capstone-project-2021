@@ -10,9 +10,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.jbc7ag.cryptso.R
 import com.jbc7ag.cryptso.data.model.Book
 import com.jbc7ag.cryptso.databinding.ItemCurrenciesBinding
-import com.jbc7ag.cryptso.util.IMAGES_URL
-import com.jbc7ag.cryptso.util.formatMaxPrice
-import com.jbc7ag.cryptso.util.getmarketFormat
+import com.jbc7ag.cryptso.util.*
+import java.util.*
 
 typealias OnCurrencyClick = (String) -> Unit
 
@@ -38,11 +37,14 @@ class CurrenciesAdapter(private val onCurrencyClick: OnCurrencyClick) :
             binding.apply {
                 val imageSize =
                     binding.root.resources.getDimension(R.dimen.currency_list_image).toInt()
-                val currencyCode = book.name
-                itemCurrenciesName.text = currencyCode.uppercase()
-                itemCurrenciesData.text = book.maxPrice.formatMaxPrice(book.book, binding.root.context)
-                itemCurrenciesValue.text = book.book.getmarketFormat()
-
+                val currencyCode = book.book.getCurrencyCode()
+                val currencyFilter = book.book.getCurrencyCodeFilter()
+                itemCurrenciesName.text = book.name?.replaceFirstChar {
+                    if (it.isLowerCase()) it.titlecase(
+                        Locale.getDefault()
+                    ) else it.toString()
+                }
+                itemCurrenciesData.text = book.book.getmarketFormat()
 
                 Glide.with(itemCurrenciesImage)
                     .load(IMAGES_URL + currencyCode)

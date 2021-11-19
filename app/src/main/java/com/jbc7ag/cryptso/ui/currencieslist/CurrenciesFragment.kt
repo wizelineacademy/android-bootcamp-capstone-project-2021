@@ -11,7 +11,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.jbc7ag.cryptso.data.model.Book
 import com.jbc7ag.cryptso.databinding.FragmentCurrenciesBinding
-import com.jbc7ag.cryptso.util.setNameCurrencies
+import com.jbc7ag.cryptso.util.getCurrencyCodeFilter
+import com.jbc7ag.cryptso.util.getFilterList
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,6 +23,7 @@ class CurrenciesFragment : Fragment() {
 
     private lateinit var navController: NavController
     private lateinit var currenciesAdapter: CurrenciesAdapter
+    private lateinit var currenciesFilterAdapter: CurrenciesFilterAdapter
     private val viewModel: CurrenciesViewModel by viewModels()
 
     override fun onCreateView(
@@ -37,7 +39,6 @@ class CurrenciesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getAvailableBooks()
         initObservers()
         navController = findNavController()
     }
@@ -49,6 +50,12 @@ class CurrenciesFragment : Fragment() {
             })
             availableBooks.observe(viewLifecycleOwner, {
                 showCurrencyList(it)
+                showFilters(it)
+            })
+            loading.observe(viewLifecycleOwner, {
+                if (!it) {
+                    viewModel.getBooks()
+                }
             })
         }
     }
@@ -61,8 +68,24 @@ class CurrenciesFragment : Fragment() {
                 }
         }
         binding?.currenciesList?.adapter = currenciesAdapter
-        data.setNameCurrencies()
-        currenciesAdapter.submitList(data)
+        currenciesAdapter.submitList(data.filter { it.book.getCurrencyCodeFilter() == data[0].book.getCurrencyCodeFilter() })
+    }
+
+    private fun showFilters(data: List<Book>) {
+
+        currenciesFilterAdapter = CurrenciesFilterAdapter { book ->
+            val dataFilter = data.filter { it.book.getCurrencyCodeFilter() == book }
+            currenciesAdapter.submitList(dataFilter)
+
+            //set selected / deselected.
+            currenciesFilterAdapter.currentList.map {
+                it.selected = it.name == book
+            }
+            currenciesFilterAdapter.notifyDataSetChanged();
+        }
+
+        binding?.filterList?.adapter = currenciesFilterAdapter
+        currenciesFilterAdapter.submitList(data.getFilterList(data[0].book.getCurrencyCodeFilter()))
     }
 
     override fun onDestroyView() {
