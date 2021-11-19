@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bootcampproject.data.mock.Bids
 import com.example.bootcampproject.databinding.ItemBidsBinding
+import com.example.bootcampproject.util.reformatNumber
 
 class BidsAdapter :
     ListAdapter<Bids, BidsAdapter.BidsViewHolder>(DIFF_CALLBACK) {
@@ -24,7 +25,7 @@ class BidsAdapter :
         private val binding: ItemBidsBinding,
     ): RecyclerView.ViewHolder(binding.root){
         fun bind(bid: Bids){
-            binding.bidsText.text=bid.price.toString()
+            binding.bidsText.text=bid.price.reformatNumber()
         }
     }
     companion object {

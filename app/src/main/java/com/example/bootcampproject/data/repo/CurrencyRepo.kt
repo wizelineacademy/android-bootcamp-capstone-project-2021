@@ -1,5 +1,6 @@
 package com.example.bootcampproject.data.repo
 
+import android.util.Log
 import com.example.bootcampproject.data.local.CurrencyDao
 import com.example.bootcampproject.data.mock.StatusAvailableBooks
 import com.example.bootcampproject.data.services.BitsoServices
@@ -16,21 +17,21 @@ class CurrencyRepo @Inject constructor(
     private val currencyDao: CurrencyDao
 ){
 
-   suspend fun getCurrencies():List<Currency>{
-
-       val _currencies = mutableListOf<Currency>()
-       try {
-           val call = bitsoServices.getAvailableBooks()
-           if(call.isSuccessful){
-               addCurrencies(call.body(),_currencies)
+   suspend fun getCurrencies(isConnected:Boolean):List<Currency>{
+       if(isConnected)
+       {
+           try {
+               val call = bitsoServices.getAvailableBooks()
+               val _currencies=addCurrencies(call.body())
                currencyDao.insertAll(_currencies)
                return _currencies
+           }catch (e:Exception){
+               return currencyDao.getAll()
            }
-           return currencyDao.getAll()
-       }catch (e:Exception){
-           return currencyDao.getAll()
        }
+       return currencyDao.getAll()
        /* CoroutineScope(Dispatchers.IO).launch {
+       Log.d("TAG2", "message22222222222")
             val call = bitsoServices.getAvailableBooks()
 
             call.enqueue(object : Callback<StatusAvailableBooks> {
@@ -52,20 +53,20 @@ class CurrencyRepo @Inject constructor(
 
         }*/
     }
-    private fun addCurrencies(availableBooks:StatusAvailableBooks?, _currencies:MutableList<Currency>){
-        if (availableBooks != null) {
-            for(availableBook in availableBooks.payload){
-                val splitNameBook= availableBook.book.split("_")
-                val tempCurrency = Currency(
-                    code = splitNameBook[0],
-                    name = splitNameBook[0],
-                    imageUrl = CURRENCY_BASE_IMAGE_URL+splitNameBook[0]
-                )
-                if(!_currencies.contains(tempCurrency)){
-                    _currencies.add(tempCurrency)
-                }
+    private fun addCurrencies(availableBooks:StatusAvailableBooks?):List<Currency> {
+        val _currencies = mutableListOf<Currency>()
+        availableBooks?.payload?.iterator()?.forEach { availableBook ->
+            val splitNameBook= availableBook.book.split("_")
+            val tempCurrency = Currency(
+                code = splitNameBook[0],
+                name = splitNameBook[0],
+                imageUrl = CURRENCY_BASE_IMAGE_URL+splitNameBook[0]
+            )
+            if(!_currencies.contains(tempCurrency)){
+                _currencies.add(tempCurrency)
             }
         }
+        return _currencies
     }
 
 }

@@ -20,7 +20,7 @@ data class Ticker (
     @Json(name ="high") val high : Double,
     @Json(name ="last") val last : Double,
     @Json(name ="created_at") val created_at : String,
-    @Json(name ="book") val book : String,
+    @Json(name ="book") var book : String ?=null,
     @Json(name ="volume") val volume : Double,
     @Json(name ="vwap") val vwap : Double,
     @Json(name ="low") val low : Double,

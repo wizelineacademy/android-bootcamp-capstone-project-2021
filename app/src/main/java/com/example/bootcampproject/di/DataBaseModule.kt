@@ -30,4 +30,12 @@ object DataBaseModule {
     @Singleton
     @Provides
     fun provideAvailableBooksDao(db: BitsoAppDataBase) = db.getAvailableBooks()
+
+    @Singleton
+    @Provides
+    fun provideOrderBooks(db: BitsoAppDataBase) = db.getOrderBooks()
+
+    @Singleton
+    @Provides
+    fun provideTickers(db: BitsoAppDataBase) = db.getTickers()
 }

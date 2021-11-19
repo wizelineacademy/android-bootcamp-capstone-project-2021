@@ -7,6 +7,7 @@ import com.example.bootcampproject.data.mock.AvailableBook
 import com.example.bootcampproject.data.mock.StatusAvailableBooks
 import com.example.bootcampproject.data.services.BitsoServices
 import java.lang.Exception
+import java.security.AccessController.getContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -17,19 +18,19 @@ class AvailableBooksRepo@Inject constructor(
     private val availableBooksDao: AvailableBooksDao
 
 ) {
-    suspend fun getAvailableBooks(code:String?):List<AvailableBook>{
-        val _payloads = mutableListOf<AvailableBook>()
-        try {
-            val call = bitsoServices.getAvailableBooks()
-            if(call.isSuccessful){
-                addPayloads(code,call.body(),_payloads)
-                availableBooksDao.insertAll(_payloads)
-                return _payloads
-            }
-            return availableBooksDao.getSelectedBooks(code)
-        }catch (e:Exception){
-            return availableBooksDao.getSelectedBooks(code)
-        }
+    suspend fun getAvailableBooks(code:String?,isConnected:Boolean):List<AvailableBook>{
+
+         if(isConnected){
+             try {
+                 val call = bitsoServices.getAvailableBooks()
+                     val _payloads =addPayloads(code,call.body())
+                     availableBooksDao.insertAll(_payloads)
+                     return _payloads
+             }catch (e:Exception){
+                 return availableBooksDao.getSelectedBooks(code)
+             }
+         }
+        return availableBooksDao.getSelectedBooks(code)
 /*        CoroutineScope(Dispatchers.IO).launch {
             val call =bitsoServices.getAvailableBooks()
             call.enqueue(object :Callback<StatusAvailableBooks> {
@@ -48,14 +49,14 @@ class AvailableBooksRepo@Inject constructor(
             })
         }*/
     }
-   private fun addPayloads(code:String?,availableBooks: StatusAvailableBooks?,_payloads:MutableList<AvailableBook>){
-        if (availableBooks != null) {
-            for(availableBook in availableBooks.payload) {
-                val splitNameBook = availableBook.book.split("_")
-                if(code == splitNameBook[0]){
-                    _payloads.add(availableBook)
-                }
-            }
-        }
+   private fun addPayloads(code:String?,availableBooks: StatusAvailableBooks?):List<AvailableBook>{
+       val _payloads = mutableListOf<AvailableBook>()
+       availableBooks?.payload?.iterator()?.forEach { availableBook ->
+           val splitNameBook = availableBook.book.split("_")
+           if(code == splitNameBook[0]){
+               _payloads.add(availableBook)
+           }
+       }
+       return _payloads
     }
 }

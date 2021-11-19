@@ -9,9 +9,9 @@ interface CurrencyDao {
     suspend fun getAll():List<Currency>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(currencies: MutableList<Currency>)
+    suspend fun insertAll(currencies: List<Currency>)
 
     @Update
-    suspend fun updateAll(currencies: MutableList<Currency>)
+    suspend fun updateAll(currencies: List<Currency>)
 
 }

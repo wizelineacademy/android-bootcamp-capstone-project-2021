@@ -7,7 +7,6 @@ import com.example.bootcampproject.data.mock.OrderBook
 import com.example.bootcampproject.data.mock.Ticker
 import com.example.bootcampproject.data.repo.OrderBookRepo
 import com.example.bootcampproject.data.repo.TickerRepo
-import com.example.bootcampproject.domain.Currency
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,15 +24,15 @@ class OrderBooksViewModel @Inject constructor(
     private val _tickers: MutableLiveData<Ticker> = MutableLiveData()
     val tickers: LiveData<Ticker> = _tickers
 
-    fun getActualCurrencies(code:String?){
+    fun getActualCurrencies(code:String?, isConnected:Boolean){
         CoroutineScope(Dispatchers.IO).launch {
-            _orderbooks.postValue( orderBooksRepo.getOrderBooks(code))
+            _orderbooks.postValue( orderBooksRepo.getOrderBooks(code,isConnected))
         }
     }
 
-    fun getActualTicker(code:String?){
+    fun getActualTicker(code:String?,isConnected:Boolean){
         CoroutineScope(Dispatchers.IO).launch {
-            _tickers.postValue(  tickerRepo.getTicker(code))
+            _tickers.postValue(  tickerRepo.getTicker(code,isConnected))
         }
     }
 }

@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bootcampproject.data.mock.OrderBook
 import com.example.bootcampproject.data.mock.Ticker
 import com.example.bootcampproject.databinding.FragmentResumeInfoBinding
+import com.example.bootcampproject.util.isOnline
 
 import com.example.bootcampproject.util.reformatNumber
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,8 +43,8 @@ class OrderBooksFragment() :Fragment(){
         val code = requireArguments().getString("code")
         asksAdapter= AsksAdapter()
         bidsAdapter= BidsAdapter()
-        viewModel.getActualTicker(code)
-        viewModel.getActualCurrencies(code)
+        viewModel.getActualTicker(code,checkConection())
+        viewModel.getActualCurrencies(code,checkConection())
         viewModel.orderbooks.observe(viewLifecycleOwner,{ orderBooks->
             fillInfoOrderBooks(orderBooks)
         })
@@ -52,8 +52,8 @@ class OrderBooksFragment() :Fragment(){
             fillTickers(tickers)
         })
     }
-    private fun fillInfoOrderBooks(orderBooks:OrderBook){
-        binding.date.text=orderBooks.updated_at
+    private fun fillInfoOrderBooks(orderBooks:OrderBook?){
+        binding.date.text=orderBooks?.updated_at
         binding.askList.run {
             adapter=asksAdapter
             layoutManager = object : LinearLayoutManager(requireContext()) {
@@ -72,12 +72,16 @@ class OrderBooksFragment() :Fragment(){
                 }
             }
         }
-        bidsAdapter.submitList(orderBooks.bids)
-        asksAdapter.submitList(orderBooks.asks)
+        bidsAdapter.submitList(orderBooks?.bids)
+        asksAdapter.submitList(orderBooks?.asks)
     }
 
-    private fun fillTickers(tickers: Ticker){
-        binding.idMinValText.text=tickers.low.reformatNumber()
-        binding.idMaxValText.text=tickers.high.reformatNumber()
+    private fun fillTickers(tickers: Ticker?){
+        binding.idMinValText.text=tickers?.low?.reformatNumber()
+        binding.idMaxValText.text=tickers?.high?.reformatNumber()
+    }
+
+    private fun checkConection():Boolean{
+        return isOnline(requireContext())
     }
 }

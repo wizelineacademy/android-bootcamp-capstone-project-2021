@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bootcampproject.data.mock.AvailableBook
 import com.example.bootcampproject.databinding.FragmentAvailableBooksBinding
+import com.example.bootcampproject.util.isOnline
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val VIEW_HOLDER_SCREEN_PROPORTION = 1.0 / 5.0
@@ -47,7 +48,7 @@ class AvailableBooksFragmentFragment : Fragment() {
         }
         navController = findNavController()
         val code = requireArguments().getString("code")
-        viewModel.getAvailableBooks(code)
+        viewModel.getAvailableBooks(code,checkConection())
         viewModel.books.observe(viewLifecycleOwner,{ books->
             fillInfoBooks(books)
         })
@@ -64,5 +65,8 @@ class AvailableBooksFragmentFragment : Fragment() {
             }
         }
         availableBooksAdapter.submitList(books)
+    }
+    private fun checkConection():Boolean{
+        return isOnline(requireContext())
     }
 }

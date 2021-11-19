@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bootcampproject.databinding.FragmentCurrencyBinding
 import com.example.bootcampproject.domain.Currency
+import com.example.bootcampproject.util.isOnline
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val VIEW_HOLDER_SCREEN_PROPORTION = 1.0 / 5.0
@@ -47,7 +48,7 @@ class CurrencyFragment : Fragment() {
                      .let { navController.navigate(it) }
         }
         navController = findNavController()
-        viewModel.getActualCurrencies()
+        viewModel.getActualCurrencies(checkConection())
         viewModel.currencies.observe(viewLifecycleOwner,{currencies->
             fillInfoCurrency(currencies)
         })
@@ -66,5 +67,7 @@ class CurrencyFragment : Fragment() {
         }
         currencyAdapter.submitList(currencies)
     }
-
+    private fun checkConection():Boolean{
+        return isOnline(requireContext())
+    }
 }

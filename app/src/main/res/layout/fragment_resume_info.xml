@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -23,8 +24,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="64dp"
                 android:layout_marginBottom="16dp"
+                android:fontFamily="sans-serif-condensed-light"
                 android:text="Max"
+                android:textColor="#3BB12D"
                 android:textSize="12sp"
+                android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/idMinValText" />
 
@@ -34,8 +38,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
+                android:fontFamily="sans-serif-condensed-light"
                 android:text="Min"
+                android:textColor="#DA4141"
                 android:textSize="12sp"
+                android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -45,8 +52,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="16dp"
+                android:fontFamily="sans-serif-condensed-light"
                 android:text="TextView"
+                android:textColor="#D4D4A9"
                 android:textSize="12sp"
+                android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textMinVal" />
 
@@ -56,7 +66,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="16dp"
+                android:fontFamily="sans-serif-condensed-light"
                 android:text="TextView"
+                android:textColor="#D4D4A9"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textMaxVal" />
@@ -69,6 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:textColor="#D0DF3E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -80,11 +93,10 @@
         android:id="@+id/cardView2"
         android:layout_width="302dp"
         android:layout_height="317dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toTopOf="@+id/date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

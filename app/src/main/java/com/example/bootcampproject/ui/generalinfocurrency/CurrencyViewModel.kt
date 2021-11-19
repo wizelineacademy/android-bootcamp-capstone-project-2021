@@ -18,9 +18,9 @@ class CurrencyViewModel @Inject constructor(
     private val _currencies: MutableLiveData<List<Currency>> = MutableLiveData()
     val currencies: LiveData<List<Currency>> = _currencies
 
-    fun getActualCurrencies(){
+    fun getActualCurrencies(isConnected:Boolean){
         CoroutineScope(Dispatchers.IO).launch {
-            _currencies.postValue( currencyRepo.getCurrencies() )
+            _currencies.postValue( currencyRepo.getCurrencies(isConnected) )
         }
     }
 

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bootcampproject.data.mock.Asks
 import com.example.bootcampproject.databinding.ItemAsksBinding
+import com.example.bootcampproject.util.reformatNumber
 
 
 class AsksAdapter():
@@ -25,7 +26,7 @@ class AsksAdapter():
         private val binding: ItemAsksBinding,
     ): RecyclerView.ViewHolder(binding.root){
         fun bind(ask: Asks){
-            binding.askPriceText.text=ask.price.toString()
+            binding.askPriceText.text=ask.price.reformatNumber()
         }
     }
     companion object {

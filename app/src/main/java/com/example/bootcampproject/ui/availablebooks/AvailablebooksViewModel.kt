@@ -18,9 +18,9 @@ class AvailablebooksViewModel @Inject constructor(
     private val _books: MutableLiveData<List<AvailableBook>> = MutableLiveData()
     val books: LiveData<List<AvailableBook>> = _books
 
-    fun getAvailableBooks(code:String?){
+    fun getAvailableBooks(code:String?,isConnected:Boolean){
         CoroutineScope(Dispatchers.IO).launch {
-            _books.postValue( currencyRepo.getAvailableBooks(code))
+            _books.postValue( currencyRepo.getAvailableBooks(code,isConnected))
         }
     }
 }
