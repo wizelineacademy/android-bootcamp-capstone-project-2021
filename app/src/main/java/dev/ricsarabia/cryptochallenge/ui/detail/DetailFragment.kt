@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.ricsarabia.cryptochallenge.databinding.DetailFragmentBinding
 import dev.ricsarabia.cryptochallenge.ui.MainViewModel
@@ -43,6 +44,9 @@ class DetailFragment : Fragment() {
         viewModel.selectedBookOrders.observe(viewLifecycleOwner, {
             asksAdapter.orders = it.asks
             bidsAdapter.orders = it.bids
+        })
+        viewModel.loading.observe(viewLifecycleOwner, {
+            binding.detailProgressBar.isVisible = it
         })
 
         // Retrieve book details

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import dev.ricsarabia.cryptochallenge.R
@@ -34,7 +35,7 @@ class MainFragment : Fragment() {
 
         // Init observers
         viewModel.books.observe(viewLifecycleOwner, { booksAdapter.books = it })
-        viewModel.loading.observe(viewLifecycleOwner, { Log.wtf("loading", it.toString()) })
+        viewModel.loading.observe(viewLifecycleOwner, { binding.mainProgressBar.isVisible = it  })
         viewModel.errorMessage.observe(viewLifecycleOwner, { Log.wtf("errorMessage", it) })
 
         // Retrieving books data
