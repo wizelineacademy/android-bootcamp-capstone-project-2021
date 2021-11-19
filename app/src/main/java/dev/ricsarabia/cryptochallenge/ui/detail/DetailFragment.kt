@@ -33,9 +33,11 @@ class DetailFragment : Fragment() {
 
         // Init observers
         viewModel.selectedBookPrices.observe(viewLifecycleOwner, {
-            binding.lastPriceTextView.text = "last " + it.last
-            binding.higherPriceTextView.text = "higher " + it.high
-            binding.lowerPriceTextView.text = "lower " + it.low
+            binding.majorTextView.text = it.book.substringBefore("_").uppercase()
+            binding.minorTextView.text = it.book.substringAfter("_").uppercase()
+            binding.lastPriceTextView.text = it.last
+            binding.higherPriceTextView.text = it.high
+            binding.lowerPriceTextView.text = it.low
         })
         viewModel.selectedBookOrders.observe(viewLifecycleOwner, {
             asksAdapter.orders = it.asks
