@@ -17,8 +17,9 @@ import com.example.bootcampproject.util.reformatNumber
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val VIEW_HOLDER_SCREEN_PROPORTION = 1.0 / 5.0
+
 @AndroidEntryPoint
-class OrderBooksFragment() :Fragment(){
+class OrderBooksFragment() : Fragment() {
 
     private var _binding: FragmentResumeInfoBinding? = null
     private val binding: FragmentResumeInfoBinding
@@ -39,23 +40,25 @@ class OrderBooksFragment() :Fragment(){
             .apply { _binding = this }
             .root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val code = requireArguments().getString("code")
-        asksAdapter= AsksAdapter()
-        bidsAdapter= BidsAdapter()
-        viewModel.getActualTicker(code,checkConection())
-        viewModel.getActualCurrencies(code,checkConection())
-        viewModel.orderbooks.observe(viewLifecycleOwner,{ orderBooks->
+        asksAdapter = AsksAdapter()
+        bidsAdapter = BidsAdapter()
+        viewModel.getActualTicker(code, checkConection())
+        viewModel.getActualCurrencies(code, checkConection())
+        viewModel.orderbooks.observe(viewLifecycleOwner, { orderBooks ->
             fillInfoOrderBooks(orderBooks)
         })
-        viewModel.tickers.observe(viewLifecycleOwner,{ tickers->
+        viewModel.tickers.observe(viewLifecycleOwner, { tickers ->
             fillTickers(tickers)
         })
     }
-    private fun fillInfoOrderBooks(orderBooks:OrderBook?){
-        binding.date.text=orderBooks?.updated_at
+
+    private fun fillInfoOrderBooks(orderBooks: OrderBook?) {
+        binding.date.text = orderBooks?.updated_at
         binding.askList.run {
-            adapter=asksAdapter
+            adapter = asksAdapter
             layoutManager = object : LinearLayoutManager(requireContext()) {
                 override fun checkLayoutParams(lp: RecyclerView.LayoutParams?): Boolean {
                     lp?.height = (height * VIEW_HOLDER_SCREEN_PROPORTION).toInt()
@@ -64,7 +67,7 @@ class OrderBooksFragment() :Fragment(){
             }
         }
         binding.bidList.run {
-            adapter=bidsAdapter
+            adapter = bidsAdapter
             layoutManager = object : LinearLayoutManager(requireContext()) {
                 override fun checkLayoutParams(lp: RecyclerView.LayoutParams?): Boolean {
                     lp?.height = (height * VIEW_HOLDER_SCREEN_PROPORTION).toInt()
@@ -76,12 +79,12 @@ class OrderBooksFragment() :Fragment(){
         asksAdapter.submitList(orderBooks?.asks)
     }
 
-    private fun fillTickers(tickers: Ticker?){
-        binding.idMinValText.text=tickers?.low?.reformatNumber()
-        binding.idMaxValText.text=tickers?.high?.reformatNumber()
+    private fun fillTickers(tickers: Ticker?) {
+        binding.idMinValText.text = tickers?.low?.reformatNumber()
+        binding.idMaxValText.text = tickers?.high?.reformatNumber()
     }
 
-    private fun checkConection():Boolean{
+    private fun checkConection(): Boolean {
         return isOnline(requireContext())
     }
 }

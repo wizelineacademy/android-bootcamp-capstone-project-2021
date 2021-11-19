@@ -10,13 +10,13 @@ import retrofit2.http.*
 interface BitsoServices {
     @Headers("User-Agent: demo")
     @GET(value = "available_books/")
-    suspend fun getAvailableBooks():Response<StatusAvailableBooks>
+    suspend fun getAvailableBooks(): Response<StatusAvailableBooks>
 
     @Headers("User-Agent: demo")
     @GET(value = "ticker/")
-    suspend fun getTicker(@Query(value = "book")id: String?):Response<StatusTicker>
+    suspend fun getTicker(@Query(value = "book") id: String?): Response<StatusTicker>
 
     @Headers("User-Agent: demo")
     @GET(value = "order_book/")
-    suspend fun getOrderBook(@Query(value = "book") id: String?):Response<StatusOrderBook>
+    suspend fun getOrderBook(@Query(value = "book") id: String?): Response<StatusOrderBook>
 }

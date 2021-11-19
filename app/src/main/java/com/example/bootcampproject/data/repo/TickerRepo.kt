@@ -10,22 +10,22 @@ import javax.inject.Singleton
 
 @Singleton
 class TickerRepo @Inject constructor(
-    private val bitsoServices : BitsoServices,
-    private val provideTicker : TickerDao
+    private val bitsoServices: BitsoServices,
+    private val provideTicker: TickerDao
 ) {
-   suspend fun getTicker(code:String?,isConected: Boolean):Ticker?{
-       if(isConected){
-           try{
-               val call =bitsoServices.getTicker(code)
-               val ticker=call.body()?.payload
-               ticker?.book=code
-               provideTicker.insert(ticker)
-               return ticker
+    suspend fun getTicker(code: String?, isConected: Boolean): Ticker? {
+        if (isConected) {
+            try {
+                val call = bitsoServices.getTicker(code)
+                val ticker = call.body()?.payload
+                ticker?.book = code
+                provideTicker.insert(ticker)
+                return ticker
 
-           }catch (e:Exception){
-               return provideTicker.getSelectedTickers(code)
-           }
-       }
-       return provideTicker.getSelectedTickers(code)
+            } catch (e: Exception) {
+                return provideTicker.getSelectedTickers(code)
+            }
+        }
+        return provideTicker.getSelectedTickers(code)
     }
 }

@@ -14,13 +14,13 @@ import javax.inject.Inject
 @HiltViewModel
 class AvailablebooksViewModel @Inject constructor(
     private val currencyRepo: AvailableBooksRepo
-) : ViewModel(){
+) : ViewModel() {
     private val _books: MutableLiveData<List<AvailableBook>> = MutableLiveData()
     val books: LiveData<List<AvailableBook>> = _books
 
-    fun getAvailableBooks(code:String?,isConnected:Boolean){
+    fun getAvailableBooks(code: String?, isConnected: Boolean) {
         CoroutineScope(Dispatchers.IO).launch {
-            _books.postValue( currencyRepo.getAvailableBooks(code,isConnected))
+            _books.postValue(currencyRepo.getAvailableBooks(code, isConnected))
         }
     }
 }

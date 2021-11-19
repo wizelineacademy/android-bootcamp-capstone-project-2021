@@ -41,20 +41,21 @@ class AvailableBooksFragmentFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        availableBooksAdapter= AvailableBooksAdapter{codeBook ->
+        availableBooksAdapter = AvailableBooksAdapter { codeBook ->
             AvailableBooksFragmentFragmentDirections
                 .toorderBooksFragment(codeBook)
                 .let { navController.navigate(it) }
         }
         navController = findNavController()
         val code = requireArguments().getString("code")
-        viewModel.getAvailableBooks(code,checkConection())
-        viewModel.books.observe(viewLifecycleOwner,{ books->
+        viewModel.getAvailableBooks(code, checkConection())
+        viewModel.books.observe(viewLifecycleOwner, { books ->
             fillInfoBooks(books)
         })
 
     }
-    fun fillInfoBooks(books:List<AvailableBook>){
+
+    fun fillInfoBooks(books: List<AvailableBook>) {
         binding.availableBooksList.run {
             adapter = availableBooksAdapter
             layoutManager = object : LinearLayoutManager(requireContext()) {
@@ -66,7 +67,8 @@ class AvailableBooksFragmentFragment : Fragment() {
         }
         availableBooksAdapter.submitList(books)
     }
-    private fun checkConection():Boolean{
+
+    private fun checkConection(): Boolean {
         return isOnline(requireContext())
     }
 }

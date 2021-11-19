@@ -10,7 +10,7 @@ import com.example.bootcampproject.databinding.ItemAsksBinding
 import com.example.bootcampproject.util.reformatNumber
 
 
-class AsksAdapter():
+class AsksAdapter() :
     ListAdapter<Asks, AsksAdapter.AsksViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AsksViewHolder {
@@ -22,13 +22,15 @@ class AsksAdapter():
     override fun onBindViewHolder(holder: AsksViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
+
     class AsksViewHolder(
         private val binding: ItemAsksBinding,
-    ): RecyclerView.ViewHolder(binding.root){
-        fun bind(ask: Asks){
-            binding.askPriceText.text=ask.price.reformatNumber()
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(ask: Asks) {
+            binding.askPriceText.text = ask.price.reformatNumber()
         }
     }
+
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Asks>() {
             override fun areItemsTheSame(oldItem: Asks, newItem: Asks): Boolean =

@@ -21,13 +21,15 @@ class BidsAdapter :
     override fun onBindViewHolder(holder: BidsViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
+
     class BidsViewHolder(
         private val binding: ItemBidsBinding,
-    ): RecyclerView.ViewHolder(binding.root){
-        fun bind(bid: Bids){
-            binding.bidsText.text=bid.price.reformatNumber()
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(bid: Bids) {
+            binding.bidsText.text = bid.price.reformatNumber()
         }
     }
+
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Bids>() {
             override fun areItemsTheSame(oldItem: Bids, newItem: Bids): Boolean =

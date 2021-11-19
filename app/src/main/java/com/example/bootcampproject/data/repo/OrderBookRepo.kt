@@ -11,23 +11,21 @@ import javax.inject.Singleton
 
 @Singleton
 class OrderBookRepo @Inject constructor(
-    private val bitsoServices : BitsoServices,
+    private val bitsoServices: BitsoServices,
     private val provideOrderBooks: OrderBookDao
 ) {
 
-    suspend fun getOrderBooks(code:String?,isConected:Boolean): OrderBook? {
+    suspend fun getOrderBooks(code: String?, isConected: Boolean): OrderBook? {
 
-        if(isConected) {
+        if (isConected) {
             try {
                 val call = bitsoServices.getOrderBook(code)
                 val orderBook = call.body()?.payload
                 orderBook?.book = code
+
                 provideOrderBooks.insert(orderBook)
                 return orderBook
-                }
-            catch (e: Exception) {
-                val r=e
-                r.message?.let { Log.d("tag111", it) }
+            } catch (e: Exception) {
                 return provideOrderBooks.getSelectedBooks(code)
             }
         }

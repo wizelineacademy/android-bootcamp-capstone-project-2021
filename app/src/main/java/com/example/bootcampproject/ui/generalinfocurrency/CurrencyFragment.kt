@@ -42,20 +42,21 @@ class CurrencyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-         currencyAdapter = CurrencyAdapter { codeBook ->
-                 CurrencyFragmentDirections
-                     .toavailableBooksFragment(codeBook)
-                     .let { navController.navigate(it) }
+        currencyAdapter = CurrencyAdapter { codeBook ->
+            CurrencyFragmentDirections
+                .toavailableBooksFragment(codeBook)
+                .let { navController.navigate(it) }
         }
         navController = findNavController()
         viewModel.getActualCurrencies(checkConection())
-        viewModel.currencies.observe(viewLifecycleOwner,{currencies->
+        viewModel.currencies.observe(viewLifecycleOwner, { currencies ->
             fillInfoCurrency(currencies)
         })
 
 
     }
-    private fun fillInfoCurrency(currencies: List<Currency>){
+
+    private fun fillInfoCurrency(currencies: List<Currency>) {
         binding.currencyList.run {
             adapter = currencyAdapter
             layoutManager = object : LinearLayoutManager(requireContext()) {
@@ -67,7 +68,8 @@ class CurrencyFragment : Fragment() {
         }
         currencyAdapter.submitList(currencies)
     }
-    private fun checkConection():Boolean{
+
+    private fun checkConection(): Boolean {
         return isOnline(requireContext())
     }
 }

@@ -11,12 +11,14 @@ import com.example.bootcampproject.util.Converter
 import com.example.bootcampproject.util.ConverterAsk
 import com.example.bootcampproject.util.ConverterBids
 
-@Database(entities=[Currency::class, AvailableBook::class,
-    OrderBook::class,Ticker::class],version = 9)
-@TypeConverters(ConverterAsk::class,ConverterBids::class)
+@Database(
+    entities = [Currency::class, AvailableBook::class,
+        OrderBook::class, Ticker::class], version = 9
+)
+@TypeConverters(ConverterAsk::class, ConverterBids::class)
 abstract class BitsoAppDataBase : RoomDatabase() {
-    abstract fun getCurrencyDao():CurrencyDao
-    abstract fun getAvailableBooks():AvailableBooksDao
-    abstract fun getOrderBooks():OrderBookDao
-    abstract fun getTickers():TickerDao
+    abstract fun getCurrencyDao(): CurrencyDao
+    abstract fun getAvailableBooks(): AvailableBooksDao
+    abstract fun getOrderBooks(): OrderBookDao
+    abstract fun getTickers(): TickerDao
 }

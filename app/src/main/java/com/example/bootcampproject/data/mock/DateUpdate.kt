@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity
-data class DateUpdate (
-    @PrimaryKey val id :Int,
+data class DateUpdate(
+    @PrimaryKey val id: Int,
     val lastTimeUpdate: Date?
-    )
+)

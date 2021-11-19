@@ -6,7 +6,7 @@ import com.example.bootcampproject.domain.Currency
 @Dao
 interface CurrencyDao {
     @Query("Select * From Currency")
-    suspend fun getAll():List<Currency>
+    suspend fun getAll(): List<Currency>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(currencies: List<Currency>)

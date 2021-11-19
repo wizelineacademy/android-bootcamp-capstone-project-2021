@@ -14,13 +14,13 @@ import javax.inject.Inject
 @HiltViewModel
 class CurrencyViewModel @Inject constructor(
     private val currencyRepo: CurrencyRepo
-) : ViewModel(){
+) : ViewModel() {
     private val _currencies: MutableLiveData<List<Currency>> = MutableLiveData()
     val currencies: LiveData<List<Currency>> = _currencies
 
-    fun getActualCurrencies(isConnected:Boolean){
+    fun getActualCurrencies(isConnected: Boolean) {
         CoroutineScope(Dispatchers.IO).launch {
-            _currencies.postValue( currencyRepo.getCurrencies(isConnected) )
+            _currencies.postValue(currencyRepo.getCurrencies(isConnected))
         }
     }
 

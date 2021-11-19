@@ -5,11 +5,11 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 
-@Entity( indices = [Index(value = ["code"], unique = true)])
-data class Currency (
+@Entity(indices = [Index(value = ["code"], unique = true)])
+data class Currency(
 
     @PrimaryKey(autoGenerate = true)
-    val id :Int?=null,
+    val id: Int? = null,
     val code: String,
     val name: String,
     val imageUrl: String,

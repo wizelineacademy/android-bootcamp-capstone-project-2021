@@ -15,7 +15,7 @@ import javax.inject.Singleton
 object DataBaseModule {
     @Provides
     @Singleton
-    fun provideDataBase(@ApplicationContext applicationContext: Context)=
+    fun provideDataBase(@ApplicationContext applicationContext: Context) =
         Room.databaseBuilder(
             applicationContext,
             BitsoAppDataBase::class.java, "BitsoDataBase"

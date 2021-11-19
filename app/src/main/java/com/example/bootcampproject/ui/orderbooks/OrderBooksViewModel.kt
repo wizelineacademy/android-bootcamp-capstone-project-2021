@@ -17,22 +17,22 @@ import javax.inject.Inject
 class OrderBooksViewModel @Inject constructor(
     private val orderBooksRepo: OrderBookRepo,
     private val tickerRepo: TickerRepo
-): ViewModel() {
+) : ViewModel() {
     private val _orderbooks: MutableLiveData<OrderBook> = MutableLiveData()
     val orderbooks: LiveData<OrderBook> = _orderbooks
 
     private val _tickers: MutableLiveData<Ticker> = MutableLiveData()
     val tickers: LiveData<Ticker> = _tickers
 
-    fun getActualCurrencies(code:String?, isConnected:Boolean){
+    fun getActualCurrencies(code: String?, isConnected: Boolean) {
         CoroutineScope(Dispatchers.IO).launch {
-            _orderbooks.postValue( orderBooksRepo.getOrderBooks(code,isConnected))
+            _orderbooks.postValue(orderBooksRepo.getOrderBooks(code, isConnected))
         }
     }
 
-    fun getActualTicker(code:String?,isConnected:Boolean){
+    fun getActualTicker(code: String?, isConnected: Boolean) {
         CoroutineScope(Dispatchers.IO).launch {
-            _tickers.postValue(  tickerRepo.getTicker(code,isConnected))
+            _tickers.postValue(tickerRepo.getTicker(code, isConnected))
         }
     }
 }

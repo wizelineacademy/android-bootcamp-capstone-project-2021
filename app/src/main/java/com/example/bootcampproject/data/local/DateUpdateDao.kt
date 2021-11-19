@@ -9,7 +9,7 @@ import com.example.bootcampproject.domain.Currency
 
 interface DateUpdateDao {
     @Query("Select * From DateUpdate")
-    suspend fun getAll():List<DateUpdate>
+    suspend fun getAll(): List<DateUpdate>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(currencies: DateUpdate)

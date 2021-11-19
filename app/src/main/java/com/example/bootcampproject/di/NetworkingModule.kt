@@ -31,17 +31,19 @@ object NetworkingModule {
         .apply {
             level = HttpLoggingInterceptor.Level.HEADERS
         }
+
     @Provides
     @Singleton
-    fun provideOkhttp(httpLoggingInterceptor:HttpLoggingInterceptor): OkHttpClient {
+    fun provideOkhttp(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
 
         return OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
             .build()
     }
+
     @Provides
     @Singleton
-    fun provideRetrofitClient(moshi: Moshi,okHttpClient:OkHttpClient): Retrofit {
+    fun provideRetrofitClient(moshi: Moshi, okHttpClient: OkHttpClient): Retrofit {
         val moshiConverterFactory = MoshiConverterFactory.create(moshi)
         return Retrofit.Builder()
             .addConverterFactory(moshiConverterFactory)
@@ -55,4 +57,5 @@ object NetworkingModule {
     fun provideActualCurrency(retrofit: Retrofit): BitsoServices {
         return retrofit.create(BitsoServices::class.java)
     }
+
 }
