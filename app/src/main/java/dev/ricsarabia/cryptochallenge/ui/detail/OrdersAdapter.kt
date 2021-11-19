@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.ricsarabia.cryptochallenge.databinding.OrderItemBinding
 import dev.ricsarabia.cryptochallenge.domain.BookOrder
+import dev.ricsarabia.cryptochallenge.utils.asDecimalAmount
+import dev.ricsarabia.cryptochallenge.utils.asDecimalPrice
 
 class OrdersAdapter : RecyclerView.Adapter<OrdersViewHolder>() {
     var orders = listOf<BookOrder>()
@@ -26,6 +28,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersViewHolder>() {
 
 class OrdersViewHolder(val binding: OrderItemBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(order: BookOrder) {
-        binding.orderTextView.text = order.toString()
+        binding.priceTextView.text = order.price.asDecimalPrice()
+        binding.amountTextView.text = order.amount.asDecimalAmount()
     }
 }
