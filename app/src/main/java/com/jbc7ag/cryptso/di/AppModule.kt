@@ -25,18 +25,18 @@ object AppModule {
     fun provideOkHttpClient(): OkHttpClient {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
-        return  OkHttpClient().newBuilder().apply {
-                addInterceptor { chain ->
-                    val request = chain.request()
-                    val builder = request
-                        .newBuilder()
-                        .header("User-Agent", "Crypso ")
-                    val mutatedRequest = builder.build()
-                    val response = chain.proceed(mutatedRequest)
-                    response
-                }
-                addInterceptor(interceptor)
-            }.build()
+        return OkHttpClient().newBuilder().apply {
+            addInterceptor { chain ->
+                val request = chain.request()
+                val builder = request
+                    .newBuilder()
+                    .header("User-Agent", "Crypso ")
+                val mutatedRequest = builder.build()
+                val response = chain.proceed(mutatedRequest)
+                response
+            }
+            addInterceptor(interceptor)
+        }.build()
     }
 
     @Provides
@@ -58,7 +58,8 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideDatabase(@ApplicationContext appContext: Context) = CrypsoRoomDatabase.getDatabase(appContext)
+    fun provideDatabase(@ApplicationContext appContext: Context) =
+        CrypsoRoomDatabase.getDatabase(appContext)
 
     @Singleton
     @Provides
@@ -67,4 +68,12 @@ object AppModule {
     @Singleton
     @Provides
     fun provideBooksDao(db: CrypsoRoomDatabase) = db.booksDao()
+
+    @Singleton
+    @Provides
+    fun provideOrdersDao(db: CrypsoRoomDatabase) = db.ordersDao()
+
+    @Singleton
+    @Provides
+    fun provideTickerDao(db: CrypsoRoomDatabase) = db.tickerDao()
 }

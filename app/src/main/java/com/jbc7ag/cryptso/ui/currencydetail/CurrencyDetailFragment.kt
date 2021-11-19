@@ -41,19 +41,32 @@ class CurrencyDetailFragment : Fragment() {
 
         val args = CurrencyDetailFragmentArgs.fromBundle(requireArguments())
         val bookName = args.currencyId
-        viewModel.getTicker(bookName ?: "")
-        viewModel.getOrders(bookName ?: "")
+        viewModel.downloadOrders(bookName ?: "")
+        viewModel.downloadTicker(bookName ?: "")
         bidsAdapter = BidsAdapter()
 
-        initObservers()
+        initObservers(bookName)
         tabclickListeners()
     }
 
-    private fun initObservers() {
+    private fun initObservers(bookName: String) {
         viewModel.apply {
             error.observe(viewLifecycleOwner, {
                 Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
             })
+
+            loadingOrders.observe(viewLifecycleOwner, {
+                if (!it) {
+                    viewModel.getOrder(bookName)
+                }
+            })
+
+            loadingTicker.observe(viewLifecycleOwner, {
+                if (!it) {
+                    viewModel.getTicker(bookName)
+                }
+            })
+
             bookTicker.observe(viewLifecycleOwner, {
                 fillDataTicker(it)
             })

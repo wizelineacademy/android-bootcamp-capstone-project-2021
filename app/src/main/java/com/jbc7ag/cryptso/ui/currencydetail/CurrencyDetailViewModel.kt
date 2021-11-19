@@ -7,10 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.jbc7ag.cryptso.data.model.BookDetail
 import com.jbc7ag.cryptso.data.model.OrderDetail
 import com.jbc7ag.cryptso.data.repository.CurrencyRepository
-import com.jbc7ag.cryptso.util.getOrderError
-import com.jbc7ag.cryptso.util.getTickerError
+import com.jbc7ag.cryptso.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,48 +31,75 @@ class CurrencyViewModel @Inject constructor(
     val error: LiveData<String>
         get() = _error
 
+    private var _loadingOrders = MutableLiveData<Boolean>()
+    val loadingOrders: LiveData<Boolean>
+        get() = _loadingOrders
 
-    fun getTicker(book: String) = viewModelScope.launch {
 
+    private var _loadingTicker = MutableLiveData<Boolean>()
+    val loadingTicker: LiveData<Boolean>
+        get() = _loadingTicker
+
+
+    fun downloadOrders(book: String) = viewModelScope.launch() {
         try {
-            val result = currencyRepository.getTicker(book)
 
-            result.let {
-                if (it.isSuccessful) {
-                    val successData = it.body()?.success
-                    if (successData == true) {
-                        _bookTicker.value = it.body()?.payload
-                    } else {
-                        _error.value = it.getTickerError()
+            _loadingOrders.value = true
+            val result = withContext(Dispatchers.IO) { currencyRepository.downloadOrders(book) }
+            when (result) {
+                is Resource.Success -> {
+                    result.data?.let {
+                        withContext(Dispatchers.IO) {
+                            it.book = book
+                            currencyRepository.saveOrder(it)
+                        }
                     }
-                } else {
-                    _error.value = it.errorBody().toString()
+                }
+                is Resource.Error -> {
+                    _error.value = result.message
                 }
             }
         } catch (ex: Exception) {
             _error.value = ex.localizedMessage
         }
+        _loadingOrders.value = false
     }
 
-    fun getOrders(book: String) = viewModelScope.launch {
+    fun getOrder(book: String) = viewModelScope.launch(Dispatchers.IO) {
+        val result = currencyRepository.getOrder(book)
+        withContext(Dispatchers.Main) {
+            _orders.value = result
+        }
+    }
 
+
+    fun downloadTicker(book: String) = viewModelScope.launch() {
         try {
-            val result = currencyRepository.getOrders(book)
 
-            result.let {
-                if (it.isSuccessful) {
-                    val successData = it.body()?.success
-                    if (successData == true) {
-                        _orders.value = it.body()?.payload
-                    } else {
-                        _error.value = it.getOrderError()
+            _loadingTicker.value = true
+            val result = withContext(Dispatchers.IO) { currencyRepository.downloadTicker(book) }
+            when (result) {
+                is Resource.Success -> {
+                    result.data?.let {
+                        withContext(Dispatchers.IO) {
+                            currencyRepository.saveTicker(it)
+                        }
                     }
-                } else {
-                    _error.value = it.errorBody().toString()
+                }
+                is Resource.Error -> {
+                    _error.value = result.message
                 }
             }
         } catch (ex: Exception) {
             _error.value = ex.localizedMessage
+        }
+        _loadingTicker.value = false
+    }
+
+    fun getTicker(book: String) = viewModelScope.launch(Dispatchers.IO) {
+        val result = currencyRepository.getTicker(book)
+        withContext(Dispatchers.Main) {
+            _bookTicker.value = result
         }
     }
 }

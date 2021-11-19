@@ -1,5 +1,7 @@
 package com.jbc7ag.cryptso.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 data class Ticker(
@@ -8,7 +10,10 @@ data class Ticker(
     @SerializedName("payload") val payload: BookDetail,
 )
 
+@Entity(tableName = "ticker")
 data class BookDetail(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int,
     @SerializedName("book") val book: String,
     @SerializedName("last") val last: String,
     @SerializedName("high") val high: String,

@@ -1,22 +1,27 @@
 package com.jbc7ag.cryptso.data.room
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import com.jbc7ag.cryptso.data.model.AvailableBooks
-import com.jbc7ag.cryptso.data.model.Book
-import com.jbc7ag.cryptso.data.model.Coins
+import androidx.room.*
+import com.jbc7ag.cryptso.data.model.*
 import com.jbc7ag.cryptso.data.room.dao.BooksDao
 import com.jbc7ag.cryptso.data.room.dao.CoinListDao
+import com.jbc7ag.cryptso.data.room.dao.OrderDao
+import com.jbc7ag.cryptso.data.room.dao.TickerDao
 import com.jbc7ag.cryptso.util.DATABASE_NAME
 
 
-@Database(entities = arrayOf(Coins::class, Book::class), version = 1, exportSchema = false)
+@Database(
+    entities = arrayOf(Coins::class, Book::class, OrderDetail::class, BookDetail::class),
+    version = 1,
+    exportSchema = false
+)
+@TypeConverters(BidstoCollectionTypeConverter::class)
 abstract class CrypsoRoomDatabase : RoomDatabase() {
 
     abstract fun coinListDao(): CoinListDao
     abstract fun booksDao(): BooksDao
+    abstract fun ordersDao(): OrderDao
+    abstract fun tickerDao(): TickerDao
 
 
     companion object {

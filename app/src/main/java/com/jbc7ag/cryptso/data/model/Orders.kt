@@ -1,5 +1,9 @@
 package com.jbc7ag.cryptso.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
@@ -9,9 +13,13 @@ data class Orders(
     @SerializedName("payload") val payload: OrderDetail,
 )
 
+@Entity(tableName = "orders")
 data class OrderDetail(
-    @SerializedName("updated_at") val date: Date,
-    @SerializedName("sequence") val sequence: Long,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int,
+    var book: String,
+    @SerializedName("updated_at") val date: String,
+    @SerializedName("sequence") val sequence: String,
     @SerializedName("bids") val bids: List<Bids>,
     @SerializedName("asks") val asks: List<Bids>
 
@@ -22,3 +30,11 @@ data class Bids(
     @SerializedName("price") val price: String,
     @SerializedName("amount") val amount: String
 )
+
+class BidstoCollectionTypeConverter {
+    @TypeConverter
+    fun listToJson(value: List<Bids>) = Gson().toJson(value)
+
+    @TypeConverter
+    fun jsonToList(value: String) = Gson().fromJson(value, Array<Bids>::class.java).toList()
+}
