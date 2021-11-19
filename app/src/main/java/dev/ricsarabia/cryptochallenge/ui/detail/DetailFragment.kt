@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.ricsarabia.cryptochallenge.databinding.DetailFragmentBinding
 import dev.ricsarabia.cryptochallenge.ui.MainViewModel
+import dev.ricsarabia.cryptochallenge.utils.asDecimalPrice
 
 class DetailFragment : Fragment() {
     private lateinit var binding: DetailFragmentBinding // TODO: correct this horrible screen design
@@ -35,9 +36,9 @@ class DetailFragment : Fragment() {
         viewModel.selectedBookPrices.observe(viewLifecycleOwner, {
             binding.majorTextView.text = it.book.substringBefore("_").uppercase()
             binding.minorTextView.text = it.book.substringAfter("_").uppercase()
-            binding.lastPriceTextView.text = it.last
-            binding.higherPriceTextView.text = it.high
-            binding.lowerPriceTextView.text = it.low
+            binding.lastPriceTextView.text = it.last.asDecimalPrice()
+            binding.higherPriceTextView.text = it.high.asDecimalPrice()
+            binding.lowerPriceTextView.text = it.low.asDecimalPrice()
         })
         viewModel.selectedBookOrders.observe(viewLifecycleOwner, {
             asksAdapter.orders = it.asks
