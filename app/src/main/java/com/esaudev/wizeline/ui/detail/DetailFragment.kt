@@ -1,7 +1,6 @@
 package com.esaudev.wizeline.ui.detail
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +21,6 @@ import com.esaudev.wizeline.utils.Constants
 import com.esaudev.wizeline.utils.Constants.BOOK_BUNDLE
 import com.esaudev.wizeline.utils.DataState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.item_book.*
 
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
@@ -88,7 +86,7 @@ class DetailFragment : Fragment() {
 
     private fun initObservers(){
 
-        viewModel.getTicker.observe(viewLifecycleOwner,{ dataState ->
+        viewModel.getTickerState.observe(viewLifecycleOwner,{ dataState ->
             when(dataState){
                 is DataState.Loading -> showProgressBar()
                 is DataState.Success -> handleTickerSuccess(dataState.data)
@@ -97,7 +95,7 @@ class DetailFragment : Fragment() {
             }
         })
 
-        viewModel.getOrderBooks.observe(viewLifecycleOwner, { dataState ->
+        viewModel.getOrderBookState.observe(viewLifecycleOwner, { dataState ->
             when(dataState){
                 is DataState.Success -> handleOrderBookSuccess(dataState.data)
                 is DataState.Error -> handleError(dataState.error)

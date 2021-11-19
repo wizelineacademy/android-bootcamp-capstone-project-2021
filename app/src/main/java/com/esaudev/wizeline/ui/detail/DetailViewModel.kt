@@ -1,11 +1,9 @@
 package com.esaudev.wizeline.ui.detail
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.esaudev.wizeline.model.AvailableBook
 import com.esaudev.wizeline.model.OrderBook
 import com.esaudev.wizeline.model.Ticker
 import com.esaudev.wizeline.repository.BitsoRepository
@@ -20,20 +18,20 @@ class DetailViewModel @Inject constructor(
     private val repository: BitsoRepository
 ): ViewModel() {
 
-    private var _getOrderBooks = MutableLiveData<DataState<OrderBook>>()
-    val getOrderBooks: LiveData<DataState<OrderBook>> = _getOrderBooks
+    private var _getOrderBookState = MutableLiveData<DataState<OrderBook>>()
+    val getOrderBookState: LiveData<DataState<OrderBook>> = _getOrderBookState
 
-    private var _getTicker = MutableLiveData<DataState<Ticker>>()
-    val getTicker: LiveData<DataState<Ticker>> = _getTicker
+    private var _getTickerState = MutableLiveData<DataState<Ticker>>()
+    val getTickerState: LiveData<DataState<Ticker>> = _getTickerState
 
     fun getOrderBooks(book: String){
         viewModelScope.launch {
             try{
-                _getOrderBooks.value = DataState.Loading
+                _getOrderBookState.value = DataState.Loading
                 val data = repository.getOrderBook(book)
-                _getOrderBooks.value = data
+                _getOrderBookState.value = data
             } catch (e: Exception) {
-                _getOrderBooks.value = DataState.Error(Constants.NETWORK_UNKNOWN_ERROR)
+                _getOrderBookState.value = DataState.Error(Constants.NETWORK_UNKNOWN_ERROR)
             }
         }
     }
@@ -41,11 +39,11 @@ class DetailViewModel @Inject constructor(
     fun getTickerFromBook(book: String){
         viewModelScope.launch {
             try {
-                _getTicker.value = DataState.Loading
+                _getTickerState.value = DataState.Loading
                 val data = repository.getTickerFromBook(book)
-                _getTicker.value = data
+                _getTickerState.value = data
             } catch (e: Exception) {
-                _getTicker.value = DataState.Error(Constants.NETWORK_UNKNOWN_ERROR)
+                _getTickerState.value = DataState.Error(Constants.NETWORK_UNKNOWN_ERROR)
             }
         }
     }
