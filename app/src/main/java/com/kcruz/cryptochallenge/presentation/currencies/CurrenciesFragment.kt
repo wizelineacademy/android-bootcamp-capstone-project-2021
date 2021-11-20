@@ -49,7 +49,7 @@ class CurrenciesFragment : Fragment() {
         currenciesAdapter?.submitList(list)
 
         currenciesAdapter?.onItemSelected = {
-            val action = CurrenciesFragmentDirections.actionCurrenciesFragmentToCurrencyDetail()
+            val action = CurrenciesFragmentDirections.actionCurrenciesFragmentToCurrencyDetail(it.book)
             view?.findNavController()?.navigate(action)
         }
 

@@ -39,6 +39,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
+        android:id="@+id/ll_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -102,5 +103,20 @@
             android:padding="10dp" />
     </LinearLayout>
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tl_orders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ll_detail" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp_orders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tl_orders" />
+
+    <include
+        android:id="@+id/loading"
+        layout="@layout/layout_loading" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

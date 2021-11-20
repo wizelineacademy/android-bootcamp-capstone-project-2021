@@ -6,5 +6,5 @@ data class Order(
     val book: String,
     val price: String,
     val amount: String,
-    val oid: String
+    val oid: String?
 )

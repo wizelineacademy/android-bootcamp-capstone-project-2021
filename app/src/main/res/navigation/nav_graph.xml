@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_currencies" >
         <action
             android:id="@+id/action_currenciesFragment_to_currencyDetail"
-            app:destination="@id/currencyDetail" />
+            app:destination="@id/currencyDetail">
+
+        </action>
     </fragment>
 
     <fragment
@@ -22,7 +24,6 @@
         tools:layout="@layout/fragment_currency_detail" >
         <argument
             android:name="id"
-            android:defaultValue=""
             app:argType="string" />
     </fragment>
 </navigation>
