@@ -8,7 +8,6 @@ import com.jbc7ag.cryptso.data.model.Book
 import com.jbc7ag.cryptso.data.model.Coins
 import com.jbc7ag.cryptso.data.repository.CurrencyRepository
 import com.jbc7ag.cryptso.util.Resource
-import com.jbc7ag.cryptso.util.getBooksError
 import dagger.hilt.android.lifecycle.HiltViewModel
 import drewcarlson.coingecko.CoinGeckoClient
 import drewcarlson.coingecko.models.coins.CoinList
