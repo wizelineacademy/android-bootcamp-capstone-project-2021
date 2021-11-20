@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
     id("androidx.navigation.safeargs")
 }
 
@@ -70,4 +71,6 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:4.7.2"
     implementation("androidx.viewpager2:viewpager2:1.0.0")
     implementation 'com.google.android.material:material:1.4.0'
+    implementation "androidx.room:room-runtime:2.3.0"
+    kapt "androidx.room:room-compiler:2.3.0"
 }
