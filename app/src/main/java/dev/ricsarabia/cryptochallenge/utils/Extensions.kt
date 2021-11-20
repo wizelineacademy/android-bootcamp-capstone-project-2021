@@ -13,7 +13,7 @@ fun String.asDecimalAmount(): String = try {
 }
 
 fun String.asDecimalPrice(): String = try {
-    DecimalFormat("$#,##0.00").format(this.toDouble())
+    DecimalFormat("$ #,##0.00").format(this.toDouble())
 } catch (e: Exception) {
-    "$0.00"
+    "$ 0.00"
 }

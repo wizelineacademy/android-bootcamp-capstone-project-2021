@@ -31,6 +31,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun getBooks() {
+        books.value = listOf()
         gettingBooks.value = true
         viewModelScope.launch {
             when (val availableBooks = repo.getBooks()) {
@@ -43,6 +44,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun getBookPrices() {
+        selectedBookPrices.value = BookPrices("", "", "", "")
         gettingPrices.value = true
         viewModelScope.launch {
             when (val prices = repo.getBookPrices(selectedBook.value!!)) {
@@ -54,6 +56,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun getBookOrders() {
+        selectedBookOrders.value = BookOrders(listOf(), listOf())
         gettingOrders.value = true
         viewModelScope.launch {
             when (val orders = repo.getBookOrders(selectedBook.value!!)) {
