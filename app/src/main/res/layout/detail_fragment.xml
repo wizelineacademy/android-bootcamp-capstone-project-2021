@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             app:cardCornerRadius="10dp"
-            app:cardElevation="10dp">
+            app:cardElevation="3dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -138,7 +138,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             app:cardCornerRadius="10dp"
-            app:cardElevation="10dp">
+            app:cardElevation="3dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -167,7 +167,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             app:cardCornerRadius="10dp"
-            app:cardElevation="10dp">
+            app:cardElevation="3dp">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
