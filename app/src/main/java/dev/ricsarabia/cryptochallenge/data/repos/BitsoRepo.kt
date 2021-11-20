@@ -1,5 +1,6 @@
 package dev.ricsarabia.cryptochallenge.data.repos
 
+import androidx.room.Database
 import dev.ricsarabia.cryptochallenge.di.BitsoNetworkingModule
 import dev.ricsarabia.cryptochallenge.domain.*
 
@@ -7,7 +8,8 @@ import dev.ricsarabia.cryptochallenge.domain.*
  * Created by Ricardo Sarabia on 2021/11/04.
  * Class to retrieve Bitso data from different sources.
  */
-class BitsoRepo {
+class BitsoRepo() {
+
     suspend fun getBooks(): BooksData {
         val response = BitsoNetworkingModule.provideBitsoService().getAvailableBooks()
 
@@ -51,8 +53,8 @@ class BitsoRepo {
 
         val payload = response.body()!!.payload
         val orders = BookOrders(
-            payload.asks.map { BookOrder(it.book, it.price, it.amount) },
-            payload.bids.map { BookOrder(it.book, it.price, it.amount) }
+            payload.asks.map { BookOrder(it.book, it.price, it.amount, BookOrder.Type.ASK) },
+            payload.bids.map { BookOrder(it.book, it.price, it.amount, BookOrder.Type.BID) }
         )
 
         return BookOrdersData.Data(orders)

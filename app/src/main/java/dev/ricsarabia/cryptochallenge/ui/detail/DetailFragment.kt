@@ -13,7 +13,7 @@ import dev.ricsarabia.cryptochallenge.ui.MainViewModel
 import dev.ricsarabia.cryptochallenge.utils.asDecimalPrice
 
 class DetailFragment : Fragment() {
-    private lateinit var binding: DetailFragmentBinding // TODO: correct this horrible screen design
+    private lateinit var binding: DetailFragmentBinding
     private val viewModel by lazy { ViewModelProvider(requireActivity()).get(MainViewModel::class.java) }
     private val asksAdapter = OrdersAdapter()
     private val bidsAdapter = OrdersAdapter()
@@ -52,6 +52,5 @@ class DetailFragment : Fragment() {
         // Retrieve book details
         viewModel.getBookPrices()
         viewModel.getBookOrders()
-        // TODO: Show a "loading" animation while retrieving data
     }
 }

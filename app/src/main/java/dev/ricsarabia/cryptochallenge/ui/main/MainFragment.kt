@@ -40,7 +40,6 @@ class MainFragment : Fragment() {
 
         // Retrieving books data
         viewModel.getBooks()
-        // TODO: Show a "loading" animation while retrieving data
     }
 
     private fun onBookClick(book: Book) {
