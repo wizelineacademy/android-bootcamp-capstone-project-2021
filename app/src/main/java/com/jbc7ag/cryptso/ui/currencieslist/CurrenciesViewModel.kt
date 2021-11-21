@@ -1,5 +1,7 @@
 package com.jbc7ag.cryptso.ui.currencieslist
 
+import android.util.Log
+import androidx.constraintlayout.motion.utils.ViewState
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,9 +13,8 @@ import com.jbc7ag.cryptso.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import drewcarlson.coingecko.CoinGeckoClient
 import drewcarlson.coingecko.models.coins.CoinList
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,19 +30,18 @@ class CurrenciesViewModel @Inject constructor(
     val error: LiveData<String>
         get() = _error
 
-    private var _loading = MutableLiveData<Boolean>()
+    private var _loading = MutableLiveData<Boolean>(true)
     val loading: LiveData<Boolean>
         get() = _loading
 
     private var _coinList = MutableLiveData<List<CoinList>>()
 
     init {
-        getCoinList()
         downloadBooks()
     }
 
     //Using coinGecko library to get a friendly name of the Currency
-    private fun getCoinList() = viewModelScope.launch {
+    fun getCoinList() = viewModelScope.launch {
         val coinGecko = CoinGeckoClient.create()
         _coinList.value = coinGecko.getCoinList()
     }
@@ -68,7 +68,6 @@ class CurrenciesViewModel @Inject constructor(
 
     private fun downloadBooks() = viewModelScope.launch() {
         try {
-            _loading.value = true
             val result = withContext(Dispatchers.IO) { currencyRepository.downloadAvailableBooks() }
             when (result) {
                 is Resource.Success -> {
@@ -81,7 +80,6 @@ class CurrenciesViewModel @Inject constructor(
                 }
                 is Resource.Error -> {
                     _error.value = result.message
-
                 }
             }
         } catch (ex: Exception) {

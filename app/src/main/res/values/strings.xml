@@ -19,4 +19,6 @@
     <!--content description-->
     <string name="logo_content_description">currency logo</string>
     <string name="check_content_description">Check selected filter mark</string>
+    <string name="there_s_no_internet_connection">There\'s no items to show!</string>
+    <string name="no_interent_image">No interent image</string>
 </resources>

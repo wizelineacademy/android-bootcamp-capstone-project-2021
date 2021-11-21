@@ -52,7 +52,9 @@ class CurrencyDetailFragment : Fragment() {
     private fun initObservers(bookName: String) {
         viewModel.apply {
             error.observe(viewLifecycleOwner, {
-                Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
+                it?.let {
+                    Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
+                }
             })
 
             loadingOrders.observe(viewLifecycleOwner, {
@@ -68,10 +70,14 @@ class CurrencyDetailFragment : Fragment() {
             })
 
             bookTicker.observe(viewLifecycleOwner, {
-                fillDataTicker(it)
+                it?.let{
+                    fillDataTicker(it)
+                }
             })
             orders.observe(viewLifecycleOwner, {
-                fillOrderList(it)
+                it?.let {
+                    fillOrderList(it)
+                }
             })
         }
     }

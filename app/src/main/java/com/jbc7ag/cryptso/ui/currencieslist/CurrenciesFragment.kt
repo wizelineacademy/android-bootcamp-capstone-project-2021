@@ -11,8 +11,10 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.jbc7ag.cryptso.data.model.Book
 import com.jbc7ag.cryptso.databinding.FragmentCurrenciesBinding
+import com.jbc7ag.cryptso.databinding.FragmentNoItemsBinding
 import com.jbc7ag.cryptso.util.getCurrencyCodeFilter
 import com.jbc7ag.cryptso.util.getFilterList
+import com.jbc7ag.cryptso.util.isInternetAvailable
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,17 +42,29 @@ class CurrenciesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
+
+        if (context?.let { isInternetAvailable(it) } == true)
+            viewModel.getCoinList()
+
         navController = findNavController()
     }
 
     private fun initObservers() {
         viewModel.apply {
             error.observe(viewLifecycleOwner, {
-                Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
+                it?.let {
+                    Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
+                }
             })
             availableBooks.observe(viewLifecycleOwner, {
-                showCurrencyList(it)
-                showFilters(it)
+                if(it.isNotEmpty()){
+                    binding?.noItemsView?.root?.visibility = View.GONE
+                    showCurrencyList(it)
+                    showFilters(it)
+
+                }else{
+                    binding?.noItemsView?.root?.visibility = View.VISIBLE
+                }
             })
             loading.observe(viewLifecycleOwner, {
                 if (!it) {

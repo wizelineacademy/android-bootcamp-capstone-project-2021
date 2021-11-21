@@ -19,5 +19,6 @@
     <dimen name="currency_list_image">32dp</dimen>
     <dimen name="currency_detail_image">100dp</dimen>
     <dimen name="item_currency_market_name">14sp</dimen>
+    <dimen name="image_size">100dp</dimen>
 
 </resources>
