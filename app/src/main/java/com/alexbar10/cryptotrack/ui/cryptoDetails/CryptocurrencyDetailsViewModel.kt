@@ -20,6 +20,8 @@ class CryptocurrencyDetailsViewModel @Inject constructor(
     private val repoDBRepo: CryptoDBRepo
 ): ViewModel() {
 
+    private val orderTypeAsk = 1
+    private val orderTypeBid = 2
     private val _loadingLiveData = MutableLiveData<Boolean>()
     val loadingLiveData: LiveData<Boolean> get() = _loadingLiveData
 
@@ -55,7 +57,7 @@ class CryptocurrencyDetailsViewModel @Inject constructor(
                                 book = cryptocurrency.book,
                                 price = it.price,
                                 amount = it.amount,
-                                type = 1
+                                type = orderTypeAsk
                             )
                             orderEntities.add(tempOrderEntity)
                         }
@@ -65,7 +67,7 @@ class CryptocurrencyDetailsViewModel @Inject constructor(
                                 book = cryptocurrency.book,
                                 price = it.price,
                                 amount = it.amount,
-                                type = 2
+                                type = orderTypeBid
                             )
                             orderEntities.add(tempOrderEntity)
                         }
@@ -85,11 +87,36 @@ class CryptocurrencyDetailsViewModel @Inject constructor(
         viewModelScope.launch {
 
             repoDBRepo.getLocalOrdersFor(currency.book).collect {
-                val orders = mutableListOf<Order>()
-                it?.let { res ->
-                    println(res)
+                val orderBids = mutableListOf<OrderDetailItem>()
+                val orderAsks = mutableListOf<OrderDetailItem>()
+
+                it?.forEach { orderEntity ->
+                    if (orderEntity.type == orderTypeAsk) {
+                        orderAsks.add(OrderDetailItem(
+                            currency.book,
+                            orderEntity.price,
+                            orderEntity.amount
+                        ))
+                    } else if (orderEntity.type == orderTypeBid) {
+                        orderBids.add(OrderDetailItem(
+                            currency.book,
+                            orderEntity.price,
+                            orderEntity.amount
+                        ))
+                    }
                 }
 
+                _loadingLiveData.postValue(false)
+                _cryptocurrencyOrderLiveData.postValue(
+                    OrderResponse(
+                    true,
+                    Order(
+                        "",
+                        orderBids,
+                        orderAsks
+                    )
+                )
+                )
             }
         }
     }
