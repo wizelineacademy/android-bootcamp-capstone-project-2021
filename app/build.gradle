@@ -70,4 +70,12 @@ dependencies {
 
     def lottie_version = "3.4.0"
     implementation "com.airbnb.android:lottie:3.4.0"
+
+    // Room
+    def room_version = "2.2.5"
+    kapt "org.xerial:sqlite-jdbc:3.34.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+
 }
