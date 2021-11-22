@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.alexbar10.cryptotrack.database.entities.CryptoEntity
 import com.alexbar10.cryptotrack.database.repo.CryptoDBRepo
 import com.alexbar10.cryptotrack.domain.Cryptocurrency
 import com.alexbar10.cryptotrack.domain.Failure
@@ -82,6 +83,17 @@ class CryptocurrenciesAvailableViewModel @Inject constructor(
                 list?.let {
                     var currencyIndex = list.indexOf(cryptocurrency)
                     list[currencyIndex] = cryptocurrency
+                }
+
+                // update currency in DB
+                viewModelScope.launch(Dispatchers.IO) {
+                    cryptoDBRepo.getLocalCryptoFor(cryptocurrency.book).collect {
+                        it?.let {
+                            val ticker = cryptocurrency.ticker ?: Ticker(0.0, 0.0, 0.0, "")
+                            val cryptoUpdated = CryptoEntity(it.book, ticker.high, ticker.last, ticker.low)
+                            cryptoDBRepo.updateLocalCryptoWith(cryptoUpdated)
+                        }
+                    }
                 }
                 _cryptoAvailableDetailsLiveData.postValue(list?.toList())
 
