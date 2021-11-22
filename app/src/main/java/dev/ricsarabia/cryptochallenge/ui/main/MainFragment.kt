@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,7 +20,7 @@ class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by lazy { ViewModelProvider(requireActivity()).get(DetailViewModel::class.java) }
+    private val viewModel by lazy { ViewModelProvider(this).get(MainViewModel::class.java) }
     private val booksAdapter = BooksAdapter { onBookClick(it) }
 
     override fun onCreateView(
@@ -47,13 +48,14 @@ class MainFragment : Fragment() {
     }
 
     private fun initObservers() {
-        viewModel.books.observe(viewLifecycleOwner, { booksAdapter.books = it })
-        viewModel.loading.observe(viewLifecycleOwner, { binding.mainProgressBar.isVisible = it })
-        viewModel.errorMessage.observe(viewLifecycleOwner, { Log.wtf("errorMessage", it) })
+        viewModel.books.observe(viewLifecycleOwner){ booksAdapter.books = it }
+        viewModel.gettingBooks.observe(viewLifecycleOwner){ binding.mainProgressBar.isVisible = it }
     }
 
     private fun onBookClick(book: Book) {
-        viewModel.selectedBook.value = book.book
-        findNavController().navigate(R.id.detailFragment_to_detailFragment)
+        findNavController().navigate(
+            R.id.detailFragment_to_detailFragment,
+            bundleOf("BOOK" to book.book)
+        )
     }
 }

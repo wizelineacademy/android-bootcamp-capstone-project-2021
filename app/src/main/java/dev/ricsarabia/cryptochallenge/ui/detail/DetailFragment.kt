@@ -20,6 +20,11 @@ class DetailFragment : Fragment() {
     private val asksAdapter = OrdersAdapter()
     private val bidsAdapter = OrdersAdapter()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let { viewModel.setSelectedBook(it.getString("BOOK") ?: "") }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

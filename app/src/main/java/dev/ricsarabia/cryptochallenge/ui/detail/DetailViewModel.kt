@@ -1,55 +1,39 @@
 package dev.ricsarabia.cryptochallenge.ui.detail
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import dev.ricsarabia.cryptochallenge.core.CryptoChallengeApp
 import kotlinx.coroutines.launch
 
 class DetailViewModel(app: Application) : AndroidViewModel(app) {
     private val repo = (app as CryptoChallengeApp).repository
-
-    // TODO: Create private variables in order to expose livedata correctly
-    val loading = MediatorLiveData<Boolean>()
-    val errorMessage = MutableLiveData("")
-    val selectedBook = MutableLiveData("")
-    val books = repo.books.asLiveData()
+    private val _loading = MediatorLiveData<Boolean>()
+    private val selectedBook = MutableLiveData("")
+    private val gettingPrices = MutableLiveData(false)
+    private val gettingOrders = MutableLiveData(false)
+    val loading: LiveData<Boolean> = _loading
     val selectedBookPrices = Transformations.switchMap(selectedBook) { repo.bookPricesOf(it).asLiveData() }
     val selectedBookAsks = Transformations.switchMap(selectedBook) { repo.asksOf(it).asLiveData() }
     val selectedBookBids = Transformations.switchMap(selectedBook) { repo.bidsOf(it).asLiveData() }
-
-    private val gettingBooks = MutableLiveData(false)
-    private val gettingPrices = MutableLiveData(false)
-    private val gettingOrders = MutableLiveData(false)
+    // TODO: Display advice when theres no data available
 
     init {
-        loading.addSource(gettingBooks) { loading.value = getLoadingStatus() }
-        loading.addSource(gettingPrices) { loading.value = getLoadingStatus() }
-        loading.addSource(gettingOrders) { loading.value = getLoadingStatus() }
+        _loading.addSource(gettingPrices) { _loading.value = getLoadingStatus() }
+        _loading.addSource(gettingOrders) { _loading.value = getLoadingStatus() }
     }
 
     private fun getLoadingStatus(): Boolean {
-        return gettingPrices.value == true || gettingBooks.value == true || gettingOrders.value == true
+        return gettingPrices.value == true || gettingOrders.value == true
     }
 
-    fun updateBooks() {
-        gettingBooks.value = true
-        viewModelScope.launch {
-            when (repo.updateBooks()) {
-                true -> Log.wtf("updateBooks", "UPDATED") // TODO: Show "updated_at" on UI
-                false -> Log.wtf("updateBooks", "ERROR")
-            }
-            gettingBooks.value = false
-        }
+    fun setSelectedBook(book: String) {
+        selectedBook.value = book
     }
 
     fun updateBookPrices() {
         gettingPrices.value = true
         viewModelScope.launch {
-            when (repo.updateBookPrices(selectedBook.value!!)) {
-                true -> Log.wtf("updateBookPrices", "UPDATED") // TODO: Show "updated_at" on UI
-                false -> Log.wtf("updateBookPrices", "ERROR")
-            }
+            repo.updateBookPrices(selectedBook.value!!)
             gettingPrices.value = false
         }
     }
@@ -57,10 +41,7 @@ class DetailViewModel(app: Application) : AndroidViewModel(app) {
     fun updateBookOrders() {
         gettingOrders.value = true
         viewModelScope.launch {
-            when (repo.updateBookOrders(selectedBook.value!!)) {
-                true -> Log.wtf("updateBookOrders", "UPDATED") // TODO: Show "updated_at" on UI
-                false -> Log.wtf("updateBookOrders", "ERROR")
-            }
+            repo.updateBookOrders(selectedBook.value!!)
             gettingOrders.value = false
         }
     }
