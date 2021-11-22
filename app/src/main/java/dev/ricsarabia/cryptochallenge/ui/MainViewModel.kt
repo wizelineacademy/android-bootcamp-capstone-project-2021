@@ -1,24 +1,26 @@
 package dev.ricsarabia.cryptochallenge.ui
 
+import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
-import dev.ricsarabia.cryptochallenge.data.repos.BitsoRepo
-import dev.ricsarabia.cryptochallenge.domain.*
+import dev.ricsarabia.cryptochallenge.core.CryptoChallengeApp
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
-    private val repo: BitsoRepo = BitsoRepo()
+class MainViewModel(app: Application) : AndroidViewModel(app) {
+    private val repo = (app as CryptoChallengeApp).repository
+
+    // TODO: Create private variables in order to expose livedata correctly
     val loading = MediatorLiveData<Boolean>()
     val errorMessage = MutableLiveData("")
-
-    val books = MutableLiveData(listOf<Book>())
     val selectedBook = MutableLiveData("")
-    val selectedBookPrices = MutableLiveData(BookPrices("", "", "", ""))
-    val selectedBookOrders = MutableLiveData(BookOrders(listOf(), listOf()))
-    // TODO: Create private variables in order to expose livedata correctly
+    val books = repo.books.asLiveData()
+    val selectedBookPrices = Transformations.switchMap(selectedBook) { repo.bookPricesOf(it).asLiveData() }
+    val selectedBookAsks = Transformations.switchMap(selectedBook) { repo.asksOf(it).asLiveData() }
+    val selectedBookBids = Transformations.switchMap(selectedBook) { repo.bidsOf(it).asLiveData() }
 
-    val gettingBooks = MutableLiveData(false)
-    val gettingPrices = MutableLiveData(false)
-    val gettingOrders = MutableLiveData(false)
+    private val gettingBooks = MutableLiveData(false)
+    private val gettingPrices = MutableLiveData(false)
+    private val gettingOrders = MutableLiveData(false)
 
     init {
         loading.addSource(gettingBooks) { loading.value = getLoadingStatus() }
@@ -26,42 +28,38 @@ class MainViewModel : ViewModel() {
         loading.addSource(gettingOrders) { loading.value = getLoadingStatus() }
     }
 
-    fun getLoadingStatus(): Boolean {
+    private fun getLoadingStatus(): Boolean {
         return gettingPrices.value == true || gettingBooks.value == true || gettingOrders.value == true
     }
 
-    fun getBooks() {
-        books.value = listOf()
+    fun updateBooks() {
         gettingBooks.value = true
         viewModelScope.launch {
-            when (val availableBooks = repo.getBooks()) {
-                is BooksData.Data -> books.value = availableBooks.books
-                    .sortedWith(compareBy({ it.major }, { it.minor }))
-                is BooksData.Error -> errorMessage.value = availableBooks.message
+            when (repo.updateBooks()) {
+                true -> Log.wtf("updateBooks", "UPDATED") // TODO: Show "updated_at" on UI
+                false -> Log.wtf("updateBooks", "ERROR")
             }
             gettingBooks.value = false
         }
     }
 
-    fun getBookPrices() {
-        selectedBookPrices.value = BookPrices("", "", "", "")
+    fun updateBookPrices() {
         gettingPrices.value = true
         viewModelScope.launch {
-            when (val prices = repo.getBookPrices(selectedBook.value!!)) {
-                is BookPricesData.Data -> selectedBookPrices.value = prices.bookPrices
-                is BookPricesData.Error -> errorMessage.value = prices.message
+            when (repo.updateBookPrices(selectedBook.value!!)) {
+                true -> Log.wtf("updateBookPrices", "UPDATED") // TODO: Show "updated_at" on UI
+                false -> Log.wtf("updateBookPrices", "ERROR")
             }
             gettingPrices.value = false
         }
     }
 
-    fun getBookOrders() {
-        selectedBookOrders.value = BookOrders(listOf(), listOf())
+    fun updateBookOrders() {
         gettingOrders.value = true
         viewModelScope.launch {
-            when (val orders = repo.getBookOrders(selectedBook.value!!)) {
-                is BookOrdersData.Data -> selectedBookOrders.value = orders.bookOrders
-                is BookOrdersData.Error -> errorMessage.value = orders.message
+            when (repo.updateBookOrders(selectedBook.value!!)) {
+                true -> Log.wtf("updateBookOrders", "UPDATED") // TODO: Show "updated_at" on UI
+                false -> Log.wtf("updateBookOrders", "ERROR")
             }
             gettingOrders.value = false
         }

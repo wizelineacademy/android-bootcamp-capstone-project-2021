@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import dev.ricsarabia.cryptochallenge.domain.BookPrices
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by Ricardo Sarabia on 2021/11/20.
@@ -12,8 +13,8 @@ import dev.ricsarabia.cryptochallenge.domain.BookPrices
 @Dao
 interface BookPricesDao {
     @Query("SELECT * FROM BookPrices WHERE book = :book ")
-    suspend fun findById(book: String): BookPrices
+    fun findById(book: String): Flow<BookPrices>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(bookPrices: List<BookPrices>)
+    suspend fun insert(bookPrices: BookPrices)
 }

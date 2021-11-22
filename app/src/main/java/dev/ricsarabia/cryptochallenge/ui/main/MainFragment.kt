@@ -35,11 +35,11 @@ class MainFragment : Fragment() {
 
         // Init observers
         viewModel.books.observe(viewLifecycleOwner, { booksAdapter.books = it })
-        viewModel.loading.observe(viewLifecycleOwner, { binding.mainProgressBar.isVisible = it  })
+        viewModel.loading.observe(viewLifecycleOwner, { binding.mainProgressBar.isVisible = it })
         viewModel.errorMessage.observe(viewLifecycleOwner, { Log.wtf("errorMessage", it) })
 
         // Retrieving books data
-        viewModel.getBooks()
+        viewModel.updateBooks()
     }
 
     private fun onBookClick(book: Book) {

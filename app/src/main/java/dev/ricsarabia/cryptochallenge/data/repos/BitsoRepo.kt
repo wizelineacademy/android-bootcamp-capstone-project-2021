@@ -1,22 +1,27 @@
 package dev.ricsarabia.cryptochallenge.data.repos
 
-import androidx.room.Database
+import dev.ricsarabia.cryptochallenge.data.db.AppDatabase
 import dev.ricsarabia.cryptochallenge.di.BitsoNetworkingModule
 import dev.ricsarabia.cryptochallenge.domain.*
+import java.lang.Exception
 
 /**
  * Created by Ricardo Sarabia on 2021/11/04.
  * Class to retrieve Bitso data from different sources.
  */
-class BitsoRepo() {
+class BitsoRepo(database: AppDatabase) {
+    private val remoteDataSource = BitsoNetworkingModule.service
+    private val localDataSource = database
 
-    suspend fun getBooks(): BooksData {
-        val response = BitsoNetworkingModule.provideBitsoService().getAvailableBooks()
+    val books = localDataSource.bookDao().getAll()
+    fun bookPricesOf(book: String) = localDataSource.bookPricesDao().findById(book)
+    fun asksOf(book: String) = localDataSource.bookOrderDao().getAllOf(book, BookOrder.Type.ASK)
+    fun bidsOf(book: String) = localDataSource.bookOrderDao().getAllOf(book, BookOrder.Type.BID)
 
-        if (response.body() == null || !response.body()!!.success)
-            return BooksData.Error("Error al obtener los datos")
-
-        val books: List<Book> = response.body()!!.payload.map {
+    suspend fun updateBooks(): Boolean {
+        val response = try { remoteDataSource.getAvailableBooks() } catch (e: Exception) { null }
+        if (response == null || !response.success) return false
+        val books: List<Book> = response.payload.map {
             Book(
                 it.book,
                 it.book.substringBefore("_"),
@@ -24,39 +29,27 @@ class BitsoRepo() {
                 "https://cryptoicon-api.vercel.app/api/icon/" + it.book.substringBefore("_")
             )
         }
-
-        return BooksData.Data(books)
+        localDataSource.bookDao().insert(books)
+        return true
     }
 
-    suspend fun getBookPrices(book: String): BookPricesData {
-        val response = BitsoNetworkingModule.provideBitsoService().getTicker(book)
-
-        if (response.body() == null || !response.body()!!.success)
-            return BookPricesData.Error("Error al obtener los datos")
-
-        val payload = response.body()!!.payload
-        val prices = BookPrices(
-            payload.book,
-            payload.last,
-            payload.high,
-            payload.low
-        )
-
-        return BookPricesData.Data(prices)
+    suspend fun updateBookPrices(book: String): Boolean {
+        val response = try { remoteDataSource.getTicker(book) } catch (e: Exception) { null }
+        if (response == null || !response.success) return false
+        val prices = response.payload.run { BookPrices(book, last, high, low) }
+        localDataSource.bookPricesDao().insert(prices)
+        return true
     }
 
-    suspend fun getBookOrders(book: String): BookOrdersData {
-        val response = BitsoNetworkingModule.provideBitsoService().getOrderBook(book)
-
-        if (response.body() == null || !response.body()!!.success)
-            return BookOrdersData.Error("Error al obtener los datos")
-
-        val payload = response.body()!!.payload
-        val orders = BookOrders(
-            payload.asks.map { BookOrder(it.book, it.price, it.amount, BookOrder.Type.ASK) },
-            payload.bids.map { BookOrder(it.book, it.price, it.amount, BookOrder.Type.BID) }
-        )
-
-        return BookOrdersData.Data(orders)
+    suspend fun updateBookOrders(book: String): Boolean {
+        val response = try { remoteDataSource.getOrderBook(book) } catch (e: Exception) { null }
+        if (response == null || !response.success) return false
+        val orders = response.payload.run {
+            asks.map { BookOrder(it.book, it.price, it.amount, BookOrder.Type.ASK) } +
+            bids.map { BookOrder(it.book, it.price, it.amount, BookOrder.Type.BID) }
+        }
+        localDataSource.bookOrderDao().deleteOldOrdersOf(book)
+        localDataSource.bookOrderDao().insert(orders)
+        return true
     }
 }

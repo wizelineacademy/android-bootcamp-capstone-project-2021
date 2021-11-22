@@ -15,33 +15,31 @@ import java.util.concurrent.TimeUnit
 object BitsoNetworkingModule {
     private const val BITSO_BASE_URL = "https://api.bitso.com/v3/" //TODO: Configure environments
 
-    private fun provideRetrofitClient(): Retrofit {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+    private val networkInterceptor = Interceptor { chain ->
+        chain.proceed(
+            chain.request().newBuilder()
+                .addHeader("User-Agent", System.getProperty("http.agent"))
+                .build()
+        )
+    }
 
-        val networkInterceptor = Interceptor { chain ->
-            chain.proceed(
-                chain.request().newBuilder()
-                    .addHeader("User-Agent", System.getProperty("http.agent"))
-                    .build()
-            )
+    private val loggingInterceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
+
+    private val okHttpClient = OkHttpClient.Builder()
+        .addInterceptor(networkInterceptor)
+        .addInterceptor(loggingInterceptor)
+        .readTimeout(60, TimeUnit.SECONDS)
+        .connectTimeout(60, TimeUnit.SECONDS)
+        .build()
+
+    val service: BitsoService = Retrofit
+        .Builder()
+        .baseUrl(BITSO_BASE_URL)
+        .client(okHttpClient)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build().run {
+            create(BitsoService::class.java)
         }
-
-        val client = OkHttpClient.Builder()
-            .addInterceptor(networkInterceptor)
-            .addInterceptor(loggingInterceptor)
-            .readTimeout(60, TimeUnit.SECONDS)
-            .connectTimeout(60, TimeUnit.SECONDS)
-            .build()
-
-        return Retrofit.Builder()
-            .baseUrl(BITSO_BASE_URL)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-    fun provideBitsoService(): BitsoService {
-        return provideRetrofitClient().create(BitsoService::class.java)
-    }
 }

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.ricsarabia.cryptochallenge.databinding.DetailFragmentBinding
+import dev.ricsarabia.cryptochallenge.domain.BookPrices
 import dev.ricsarabia.cryptochallenge.ui.MainViewModel
 import dev.ricsarabia.cryptochallenge.utils.asDecimalPrice
 
@@ -34,23 +35,22 @@ class DetailFragment : Fragment() {
         binding.bidsLinearLayout.adapter = bidsAdapter
 
         // Init observers
-        viewModel.selectedBookPrices.observe(viewLifecycleOwner, {
-            binding.majorTextView.text = it.book.substringBefore("_").uppercase()
-            binding.minorTextView.text = it.book.substringAfter("_").uppercase()
-            binding.lastPriceTextView.text = it.last.asDecimalPrice()
-            binding.higherPriceTextView.text = it.high.asDecimalPrice()
-            binding.lowerPriceTextView.text = it.low.asDecimalPrice()
-        })
-        viewModel.selectedBookOrders.observe(viewLifecycleOwner, {
-            asksAdapter.orders = it.asks
-            bidsAdapter.orders = it.bids
-        })
-        viewModel.loading.observe(viewLifecycleOwner, {
-            binding.detailProgressBar.isVisible = it
-        })
+        viewModel.selectedBookPrices.observe(viewLifecycleOwner, { setPrices(it) })
+        viewModel.selectedBookAsks.observe(viewLifecycleOwner, { asksAdapter.orders = it })
+        viewModel.selectedBookBids.observe(viewLifecycleOwner, { bidsAdapter.orders = it })
+        viewModel.loading.observe(viewLifecycleOwner, { binding.detailProgressBar.isVisible = it })
 
         // Retrieve book details
-        viewModel.getBookPrices()
-        viewModel.getBookOrders()
+        viewModel.updateBookPrices()
+        viewModel.updateBookOrders()
+    }
+
+    private fun setPrices(prices: BookPrices?) = binding.apply {
+        val mPrices = prices ?: BookPrices("", "", "", "")
+        majorTextView.text = mPrices.book.substringBefore("_").uppercase()
+        minorTextView.text = mPrices.book.substringAfter("_").uppercase()
+        lastPriceTextView.text = mPrices.last.asDecimalPrice()
+        higherPriceTextView.text = mPrices.high.asDecimalPrice()
+        lowerPriceTextView.text = mPrices.low.asDecimalPrice()
     }
 }

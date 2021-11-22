@@ -12,8 +12,8 @@ import kotlinx.coroutines.flow.Flow
  */
 @Dao
 interface BookDao {
-    @Query("SELECT * FROM Book")
-    suspend fun getAll(): List<Book>
+    @Query("SELECT * FROM Book ORDER BY major, minor")
+    fun getAll(): Flow<List<Book>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(books: List<Book>)

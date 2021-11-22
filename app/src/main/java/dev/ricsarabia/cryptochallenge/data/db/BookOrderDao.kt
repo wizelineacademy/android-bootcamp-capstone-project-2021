@@ -1,9 +1,6 @@
 package dev.ricsarabia.cryptochallenge.data.db
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import dev.ricsarabia.cryptochallenge.domain.BookOrder
 import kotlinx.coroutines.flow.Flow
 
@@ -12,9 +9,12 @@ import kotlinx.coroutines.flow.Flow
  */
 @Dao
 interface BookOrderDao {
-    @Query("SELECT * FROM BookOrder WHERE book = :book")
-    suspend fun getAllOf(book: String): List<BookOrder>
+    @Query("SELECT * FROM BookOrder WHERE book = :book AND type = :orderType")
+    fun getAllOf(book: String, orderType: BookOrder.Type): Flow<List<BookOrder>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertBookOrder(bookOrders: List<BookOrder>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(bookOrders: List<BookOrder>)
+
+    @Query("DELETE FROM BookOrder WHERE book = :book")
+    suspend fun deleteOldOrdersOf(book: String)
 }

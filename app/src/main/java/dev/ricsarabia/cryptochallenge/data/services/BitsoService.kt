@@ -10,12 +10,14 @@ import retrofit2.http.Query
  */
 interface BitsoService {
     @GET("available_books/")
-    suspend fun getAvailableBooks(): Response<AvailableBooksResponse>
+    suspend fun getAvailableBooks(): AvailableBooksResponse
 
     @GET("ticker/")
-    suspend fun getTicker(@Query("book") book: String): Response<TickerResponse>
+    suspend fun getTicker(@Query("book") book: String): TickerResponse
 
     @GET("order_book/")
-    suspend fun getOrderBook(@Query("book") book: String,
-                             @Query("aggregate") aggregate: Boolean = true): Response<OrderBookResponse>
+    suspend fun getOrderBook(
+        @Query("book") book: String,
+        @Query("aggregate") aggregate: Boolean = true
+    ): OrderBookResponse
 }
