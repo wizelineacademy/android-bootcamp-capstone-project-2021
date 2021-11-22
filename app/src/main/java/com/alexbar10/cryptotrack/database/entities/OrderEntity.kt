@@ -10,7 +10,7 @@ data class OrderEntity (
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val book: String,
-    val price: String,
-    val amount: String,
+    val price: Double,
+    val amount: Double,
     val type: Int
 )

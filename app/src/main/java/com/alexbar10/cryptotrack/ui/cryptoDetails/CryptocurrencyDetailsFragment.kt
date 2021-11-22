@@ -1,5 +1,6 @@
 package com.alexbar10.cryptotrack.ui.cryptoDetails
 
+import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexbar10.cryptotrack.MainActivity
 import com.alexbar10.cryptotrack.R
+import com.alexbar10.cryptotrack.networking.NetworkStatusChecker
 import com.alexbar10.cryptotrack.databinding.FragmentCryptocurrencyDetailsBinding
 import com.alexbar10.cryptotrack.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +27,9 @@ class CryptocurrencyDetailsFragment : Fragment() {
     private val args by navArgs<CryptocurrencyDetailsFragmentArgs>()
     private val viewModel: CryptocurrencyDetailsViewModel by viewModels()
     private lateinit var ordersAdapter: OrderAdapter
+    private val networkStatusChecker by lazy {
+        NetworkStatusChecker(requireActivity().getSystemService(ConnectivityManager::class.java))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,7 +68,11 @@ class CryptocurrencyDetailsFragment : Fragment() {
                 }
             }
 
-            viewModel.getOrderFor(it)
+            // Check internet connection
+            networkStatusChecker.performIfConnectedToInternet(
+                { viewModel.getLocalOrders(it) },
+                { viewModel.getOrderFor(it) }
+            )
         }
 
         setupObservables()
