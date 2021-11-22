@@ -4,18 +4,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.alexbar10.cryptotrack.database.repo.CryptoDBRepo
 import com.alexbar10.cryptotrack.domain.Cryptocurrency
 import com.alexbar10.cryptotrack.domain.Failure
 import com.alexbar10.cryptotrack.domain.Success
+import com.alexbar10.cryptotrack.domain.Ticker
 import com.alexbar10.cryptotrack.networking.repo.CryptocurrenciesRepo
 import com.alexbar10.cryptotrack.utils.getMarketFor
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CryptocurrenciesAvailableViewModel @Inject constructor(
-    private val cryptocurrenciesRepo: CryptocurrenciesRepo
+    private val cryptocurrenciesRepo: CryptocurrenciesRepo,
+    private val cryptoDBRepo: CryptoDBRepo
 ): ViewModel() {
 
     private val _loadingLiveData = MutableLiveData<Boolean>()
@@ -43,6 +48,13 @@ class CryptocurrenciesAvailableViewModel @Inject constructor(
 
             if (currenciesResponse is Success) {
                 _cryptoAvailableDetailsLiveData.postValue(currenciesResponse.data.payload)
+
+                // Save in database
+                currenciesResponse.data.payload?.let {
+                    viewModelScope.launch(Dispatchers.IO) {
+                        cryptoDBRepo.insertLocalCryptos(it)
+                    }
+                }
 
                 // Download the ticker to get the last price of each crypto
                 currenciesResponse.data.payload?.forEach {
@@ -94,6 +106,24 @@ class CryptocurrenciesAvailableViewModel @Inject constructor(
             // Filter main list
             val listFiltered = _cryptoAvailableDetailsLiveData.value?.filter { currency -> getMarketFor(currency) in list }
             _cryptoFilterLiveData.postValue(listFiltered)
+        }
+    }
+
+    // Database operations
+    fun getLocalCryptos() {
+        viewModelScope.launch {
+            cryptoDBRepo.getLocalCryptos().collect {
+                val currencies = mutableListOf<Cryptocurrency>()
+
+                it?.forEach { cryptoEntity ->
+                    if (cryptoEntity.high != null && cryptoEntity.last != null && cryptoEntity.low != null)
+                        currencies.add(Cryptocurrency(cryptoEntity.book, Ticker(cryptoEntity.high, cryptoEntity.last, cryptoEntity.low, cryptoEntity.book)))
+                    else
+                        currencies.add(Cryptocurrency(cryptoEntity.book, null))
+                }
+                _loadingLiveData.postValue(false)
+                _cryptoAvailableDetailsLiveData.postValue(currencies)
+            }
         }
     }
 }

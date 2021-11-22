@@ -67,7 +67,10 @@ class CryptocurrenciesAvailableFragment : Fragment() {
 
         // Check internet connection
         networkStatusChecker.performIfConnectedToInternet(
-            { Toast.makeText(requireContext(), "Please Your network is unavailable. Check your data or wifi connection", Toast.LENGTH_LONG).show() },
+            {
+                viewModel.getLocalCryptos()
+                Toast.makeText(requireContext(), "Please Your network is unavailable. Check your data or wifi connection", Toast.LENGTH_LONG).show()
+            },
             { viewModel.getCryptocurrenciesAvailable() }
         )
         setupObservables()
