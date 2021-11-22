@@ -12,6 +12,7 @@ import java.lang.Exception
 class BitsoRepo(database: AppDatabase) {
     private val remoteDataSource = BitsoNetworkingModule.service
     private val localDataSource = database
+    private val cryptoiconUrl = "https://cryptoicon-api.vercel.app/api/icon/"
 
     val books = localDataSource.bookDao().getAll()
     fun bookPricesOf(book: String) = localDataSource.bookPricesDao().findById(book)
@@ -26,7 +27,7 @@ class BitsoRepo(database: AppDatabase) {
                 it.book,
                 it.book.substringBefore("_"),
                 it.book.substringAfter("_"),
-                "https://cryptoicon-api.vercel.app/api/icon/" + it.book.substringBefore("_")
+                cryptoiconUrl + it.book.substringBefore("_")
             )
         }
         localDataSource.bookDao().insert(books)

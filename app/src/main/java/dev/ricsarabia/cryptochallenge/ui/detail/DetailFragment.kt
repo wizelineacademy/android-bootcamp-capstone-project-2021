@@ -10,12 +10,13 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.ricsarabia.cryptochallenge.databinding.DetailFragmentBinding
 import dev.ricsarabia.cryptochallenge.domain.BookPrices
-import dev.ricsarabia.cryptochallenge.ui.MainViewModel
 import dev.ricsarabia.cryptochallenge.utils.asDecimalPrice
 
 class DetailFragment : Fragment() {
-    private lateinit var binding: DetailFragmentBinding
-    private val viewModel by lazy { ViewModelProvider(requireActivity()).get(MainViewModel::class.java) }
+    private var _binding: DetailFragmentBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel by lazy { ViewModelProvider(requireActivity()).get(DetailViewModel::class.java) }
     private val asksAdapter = OrdersAdapter()
     private val bidsAdapter = OrdersAdapter()
 
@@ -23,8 +24,13 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DetailFragmentBinding.inflate(inflater, container, false)
+        _binding = DetailFragmentBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

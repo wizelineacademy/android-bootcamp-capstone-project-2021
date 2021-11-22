@@ -1,4 +1,4 @@
-package dev.ricsarabia.cryptochallenge.ui
+package dev.ricsarabia.cryptochallenge.ui.detail
 
 import android.app.Application
 import android.util.Log
@@ -6,7 +6,7 @@ import androidx.lifecycle.*
 import dev.ricsarabia.cryptochallenge.core.CryptoChallengeApp
 import kotlinx.coroutines.launch
 
-class MainViewModel(app: Application) : AndroidViewModel(app) {
+class DetailViewModel(app: Application) : AndroidViewModel(app) {
     private val repo = (app as CryptoChallengeApp).repository
 
     // TODO: Create private variables in order to expose livedata correctly
