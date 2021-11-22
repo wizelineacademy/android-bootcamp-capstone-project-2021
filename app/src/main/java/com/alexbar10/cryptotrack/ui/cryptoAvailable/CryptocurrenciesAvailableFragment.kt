@@ -1,5 +1,6 @@
 package com.alexbar10.cryptotrack.ui.cryptoAvailable
 
+import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import com.alexbar10.cryptotrack.MainActivity
 import com.alexbar10.cryptotrack.R
 import com.alexbar10.cryptotrack.databinding.FragmentCryptocurrenciesAvailableBinding
 import com.alexbar10.cryptotrack.domain.Cryptocurrency
+import com.alexbar10.cryptotrack.networking.NetworkStatusChecker
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,6 +29,9 @@ class CryptocurrenciesAvailableFragment : Fragment() {
     private lateinit var navController: NavController
     private val viewModel: CryptocurrenciesAvailableViewModel by viewModels()
     private lateinit var cryptocurrenciesAdapter: CryptocurrenciesAdapter
+    private val networkStatusChecker by lazy {
+        NetworkStatusChecker(requireActivity().getSystemService(ConnectivityManager::class.java))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,7 +65,11 @@ class CryptocurrenciesAvailableFragment : Fragment() {
         binding.marketDaiCheckbox.setOnCheckedChangeListener { _, isChecked -> viewModel.showCryptocurrenciesFor("dai", isChecked) }
         binding.marketUsdCheckbox.setOnCheckedChangeListener { _, isChecked -> viewModel.showCryptocurrenciesFor("usd", isChecked) }
 
-        viewModel.getCryptocurrenciesAvailable()
+        // Check internet connection
+        networkStatusChecker.performIfConnectedToInternet(
+            { Toast.makeText(requireContext(), "Please Your network is unavailable. Check your data or wifi connection", Toast.LENGTH_LONG).show() },
+            { viewModel.getCryptocurrenciesAvailable() }
+        )
         setupObservables()
     }
 
