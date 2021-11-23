@@ -15,15 +15,15 @@ class TickerRepo @Inject constructor(
 ) {
     suspend fun getTicker(code: String?, isConected: Boolean): Ticker? {
         if (isConected) {
-            try {
+            return try {
                 val call = bitsoServices.getTicker(code)
                 val ticker = call.body()?.payload
                 ticker?.book = code
                 provideTicker.insert(ticker)
-                return ticker
+                ticker
 
             } catch (e: Exception) {
-                return provideTicker.getSelectedTickers(code)
+                provideTicker.getSelectedTickers(code)
             }
         }
         return provideTicker.getSelectedTickers(code)
