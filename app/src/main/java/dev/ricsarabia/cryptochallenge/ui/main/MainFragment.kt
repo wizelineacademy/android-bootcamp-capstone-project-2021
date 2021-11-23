@@ -2,19 +2,16 @@ package dev.ricsarabia.cryptochallenge.ui.main
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import dev.ricsarabia.cryptochallenge.R
 import dev.ricsarabia.cryptochallenge.databinding.MainFragmentBinding
 import dev.ricsarabia.cryptochallenge.domain.Book
-import dev.ricsarabia.cryptochallenge.ui.detail.DetailViewModel
 
 class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
@@ -42,14 +39,15 @@ class MainFragment : Fragment() {
         viewModel.updateBooks()
     }
 
-    private fun initViews() {
-        binding.booksLinearLayout.layoutManager = GridLayoutManager(context, 2)
-        binding.booksLinearLayout.adapter = booksAdapter
+    private fun initViews() = binding.run {
+        booksLinearLayout.layoutManager = GridLayoutManager(context, 2)
+        booksLinearLayout.adapter = booksAdapter
+        booksSwipeRefresh.setOnRefreshListener { viewModel.updateBooks() }
     }
 
-    private fun initObservers() {
-        viewModel.books.observe(viewLifecycleOwner){ booksAdapter.books = it }
-        viewModel.gettingBooks.observe(viewLifecycleOwner){ binding.mainProgressBar.isVisible = it }
+    private fun initObservers() = viewModel.run {
+        books.observe(viewLifecycleOwner) { booksAdapter.books = it }
+        gettingBooks.observe(viewLifecycleOwner) { binding.booksSwipeRefresh.isRefreshing = it }
     }
 
     private fun onBookClick(book: Book) {

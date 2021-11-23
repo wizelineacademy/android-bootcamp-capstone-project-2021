@@ -33,7 +33,7 @@ class DetailViewModel(app: Application) : AndroidViewModel(app) {
     fun updateBookPrices() {
         gettingPrices.value = true
         viewModelScope.launch {
-            repo.updateBookPrices(selectedBook.value!!)
+            selectedBook.value?.let { repo.updateBookPrices(it)}
             gettingPrices.value = false
         }
     }
@@ -41,7 +41,7 @@ class DetailViewModel(app: Application) : AndroidViewModel(app) {
     fun updateBookOrders() {
         gettingOrders.value = true
         viewModelScope.launch {
-            repo.updateBookOrders(selectedBook.value!!)
+            selectedBook.value?.let { repo.updateBookOrders(it) }
             gettingOrders.value = false
         }
     }

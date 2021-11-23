@@ -39,24 +39,32 @@ class DetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // Init components
-        binding.asksLinearLayout.layoutManager = LinearLayoutManager(context)
-        binding.asksLinearLayout.adapter = asksAdapter
-        binding.bidsLinearLayout.layoutManager = LinearLayoutManager(context)
-        binding.bidsLinearLayout.adapter = bidsAdapter
-
-        // Init observers
-        viewModel.selectedBookPrices.observe(viewLifecycleOwner, { setPrices(it) })
-        viewModel.selectedBookAsks.observe(viewLifecycleOwner, { asksAdapter.orders = it })
-        viewModel.selectedBookBids.observe(viewLifecycleOwner, { bidsAdapter.orders = it })
-        viewModel.loading.observe(viewLifecycleOwner, { binding.detailProgressBar.isVisible = it })
-
-        // Retrieve book details
+        initViews()
+        initObservers()
         viewModel.updateBookPrices()
         viewModel.updateBookOrders()
     }
 
-    private fun setPrices(prices: BookPrices?) = binding.apply {
+    private fun initViews() = binding.run {
+        asksLinearLayout.layoutManager = LinearLayoutManager(context)
+        asksLinearLayout.adapter = asksAdapter
+        asksSwipeRefresh.setOnRefreshListener { viewModel.run { updateBookOrders(); updateBookPrices() } }
+        bidsLinearLayout.layoutManager = LinearLayoutManager(context)
+        bidsLinearLayout.adapter = bidsAdapter
+        bidsSwipeRefresh.setOnRefreshListener { viewModel.run { updateBookOrders(); updateBookPrices() } }
+    }
+
+    private fun initObservers() = viewModel.run {
+        selectedBookPrices.observe(viewLifecycleOwner, { setPrices(it) })
+        selectedBookAsks.observe(viewLifecycleOwner, { asksAdapter.orders = it })
+        selectedBookBids.observe(viewLifecycleOwner, { bidsAdapter.orders = it })
+        loading.observe(viewLifecycleOwner, {
+            binding.asksSwipeRefresh.isRefreshing = it
+            binding.bidsSwipeRefresh.isRefreshing = it
+        })
+    }
+
+    private fun setPrices(prices: BookPrices?) = binding.run {
         val mPrices = prices ?: BookPrices("", "", "", "")
         majorTextView.text = mPrices.book.substringBefore("_").uppercase()
         minorTextView.text = mPrices.book.substringAfter("_").uppercase()
