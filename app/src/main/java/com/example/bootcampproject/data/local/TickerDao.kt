@@ -12,7 +12,7 @@ interface TickerDao {
     suspend fun getSelectedTickers(book: String?): Ticker
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(tickers: Ticker?)
+    fun insert(tickers: Ticker?)
 
     @Update
     suspend fun updateAll(currencies: Ticker)

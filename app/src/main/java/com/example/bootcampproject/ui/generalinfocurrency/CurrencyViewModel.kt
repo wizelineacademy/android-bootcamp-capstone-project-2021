@@ -13,7 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CurrencyViewModel @Inject constructor(
-    private val currencyRepo: CurrencyRepo
+    private val currencyRepo: CurrencyRepo,
+
 ) : ViewModel() {
     private val _currencies: MutableLiveData<List<Currency>> = MutableLiveData()
     val currencies: LiveData<List<Currency>> = _currencies

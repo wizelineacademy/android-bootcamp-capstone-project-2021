@@ -19,7 +19,6 @@ class TickerRepo @Inject constructor(
                 val call = bitsoServices.getTicker(code)
                 val ticker = call.body()?.payload
                 ticker?.book = code
-                provideTicker.insert(ticker)
                 ticker
 
             } catch (e: Exception) {

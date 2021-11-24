@@ -12,7 +12,7 @@ interface OrderBookDao {
     suspend fun getSelectedBooks(book: String?): OrderBook
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(books: OrderBook?)
+    fun insert(books: OrderBook?)
 
     @Update
     suspend fun updateAll(books: OrderBook)

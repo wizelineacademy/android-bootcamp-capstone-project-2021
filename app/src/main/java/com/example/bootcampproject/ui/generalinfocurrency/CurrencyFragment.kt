@@ -15,6 +15,7 @@ import com.example.bootcampproject.domain.Currency
 import com.example.bootcampproject.util.isOnline
 import dagger.hilt.android.AndroidEntryPoint
 
+
 private const val VIEW_HOLDER_SCREEN_PROPORTION = 1.0 / 5.0
 
 @AndroidEntryPoint
@@ -24,6 +25,8 @@ class CurrencyFragment : Fragment() {
         get() = _binding!!
 
     private val viewModel: CurrencyViewModel by viewModels()
+
+
 
     private lateinit var navController: NavController
 
@@ -41,7 +44,6 @@ class CurrencyFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         currencyAdapter = CurrencyAdapter { codeBook ->
             CurrencyFragmentDirections
                 .toavailableBooksFragment(codeBook)

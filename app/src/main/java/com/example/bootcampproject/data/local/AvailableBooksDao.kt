@@ -13,7 +13,7 @@ interface AvailableBooksDao {
     suspend fun getSelectedBooks(book: String?): List<AvailableBook>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(availableBooks: List<AvailableBook>)
+    fun insertAll(availableBooks: List<AvailableBook>)
 
     @Update
     suspend fun updateAll(availableBooks: List<AvailableBook>)

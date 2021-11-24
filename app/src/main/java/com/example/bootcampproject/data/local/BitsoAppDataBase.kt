@@ -13,7 +13,7 @@ import com.example.bootcampproject.util.ConverterBids
 
 @Database(
     entities = [Currency::class, AvailableBook::class,
-        OrderBook::class, Ticker::class], version = 9
+        OrderBook::class, Ticker::class], version = 10
 )
 @TypeConverters(ConverterAsk::class, ConverterBids::class)
 abstract class BitsoAppDataBase : RoomDatabase() {
