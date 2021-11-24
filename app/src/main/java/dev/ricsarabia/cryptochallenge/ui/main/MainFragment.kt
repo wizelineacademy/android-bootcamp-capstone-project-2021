@@ -46,7 +46,7 @@ class MainFragment : Fragment() {
     }
 
     private fun initObservers() = viewModel.run {
-        books.observe(viewLifecycleOwner) { booksAdapter.books = it }
+        books.observe(viewLifecycleOwner) { booksAdapter.submitList(it) }
         gettingBooks.observe(viewLifecycleOwner) { binding.booksSwipeRefresh.isRefreshing = it }
     }
 

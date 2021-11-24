@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.ricsarabia.cryptochallenge.databinding.DetailFragmentBinding
 import dev.ricsarabia.cryptochallenge.domain.BookPrices
@@ -56,8 +55,8 @@ class DetailFragment : Fragment() {
 
     private fun initObservers() = viewModel.run {
         selectedBookPrices.observe(viewLifecycleOwner, { setPrices(it) })
-        selectedBookAsks.observe(viewLifecycleOwner, { asksAdapter.orders = it })
-        selectedBookBids.observe(viewLifecycleOwner, { bidsAdapter.orders = it })
+        selectedBookAsks.observe(viewLifecycleOwner, { asksAdapter.submitList(it) })
+        selectedBookBids.observe(viewLifecycleOwner, { bidsAdapter.submitList(it) })
         loading.observe(viewLifecycleOwner, {
             binding.asksSwipeRefresh.isRefreshing = it
             binding.bidsSwipeRefresh.isRefreshing = it
