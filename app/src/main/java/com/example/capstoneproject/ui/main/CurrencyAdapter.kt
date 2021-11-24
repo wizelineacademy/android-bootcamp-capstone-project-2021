@@ -1,10 +1,12 @@
 package com.example.capstoneproject.ui.main
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.capstoneproject.databinding.ItemCurrencyBinding
 import com.example.capstoneproject.model.api.Currency
 
@@ -31,9 +33,12 @@ class CurrencyAdapter(
 
         fun bind(currency: Currency) {
             binding.currencyName.text = currency.book
-            //Glide.with(binding.imageView.context).load(pokemon.spriteUrl).fitCenter().into(binding.imageView)
+            val imageUrl: String = "https://cryptoicon-api.vercel.app/api/icon/" +
+                    currency.book.substringBefore("_", "")
+            Glide.with(binding.currencyImage.context).load(imageUrl).fitCenter()
+                .into(binding.currencyImage)
 
-            binding.currencyName.setOnClickListener { /*OnCurrencyClicked(pokemon.id) */}
+            binding.currencyName.setOnClickListener { /*OnCurrencyClicked(pokemon.id) */ }
             binding.currencyImage.setOnClickListener { /*OnCurrencyClicked(pokemon.id)*/ }
         }
     }
@@ -42,6 +47,7 @@ class CurrencyAdapter(
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Currency>() {
             override fun areItemsTheSame(oldItem: Currency, newItem: Currency): Boolean =
                 oldItem.book == newItem.book
+
             override fun areContentsTheSame(oldItem: Currency, newItem: Currency): Boolean =
                 oldItem == newItem
         }

@@ -8,8 +8,9 @@
     tools:context=".ui.main.MainFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/currency_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/currency_list"/>
+        android:background="#102027" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

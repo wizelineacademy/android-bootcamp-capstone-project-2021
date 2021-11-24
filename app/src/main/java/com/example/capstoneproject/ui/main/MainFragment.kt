@@ -2,10 +2,10 @@ package com.example.capstoneproject.ui.main
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +20,9 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var binding : MainFragmentBinding
+    private var _binding: MainFragmentBinding? = null
+    private val binding get() = _binding!!
+
     private val mainViewModel: MainViewModel by viewModels()
     private lateinit var currencyAdapter: CurrencyAdapter
 
@@ -28,7 +30,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = MainFragmentBinding.inflate(inflater, container, false)
+        _binding = MainFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -52,8 +54,12 @@ class MainFragment : Fragment() {
         mainViewModel.loadCurrencies()
 
         mainViewModel.currencyList.observe(viewLifecycleOwner) {
-            Log.e("BITSO", "Currencies loaded")
             currencyAdapter.submitList(mainViewModel.currencyList.value)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

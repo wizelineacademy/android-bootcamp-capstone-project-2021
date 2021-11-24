@@ -1,6 +1,7 @@
 package com.example.capstoneproject.ui.main
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,11 +23,10 @@ class MainViewModel : ViewModel() {
 
     private val service: CurrencyService = retrofit.create(CurrencyService::class.java)
 
+    private var _currencyList = MutableLiveData<List<Currency>> ()
+    val currencyList: LiveData<List<Currency>> get() = _currencyList as LiveData<List<Currency>>
 
-    var currencyList = MutableLiveData<List<Currency>> ()
-
-    fun loadCurrencies()
-    {
+    fun loadCurrencies() {
         viewModelScope.launch {
             val currenciesCall = service.getCurrencyList()
             currenciesCall.enqueue(object : Callback<BitsoResponse> {
@@ -37,7 +37,7 @@ class MainViewModel : ViewModel() {
                     Log.e("BITSO", "onResponse " + response.isSuccessful)
                     Log.e("BITSO", "onResponse " + response.body()?.success.toString())
                     response.body()?.payload?.let { list ->
-                        currencyList.postValue(list)
+                        _currencyList.postValue(list)
                     }
                 }
 
