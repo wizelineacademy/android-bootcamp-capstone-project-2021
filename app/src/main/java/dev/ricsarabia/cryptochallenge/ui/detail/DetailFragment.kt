@@ -1,21 +1,23 @@
 package dev.ricsarabia.cryptochallenge.ui.detail
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import dev.ricsarabia.cryptochallenge.databinding.DetailFragmentBinding
 import dev.ricsarabia.cryptochallenge.domain.BookPrices
 import dev.ricsarabia.cryptochallenge.utils.asDecimalPrice
 
+@AndroidEntryPoint
 class DetailFragment : Fragment() {
     private var _binding: DetailFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by lazy { ViewModelProvider(requireActivity()).get(DetailViewModel::class.java) }
+    private val viewModel: DetailViewModel by viewModels()
     private val asksAdapter = OrdersAdapter()
     private val bidsAdapter = OrdersAdapter()
 

@@ -1,23 +1,25 @@
 package dev.ricsarabia.cryptochallenge.ui.main
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import dev.ricsarabia.cryptochallenge.R
 import dev.ricsarabia.cryptochallenge.databinding.MainFragmentBinding
 import dev.ricsarabia.cryptochallenge.domain.Book
 
+@AndroidEntryPoint
 class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by lazy { ViewModelProvider(this).get(MainViewModel::class.java) }
+    private val viewModel: MainViewModel by viewModels()
     private val booksAdapter = BooksAdapter { onBookClick(it) }
 
     override fun onCreateView(
