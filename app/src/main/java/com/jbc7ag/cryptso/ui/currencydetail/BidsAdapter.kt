@@ -9,7 +9,6 @@ import com.jbc7ag.cryptso.data.model.Bids
 import com.jbc7ag.cryptso.databinding.ItemTradesBinding
 import com.jbc7ag.cryptso.util.formatCurrency
 
-
 class BidsAdapter : ListAdapter<Bids, BidsAdapter.BidsViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BidsViewHolder {
@@ -23,7 +22,7 @@ class BidsAdapter : ListAdapter<Bids, BidsAdapter.BidsViewHolder>(DIFF_CALLBACK)
     }
 
     class BidsViewHolder(
-        private val binding: ItemTradesBinding,
+        private val binding: ItemTradesBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(bids: Bids) {

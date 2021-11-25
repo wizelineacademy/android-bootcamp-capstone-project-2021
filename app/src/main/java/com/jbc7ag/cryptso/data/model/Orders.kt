@@ -5,12 +5,11 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
-import java.util.*
 
 data class Orders(
     @SerializedName("success") val success: Boolean,
     @SerializedName("error") val error: Error,
-    @SerializedName("payload") val payload: OrderDetail,
+    @SerializedName("payload") val payload: OrderDetail
 )
 
 @Entity(tableName = "orders")

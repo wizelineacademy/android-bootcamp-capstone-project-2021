@@ -56,12 +56,11 @@ class CurrenciesFragment : Fragment() {
                 }
             })
             availableBooks.observe(viewLifecycleOwner, {
-                if(it.isNotEmpty()){
+                if (it.isNotEmpty()) {
                     binding?.noItemsView?.root?.visibility = View.GONE
                     showCurrencyList(it)
                     showFilters(it)
-
-                }else{
+                } else {
                     binding?.noItemsView?.root?.visibility = View.VISIBLE
                 }
             })
@@ -89,12 +88,10 @@ class CurrenciesFragment : Fragment() {
         currenciesFilterAdapter = CurrenciesFilterAdapter { book ->
             val dataFilter = data.filter { it.book.getCurrencyCodeFilter() == book }
             currenciesAdapter.submitList(dataFilter)
-
-            //set selected / deselected.
             currenciesFilterAdapter.currentList.map {
                 it.selected = it.name == book
             }
-            currenciesFilterAdapter.notifyDataSetChanged();
+            currenciesFilterAdapter.notifyDataSetChanged()
         }
 
         binding?.filterList?.adapter = currenciesFilterAdapter

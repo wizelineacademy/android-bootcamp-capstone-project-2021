@@ -3,8 +3,8 @@ package com.jbc7ag.cryptso.data.room.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
-import com.jbc7ag.cryptso.data.model.Coins
 import androidx.room.Query
+import com.jbc7ag.cryptso.data.model.Coins
 
 @Dao
 interface CoinListDao {

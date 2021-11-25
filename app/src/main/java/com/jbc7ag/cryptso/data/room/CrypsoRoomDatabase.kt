@@ -1,14 +1,20 @@
 package com.jbc7ag.cryptso.data.room
 
 import android.content.Context
-import androidx.room.*
-import com.jbc7ag.cryptso.data.model.*
+import androidx.room.Database
+import androidx.room.TypeConverters
+import androidx.room.RoomDatabase
+import androidx.room.Room
+import com.jbc7ag.cryptso.data.model.Book
+import com.jbc7ag.cryptso.data.model.BidstoCollectionTypeConverter
+import com.jbc7ag.cryptso.data.model.BookDetail
+import com.jbc7ag.cryptso.data.model.Coins
+import com.jbc7ag.cryptso.data.model.OrderDetail
 import com.jbc7ag.cryptso.data.room.dao.BooksDao
 import com.jbc7ag.cryptso.data.room.dao.CoinListDao
 import com.jbc7ag.cryptso.data.room.dao.OrderDao
 import com.jbc7ag.cryptso.data.room.dao.TickerDao
 import com.jbc7ag.cryptso.util.DATABASE_NAME
-
 
 @Database(
     entities = arrayOf(Coins::class, Book::class, OrderDetail::class, BookDetail::class),
@@ -22,7 +28,6 @@ abstract class CrypsoRoomDatabase : RoomDatabase() {
     abstract fun booksDao(): BooksDao
     abstract fun ordersDao(): OrderDao
     abstract fun tickerDao(): TickerDao
-
 
     companion object {
         @Volatile

@@ -7,11 +7,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.jbc7ag.cryptso.R
 import com.jbc7ag.cryptso.data.model.Book
 import com.jbc7ag.cryptso.databinding.ItemCurrenciesBinding
-import com.jbc7ag.cryptso.util.*
-import java.util.*
+import com.jbc7ag.cryptso.R
+import com.jbc7ag.cryptso.util.getCurrencyCode
+import com.jbc7ag.cryptso.util.getCurrencyCodeFilter
+import com.jbc7ag.cryptso.util.getmarketFormat
+import com.jbc7ag.cryptso.util.IMAGES_URL
+import java.util.Locale
 
 typealias OnCurrencyClick = (String) -> Unit
 
@@ -30,7 +33,7 @@ class CurrenciesAdapter(private val onCurrencyClick: OnCurrencyClick) :
 
     class BookViewHolder(
         private val binding: ItemCurrenciesBinding,
-        private val onCurrencyClick: OnCurrencyClick,
+        private val onCurrencyClick: OnCurrencyClick
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(book: Book) {

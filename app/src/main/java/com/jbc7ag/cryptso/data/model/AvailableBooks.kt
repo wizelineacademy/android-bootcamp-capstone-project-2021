@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 data class AvailableBooks(
     @SerializedName("success") val success: Boolean,
     @SerializedName("error") val error: Error,
-    @SerializedName("payload") val payload: List<Book>,
+    @SerializedName("payload") val payload: List<Book>
 )
 
 @Entity(tableName = "book")
@@ -21,5 +21,5 @@ data class Book(
     @SerializedName("minimum_price") val minPrice: String?,
     @SerializedName("maximum_price") val maxPrice: String?,
     @SerializedName("minimum_value") val minValue: String?,
-    @SerializedName("maximum_value") val maxValue: String?,
+    @SerializedName("maximum_value") val maxValue: String?
 )

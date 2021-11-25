@@ -1,7 +1,10 @@
 package com.jbc7ag.cryptso.data.repository
 
 import androidx.annotation.WorkerThread
-import com.jbc7ag.cryptso.data.model.*
+import com.jbc7ag.cryptso.data.model.Book
+import com.jbc7ag.cryptso.data.model.BookDetail
+import com.jbc7ag.cryptso.data.model.Coins
+import com.jbc7ag.cryptso.data.model.OrderDetail
 import com.jbc7ag.cryptso.data.room.dao.BooksDao
 import com.jbc7ag.cryptso.data.room.dao.CoinListDao
 import com.jbc7ag.cryptso.data.room.dao.OrderDao
@@ -20,14 +23,14 @@ class CurrencyRepository @Inject constructor(
     private val TickerDao: TickerDao
 ) {
 
-    //coinList repository
+    // CoinList repository
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(coin: Coins) {
         coinListDao.insert(coin)
     }
 
-    //Available Books Repository
+    // Available Books Repository
     suspend fun downloadAvailableBooks(): Resource<List<Book>> {
         return try {
             val response = client.getAvailableBooks()
@@ -35,7 +38,6 @@ class CurrencyRepository @Inject constructor(
             if (response.isSuccessful && result != null) {
                 deleteBooks()
                 Resource.Success(result.payload)
-
             } else {
                 Resource.Error(result?.error?.message)
             }
@@ -56,7 +58,7 @@ class CurrencyRepository @Inject constructor(
         return BooksDao.delete()
     }
 
-    //Orders Repository
+    // Orders Repository
     suspend fun downloadOrders(book: String): Resource<OrderDetail> {
         return try {
             val response = client.getOrder(book)
@@ -64,7 +66,6 @@ class CurrencyRepository @Inject constructor(
             if (response.isSuccessful && result != null) {
                 deleteOrder(book)
                 Resource.Success(result.payload)
-
             } else {
                 Resource.Error(result?.error?.message)
             }
@@ -93,7 +94,6 @@ class CurrencyRepository @Inject constructor(
             if (response.isSuccessful && result != null) {
                 deleteTicker(book)
                 Resource.Success(result.payload)
-
             } else {
                 Resource.Error(result?.error?.message)
             }

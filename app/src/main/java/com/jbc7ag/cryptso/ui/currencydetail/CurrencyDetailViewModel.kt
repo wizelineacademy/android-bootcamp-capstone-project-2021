@@ -9,13 +9,13 @@ import com.jbc7ag.cryptso.data.model.OrderDetail
 import com.jbc7ag.cryptso.data.repository.CurrencyRepository
 import com.jbc7ag.cryptso.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 @HiltViewModel
-class CurrencyViewModel @Inject constructor(
+class CurrencyDetailViewModel @Inject constructor(
     private val currencyRepository: CurrencyRepository
 ) : ViewModel() {
 
@@ -35,11 +35,9 @@ class CurrencyViewModel @Inject constructor(
     val loadingOrders: LiveData<Boolean>
         get() = _loadingOrders
 
-
     private var _loadingTicker = MutableLiveData<Boolean>()
     val loadingTicker: LiveData<Boolean>
         get() = _loadingTicker
-
 
     fun downloadOrders(book: String) = viewModelScope.launch() {
         try {
@@ -71,7 +69,6 @@ class CurrencyViewModel @Inject constructor(
             _orders.value = result
         }
     }
-
 
     fun downloadTicker(book: String) = viewModelScope.launch() {
         try {

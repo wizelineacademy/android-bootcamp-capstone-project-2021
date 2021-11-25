@@ -1,7 +1,7 @@
 package com.jbc7ag.cryptso
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -21,6 +21,6 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
-        supportActionBar?.setDisplayShowTitleEnabled(false);
+        supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 }

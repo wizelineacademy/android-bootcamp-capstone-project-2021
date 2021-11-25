@@ -4,21 +4,24 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.filters.MediumTest
-import com.jbc7ag.cryptso.R
-import org.junit.Rule
-import org.junit.Test
-import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItem
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import androidx.test.filters.MediumTest
 import com.jbc7ag.cryptso.MainActivity
 import com.jbc7ag.cryptso.launchFragmentInHiltContainer
+import com.jbc7ag.cryptso.R
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers.allOf
+import org.junit.Rule
+import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 
@@ -61,5 +64,3 @@ class CurrenciesFragmentTest {
         )
     }
 }
-
-

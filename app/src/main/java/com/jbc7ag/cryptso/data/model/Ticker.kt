@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 data class Ticker(
     @SerializedName("success") val success: Boolean,
     @SerializedName("error") val error: Error,
-    @SerializedName("payload") val payload: BookDetail,
+    @SerializedName("payload") val payload: BookDetail
 )
 
 @Entity(tableName = "ticker")
@@ -23,5 +23,5 @@ data class BookDetail(
     @SerializedName("ask") val ask: String,
     @SerializedName("bid") val bid: String,
     @SerializedName("vwap") val vwap: String,
-    @SerializedName("change_24") val change: String,
+    @SerializedName("change_24") val change: String
 )

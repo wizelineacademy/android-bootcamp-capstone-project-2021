@@ -10,11 +10,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.jbc7ag.cryptso.R
 import com.jbc7ag.cryptso.data.model.BookDetail
 import com.jbc7ag.cryptso.data.model.OrderDetail
 import com.jbc7ag.cryptso.databinding.FragmentCurrencyDetailsBinding
-import com.jbc7ag.cryptso.util.*
+import com.jbc7ag.cryptso.util.getCurrencyCode
+import com.jbc7ag.cryptso.util.getmarketFormat
+import com.jbc7ag.cryptso.util.formatCurrency
+import com.jbc7ag.cryptso.util.IMAGES_URL
+import com.jbc7ag.cryptso.R
+import com.jbc7ag.cryptso.util.TYPES
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,9 +26,8 @@ class CurrencyDetailFragment : Fragment() {
 
     private var _binding: FragmentCurrencyDetailsBinding? = null
     private val binding get() = _binding
-    private val viewModel: CurrencyViewModel by viewModels()
+    private val viewModel: CurrencyDetailViewModel by viewModels()
     private lateinit var bidsAdapter: BidsAdapter
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -70,7 +73,7 @@ class CurrencyDetailFragment : Fragment() {
             })
 
             bookTicker.observe(viewLifecycleOwner, {
-                it?.let{
+                it?.let {
                     fillDataTicker(it)
                 }
             })

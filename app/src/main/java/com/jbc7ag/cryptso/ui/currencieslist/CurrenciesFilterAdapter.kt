@@ -30,7 +30,7 @@ class CurrenciesFilterAdapter(private val onFilterClick: OnFilterClick) :
 
     class BookFilterViewHolder(
         private val binding: ItemCurrenciesMarketBinding,
-        private val onFilterClick: OnFilterClick,
+        private val onFilterClick: OnFilterClick
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(filter: Filter) {
@@ -39,7 +39,8 @@ class CurrenciesFilterAdapter(private val onFilterClick: OnFilterClick) :
                     binding.root.resources.getDimension(R.dimen.currency_list_image).toInt()
                 val currencyCode = filter.name
                 itemCurrenciesMarketName.text = currencyCode.uppercase()
-                itemCurrenciesMarketCheck.visibility = if (filter.selected) View.VISIBLE else View.GONE
+                itemCurrenciesMarketCheck.visibility =
+                    if (filter.selected) View.VISIBLE else View.GONE
 
                 Glide.with(itemCurrenciesMarketImage)
                     .load(IMAGES_URL + currencyCode)
@@ -50,7 +51,6 @@ class CurrenciesFilterAdapter(private val onFilterClick: OnFilterClick) :
 
                 root.setOnClickListener {
                     onFilterClick(filter.name)
-
                 }
             }
         }

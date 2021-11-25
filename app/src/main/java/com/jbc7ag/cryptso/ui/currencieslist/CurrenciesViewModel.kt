@@ -9,9 +9,11 @@ import com.jbc7ag.cryptso.data.model.Coins
 import com.jbc7ag.cryptso.data.repository.CurrencyRepository
 import com.jbc7ag.cryptso.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import drewcarlson.coingecko.CoinGeckoClient
 import drewcarlson.coingecko.models.coins.CoinList
-import kotlinx.coroutines.*
+import drewcarlson.coingecko.CoinGeckoClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,12 +39,12 @@ class CurrenciesViewModel @Inject constructor(
         downloadBooks()
     }
 
-    //Using coinGecko library to get a friendly name of the Currency
+    // Using coinGecko library to get a friendly name of the Currency
     fun getCoinList() = viewModelScope.launch {
         try {
             val coinGecko = CoinGeckoClient.create()
             _coinList.value = coinGecko.getCoinList()
-        }catch (e: Exception){
+        } catch (e: Exception) {
             _coinList.value = emptyList()
         }
     }
@@ -95,5 +97,4 @@ class CurrenciesViewModel @Inject constructor(
             _availableBooks.value = result
         }
     }
-
 }
