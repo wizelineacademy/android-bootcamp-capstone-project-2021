@@ -42,8 +42,12 @@ class CurrenciesViewModel @Inject constructor(
 
     //Using coinGecko library to get a friendly name of the Currency
     fun getCoinList() = viewModelScope.launch {
-        val coinGecko = CoinGeckoClient.create()
-        _coinList.value = coinGecko.getCoinList()
+        try {
+            val coinGecko = CoinGeckoClient.create()
+            _coinList.value = coinGecko.getCoinList()
+        }catch (e: Exception){
+            _coinList.value = emptyList()
+        }
     }
 
     private suspend fun insertCoins(listBooks: List<Book>) {
