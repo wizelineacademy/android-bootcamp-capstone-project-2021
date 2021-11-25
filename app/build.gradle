@@ -48,7 +48,7 @@ android {
     }
 
     packagingOptions {
-        pickFirst  'META-INF/*'
+        exclude 'META-INF/*'
     }
 
     defaultConfig {
