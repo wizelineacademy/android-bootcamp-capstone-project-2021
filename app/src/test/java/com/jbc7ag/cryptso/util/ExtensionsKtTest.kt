@@ -45,9 +45,9 @@ class ExtensionsKtTest {
     @Test
     fun `Given a list of available currencies, when we get only the filters, we should get a list of filters that matches with the one we are looking `(){
         val listBooks = getListBooks()
-        assertThat(listBooks.getFilterList("btc").size, `is`(1))
-        assertThat(listBooks.getFilterList("mxn").size, `is`(3))
-        assertThat(listBooks.getFilterList("eth").size, `is`(0))
+        assertThat(listBooks.getFilterList("btc").filter { it.selected }.size, `is`(1))
+        assertThat(listBooks.getFilterList("mxn").filter { it.selected }.size, `is`(1))
+        assertThat(listBooks.getFilterList("eth").filter { it.selected }.size, `is`(0))
 
     }
 

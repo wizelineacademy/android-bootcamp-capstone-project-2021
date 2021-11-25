@@ -11,7 +11,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.jbc7ag.cryptso.data.model.Book
 import com.jbc7ag.cryptso.databinding.FragmentCurrenciesBinding
-import com.jbc7ag.cryptso.databinding.FragmentNoItemsBinding
 import com.jbc7ag.cryptso.util.getCurrencyCodeFilter
 import com.jbc7ag.cryptso.util.getFilterList
 import com.jbc7ag.cryptso.util.isInternetAvailable

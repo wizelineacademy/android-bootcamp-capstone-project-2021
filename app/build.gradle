@@ -6,6 +6,8 @@ plugins {
 apply plugin: "kotlin-kapt"
 apply plugin: "dagger.hilt.android.plugin"
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply from: "../ktlint.gradle"
+
 
 android {
     compileSdk 30
@@ -26,13 +28,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
+  /*  compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = '1.8'
-    }
+    }*/
 
     buildFeatures {
         viewBinding {

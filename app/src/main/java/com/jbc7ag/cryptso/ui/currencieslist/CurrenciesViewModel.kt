@@ -1,7 +1,5 @@
 package com.jbc7ag.cryptso.ui.currencieslist
 
-import android.util.Log
-import androidx.constraintlayout.motion.utils.ViewState
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +12,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import drewcarlson.coingecko.CoinGeckoClient
 import drewcarlson.coingecko.models.coins.CoinList
 import kotlinx.coroutines.*
-import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
