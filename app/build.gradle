@@ -47,6 +47,10 @@ android {
         returnDefaultValues = true
     }
 
+    testOptions{
+        animationsDisabled = true
+    }
+
     packagingOptions {
         exclude 'META-INF/*'
     }
@@ -74,6 +78,7 @@ dependencies {
     androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
     implementation "androidx.fragment:fragment-testing:$fragmentVersion"
     implementation "androidx.test:core:$androidXTestCoreVersion"
+    androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
 
     // AndroidX Test - Instrumented testing
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
