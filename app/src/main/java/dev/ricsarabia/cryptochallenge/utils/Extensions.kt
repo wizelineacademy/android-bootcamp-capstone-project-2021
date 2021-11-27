@@ -2,8 +2,7 @@ package dev.ricsarabia.cryptochallenge.utils
 
 import java.lang.Exception
 import java.text.DecimalFormat
-import java.time.LocalDate
-import java.time.OffsetTime
+import java.time.*
 import java.time.format.DateTimeFormatter
 
 /**
@@ -21,11 +20,11 @@ fun String.asDecimalPrice(): String = try {
     "$ 0.00"
 }
 
-fun String.asLocalDate(): String = try {
+fun String.asLocalDate(offset: ZoneOffset = OffsetDateTime.now().offset): String = try {
     val bitsoFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX")
-    val date = LocalDate.parse(this, bitsoFormatter)
+    val bitsoDate = OffsetDateTime.parse(this, bitsoFormatter)
     val localFormatter = DateTimeFormatter.ofPattern("d MMM yyyy, HH:mm:ss")
-    date.atTime(OffsetTime.now()).format(localFormatter)
+    bitsoDate.toInstant().atOffset(offset).format(localFormatter)
 } catch (e: Exception) {
     "never"
 }
