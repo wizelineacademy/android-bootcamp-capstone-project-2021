@@ -37,8 +37,9 @@ class CurrencyAdapter(
             Glide.with(binding.currencyImage.context).load(imageUrl).fitCenter()
                 .into(binding.currencyImage)
 
-            binding.currencyName.setOnClickListener { /*OnCurrencyClicked(pokemon.id) */ }
-            binding.currencyImage.setOnClickListener { /*OnCurrencyClicked(pokemon.id)*/ }
+            binding.currencyBackground.setOnClickListener { onCurrencyClicked(currency.book) }
+            binding.currencyName.setOnClickListener { onCurrencyClicked(currency.book)  }
+            binding.currencyImage.setOnClickListener { onCurrencyClicked(currency.book) }
         }
     }
 

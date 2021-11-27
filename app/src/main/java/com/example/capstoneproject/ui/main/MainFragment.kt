@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.capstoneproject.R
 import com.example.capstoneproject.databinding.MainFragmentBinding
 
 // view holders' height should take 1/7 of the screen
@@ -38,6 +41,8 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         currencyAdapter = CurrencyAdapter { bookName ->
+            MainFragmentDirections.actionMainFragmentToCurrencyDetailsFragment(bookName)
+                .let { findNavController().navigate(it) }
             Log.e("BITSO", "Currency clicked $bookName")
         }
 
