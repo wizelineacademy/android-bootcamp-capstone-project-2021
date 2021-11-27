@@ -41,12 +41,11 @@ class CurrenciesAdapter(private val onCurrencyClick: OnCurrencyClick) :
                 val imageSize =
                     binding.root.resources.getDimension(R.dimen.currency_list_image).toInt()
                 val currencyCode = book.book.getCurrencyCode()
-                val currencyFilter = book.book.getCurrencyCodeFilter()
                 itemCurrenciesName.text = book.name?.replaceFirstChar {
                     if (it.isLowerCase()) it.titlecase(
                         Locale.getDefault()
                     ) else it.toString()
-                }
+                }?.replace("-", " ")
                 itemCurrenciesData.text = book.book.getmarketFormat()
 
                 Glide.with(itemCurrenciesImage)

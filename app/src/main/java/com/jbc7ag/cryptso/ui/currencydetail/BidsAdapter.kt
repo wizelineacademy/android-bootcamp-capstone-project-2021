@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.jbc7ag.cryptso.data.model.Bids
 import com.jbc7ag.cryptso.databinding.ItemTradesBinding
+import com.jbc7ag.cryptso.util.formatAmount
 import com.jbc7ag.cryptso.util.formatCurrency
 
 class BidsAdapter : ListAdapter<Bids, BidsAdapter.BidsViewHolder>(DIFF_CALLBACK) {
@@ -27,8 +28,8 @@ class BidsAdapter : ListAdapter<Bids, BidsAdapter.BidsViewHolder>(DIFF_CALLBACK)
 
         fun bind(bids: Bids) {
             binding.apply {
-                itemTradesPrice.text = bids.price.formatCurrency()
-                itemTradesAmount.text = bids.amount
+                itemTradesPrice.text =  bids.price.formatCurrency()
+                itemTradesAmount.text = bids.amount.formatAmount()
                 itemTradesTotal.text =
                     (bids.price.toFloat() * bids.amount.toFloat()).toString().formatCurrency()
             }

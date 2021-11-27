@@ -3,9 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:cardElevation="2dp"
     android:background="?attr/selectableItemBackground"
     android:layout_margin="@dimen/margin_items_cards"
+    app:cardCornerRadius="@dimen/card_radius"
+    app:cardElevation="0dp"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -21,35 +22,9 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/subtitle_size"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/item_trades_amount"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="12,023,023.00" />
-
-        <TextView
-            android:id="@+id/item_trades_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/subtitle_size"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/item_trades_total"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/item_trades_price"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="0.00070198" />
-
-        <TextView
-            android:id="@+id/item_trades_total"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/subtitle_size"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/item_trades_amount"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="0.00070198" />
+            tools:text="1,023,023.00 MXN" />
 
         <TextView
             android:id="@+id/item_trades_price_label"
@@ -58,10 +33,24 @@
             android:text="@string/price"
             android:textSize="@dimen/item_label"
             android:textColor="@color/darkGray"
+            android:fontFamily="@font/imprima"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/item_trades_price"
             app:layout_constraintStart_toStartOf="@+id/item_trades_price"
             app:layout_constraintTop_toBottomOf="@+id/item_trades_price" />
+
+
+        <TextView
+            android:id="@+id/item_trades_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/subtitle_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="0.00070" />
 
         <TextView
             android:id="@+id/item_trades_amount_label"
@@ -70,10 +59,22 @@
             android:text="@string/amount"
             android:textSize="@dimen/item_label"
             android:textColor="@color/darkGray"
+            android:fontFamily="@font/imprima"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/item_trades_amount"
             app:layout_constraintStart_toStartOf="@+id/item_trades_amount"
             app:layout_constraintTop_toBottomOf="@+id/item_trades_amount" />
+
+        <TextView
+            android:id="@+id/item_trades_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/subtitle_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="0.00070198 MXN" />
 
         <TextView
             android:id="@+id/item_trades_total_label"
@@ -82,6 +83,8 @@
             android:text="@string/total"
             android:textSize="@dimen/item_label"
             android:textColor="@color/darkGray"
+            android:fontFamily="@font/imprima"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/item_trades_total"
             app:layout_constraintStart_toStartOf="@+id/item_trades_total"

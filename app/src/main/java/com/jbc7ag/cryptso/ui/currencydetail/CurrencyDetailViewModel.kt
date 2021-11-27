@@ -8,6 +8,7 @@ import com.jbc7ag.cryptso.data.model.BookDetail
 import com.jbc7ag.cryptso.data.model.OrderDetail
 import com.jbc7ag.cryptso.data.repository.CurrencyRepository
 import com.jbc7ag.cryptso.util.Resource
+import com.jbc7ag.cryptso.util.getCurrencyCode
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -38,6 +39,10 @@ class CurrencyDetailViewModel @Inject constructor(
     private var _loadingTicker = MutableLiveData<Boolean>()
     val loadingTicker: LiveData<Boolean>
         get() = _loadingTicker
+
+    private var _coinName = MutableLiveData<String>()
+    val coinName: LiveData<String>
+        get() = _coinName
 
     fun downloadOrders(book: String) = viewModelScope.launch() {
         try {
@@ -98,5 +103,10 @@ class CurrencyDetailViewModel @Inject constructor(
         withContext(Dispatchers.Main) {
             _bookTicker.value = result
         }
+    }
+
+    fun getBookName(bookId: String) =  viewModelScope.launch() {
+        val result = withContext(Dispatchers.IO) { currencyRepository.getCoinListBySymbol(bookId.getCurrencyCode()) }
+        _coinName.value = result
     }
 }

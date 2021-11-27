@@ -1,5 +1,7 @@
 package com.jbc7ag.cryptso.util
 
+import android.widget.Button
+import com.jbc7ag.cryptso.R
 import com.jbc7ag.cryptso.data.model.Book
 import com.jbc7ag.cryptso.data.model.Filter
 import java.text.DecimalFormat
@@ -25,7 +27,14 @@ fun String.getCurrencyCodeFilter(): String {
 fun String.formatCurrency(): String {
     if (this.isEmpty()) return EMPTY_STRING
 
-    val formatter: NumberFormat = DecimalFormat("$#,###.###")
+    val formatter: NumberFormat = DecimalFormat("$#,###.##")
+    return formatter.format(this.toFloat())
+}
+
+fun String.formatAmount(): String {
+    if (this.isEmpty()) return EMPTY_STRING
+
+    val formatter: NumberFormat = DecimalFormat("#,###.####")
     return formatter.format(this.toFloat())
 }
 
@@ -40,4 +49,18 @@ fun List<Book>.getFilterList(item: String?): List<Filter> {
         )
     }
     return filters.distinctBy { it.name }
+}
+
+fun Button.setSelected(color: Int){
+    this.setBackgroundColor(color)
+
+    if(isLight(color)) {
+        this.setTextColor(resources.getColor(R.color.black))
+    }else{
+        this.setTextColor(resources.getColor(R.color.white))
+    }
+}
+fun Button.setUnSelected(){
+    this.setBackgroundColor(resources.getColor(R.color.white))
+    this.setTextColor(resources.getColor(R.color.black))
 }

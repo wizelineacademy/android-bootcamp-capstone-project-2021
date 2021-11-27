@@ -30,6 +30,10 @@ class CurrencyRepository @Inject constructor(
         coinListDao.insert(coin)
     }
 
+    fun getCoinListBySymbol(bookCode: String): String {
+        return coinListDao.getCoinListBySymbol(bookCode)
+    }
+
     // Available Books Repository
     suspend fun downloadAvailableBooks(): Resource<List<Book>> {
         return try {

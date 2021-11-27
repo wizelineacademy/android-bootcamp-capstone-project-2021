@@ -5,12 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/lightgray"
     android:layout_marginTop="?attr/actionBarSize">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/layout_padding">
+        android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
@@ -31,22 +31,36 @@
 
                 <ImageView
                     android:id="@+id/detail_currency_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_items_cards"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="@dimen/currency_detail_image"
+                    android:layout_height="@dimen/currency_detail_image"
+                    android:layout_margin="@dimen/margin_items"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@tools:sample/avatars" />
+                    tools:src="@tools:sample/avatars"
+                    android:contentDescription="@string/logo_content_description" />
+
+                <TextView
+                    android:id="@+id/detail_currency_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/item_label"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/imprima"
+                    android:layout_marginTop="@dimen/label_margin"
+                    tools:text="BTC"
+                    app:layout_constraintEnd_toEndOf="@+id/detail_currency_image"
+                    app:layout_constraintStart_toStartOf="@+id/detail_currency_image"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_currency_image" />
 
                 <TextView
                     android:id="@+id/detail_currency_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_subtitle"
+                    android:textSize="@dimen/text_detail_title"
                     android:textStyle="bold"
-
+                    app:layout_constraintBottom_toBottomOf="@+id/detail_currency_image"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/detail_currency_image"
                     app:layout_constraintTop_toTopOf="@+id/detail_currency_image"
@@ -57,7 +71,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/last_price"
-                    android:textColor="@color/gray"
+                    android:fontFamily="@font/imprima"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/item_label"
                     app:layout_constraintEnd_toEndOf="@+id/detail_currency_price"
                     app:layout_constraintStart_toStartOf="@+id/detail_currency_price"
@@ -68,31 +84,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/subtitle_size"
-                    app:layout_constraintBottom_toBottomOf="@+id/detail_currency_image"
+                    android:textSize="@dimen/button_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/detail_currency_low"
-                    app:layout_constraintStart_toEndOf="@+id/detail_currency_image"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detail_currency_label"
-                    tools:text="$2,00,000" />
+                    tools:text="$2,00,000 MXN" />
 
                 <TextView
                     android:id="@+id/detail_currency_low"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/subtitle_size"
+                    android:textSize="@dimen/button_text_size"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/detail_currency_high"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/detail_currency_high"
                     app:layout_constraintTop_toTopOf="@+id/detail_currency_high"
-                    tools:text="$2,00,000" />
+                    tools:text="$2,00,000 MXN" />
 
                 <TextView
                     android:id="@+id/detail_currency_high_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/high"
-                    android:textColor="@color/green"
+                    android:fontFamily="@font/imprima"
+                    android:textColor="@color/lightgray"
+                    android:textStyle="bold"
                     android:textSize="@dimen/item_label"
                     app:layout_constraintEnd_toEndOf="@+id/detail_currency_high"
                     app:layout_constraintStart_toStartOf="@+id/detail_currency_high"
@@ -103,7 +123,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/low"
-                    android:textColor="@color/red"
+                    android:textColor="@color/lightgray"
+                    android:fontFamily="@font/imprima"
+                    android:textStyle="bold"
                     android:textSize="@dimen/item_label"
                     app:layout_constraintEnd_toEndOf="@+id/detail_currency_low"
                     app:layout_constraintStart_toStartOf="@+id/detail_currency_low"
@@ -114,73 +136,58 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/detail_currency_market"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_items"
-            android:textSize="@dimen/text_subtitle"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView"
-            tools:text="BTC/MXN" />
-
-        <TextView
             android:id="@+id/detail_currency_trades"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_items"
             android:text="@string/latest_market_trades"
             android:textColor="@color/darkGray"
+            android:fontFamily="@font/imprima"
+            android:layout_margin="@dimen/margin_items"
             android:textSize="@dimen/subtitle_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_currency_market" />
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
-        <TextView
-            android:id="@+id/detail_currency_tab_bids"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_bids"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_items"
-            android:textSize="@dimen/text_subtitle"
+            android:layout_margin="@dimen/margin_items"
+            android:text="@string/bids"
+            android:textColor="@color/black"
             android:textStyle="bold"
-            android:textColor="@color/darkGray"
-            android:paddingEnd="@dimen/layout_padding"
-            android:paddingStart="@dimen/layout_padding"
-            android:background="@drawable/borderbottom"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/detail_currency_tab_asks"
+            android:textSize="@dimen/button_text_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_currency_trades"
-            android:text="@string/bids" />
+            app:cornerRadius="@dimen/button_radius"
+            app:backgroundTint="@color/white" />
 
-        <TextView
-            android:id="@+id/detail_currency_tab_asks"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_asks"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingEnd="@dimen/layout_padding"
-            android:paddingStart="@dimen/layout_padding"
-            android:textColor="@color/darkGray"
-            android:textSize="@dimen/text_subtitle"
+            android:layout_margin="@dimen/margin_items"
+            android:text="@string/asks"
+            android:textColor="@color/black"
             android:textStyle="bold"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintBaseline_toBaselineOf="@+id/detail_currency_tab_bids"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/detail_currency_tab_bids"
-            android:text="@string/asks" />
+            android:textSize="@dimen/button_text_size"
+            app:layout_constraintStart_toEndOf="@+id/button_bids"
+            app:layout_constraintTop_toBottomOf="@id/detail_currency_trades"
+            app:cornerRadius="@dimen/button_radius"
+            app:backgroundTint="@color/white"  />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/trades_list"
             android:layout_width="match_parent"
+            android:layout_margin="@dimen/margin_items_cards"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_items_cards"
             android:clipToPadding="false"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/detail_currency_tab_bids"
+            app:layout_constraintTop_toBottomOf="@id/button_asks"
             tools:itemCount="10"
-            tools:layout_editor_absoluteX="16dp"
             tools:listitem="@layout/item_trades" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

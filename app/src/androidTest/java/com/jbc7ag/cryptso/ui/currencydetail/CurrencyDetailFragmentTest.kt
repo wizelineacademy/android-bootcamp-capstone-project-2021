@@ -38,7 +38,7 @@ class CurrencyDetailFragmentTest {
         onView(withId(R.id.detail_currency_high_label)).check(matches(isDisplayed()))
         onView(withId(R.id.detail_currency_low_label)).check(matches(isDisplayed()))
         onView(withId(R.id.detail_currency_trades)).check(matches(isDisplayed()))
-        onView(withId(R.id.detail_currency_tab_bids)).check(matches(isDisplayed()))
-        onView(withId(R.id.detail_currency_tab_asks)).check(matches(isDisplayed()))
+        onView(withId(R.id.button_asks)).check(matches(isDisplayed()))
+        onView(withId(R.id.button_asks)).check(matches(isDisplayed()))
     }
 }

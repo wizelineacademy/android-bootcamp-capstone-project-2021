@@ -13,12 +13,14 @@
     <string name="price">Price</string>
     <string name="amount">Amount</string>
     <string name="total">Total</string>
-    <string name="bids">Bids</string>
-    <string name="asks">Asks</string>
+    <string name="bids">Buy</string>
+    <string name="asks">Sell</string>
 
     <!--content description-->
     <string name="logo_content_description">currency logo</string>
     <string name="check_content_description">Check selected filter mark</string>
     <string name="there_s_no_internet_connection">There\'s no items to show!</string>
     <string name="no_interent_image">No interent image</string>
+    <string name="show_money">%1$s %2$s</string>
+
 </resources>
