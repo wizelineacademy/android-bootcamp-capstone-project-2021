@@ -38,7 +38,7 @@ class CurrencyAdapter(
                 .into(binding.currencyImage)
 
             binding.currencyBackground.setOnClickListener { onCurrencyClicked(currency.book) }
-            binding.currencyName.setOnClickListener { onCurrencyClicked(currency.book)  }
+            binding.currencyName.setOnClickListener { onCurrencyClicked(currency.book) }
             binding.currencyImage.setOnClickListener { onCurrencyClicked(currency.book) }
         }
     }

@@ -1,24 +1,23 @@
 package com.example.capstoneproject.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.example.capstoneproject.R
+import com.bumptech.glide.Glide
+import com.example.capstoneproject.databinding.FragmentCurrencyDetailsBinding
 
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-/*private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-*/
-/**
- * A simple [Fragment] subclass.
- * Use the [CurrencyDetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CurrencyDetailsFragment : Fragment() {
     private var bookName: String? = null
+
+    private var _binding: FragmentCurrencyDetailsBinding? = null
+    private val binding get() = _binding!!
+
+    private val mainViewModel: MainViewModel by viewModels()
 
     private val args: CurrencyDetailsFragmentArgs by navArgs()
 
@@ -31,27 +30,22 @@ class CurrencyDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _binding = FragmentCurrencyDetailsBinding.inflate(inflater, container, false)
+        binding.bookNameText.text = bookName
 
+        bookName?.let { mainViewModel.getBookInfo(it) }
+        val imageUrl: String = "https://cryptoicon-api.vercel.app/api/icon/" +
+                bookName?.substringBefore("_", "")
+        Glide.with(binding.currencyImageView.context).load(imageUrl).fitCenter()
+            .into(binding.currencyImageView)
+
+        mainViewModel.tickerInfo.observe(viewLifecycleOwner) { ticker ->
+            Log.e("BITSO", "Max price" + ticker.high_price)
+            binding.highestTextView.text = ticker.high_price
+            binding.lowestTextView.text = ticker.low_price
+            binding.lastTextView.text = ticker.last_price
+        }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_currency_details, container, false)
+        return binding.root
     }
-/*
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CurrencyDetailsFragment.
-         */
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CurrencyDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }*/
 }
