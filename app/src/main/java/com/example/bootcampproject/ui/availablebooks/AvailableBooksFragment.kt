@@ -52,7 +52,6 @@ class AvailableBooksFragmentFragment : Fragment() {
         viewModel.books.observe(viewLifecycleOwner, { books ->
             fillInfoBooks(books)
         })
-
     }
 
     fun fillInfoBooks(books: List<AvailableBook>) {

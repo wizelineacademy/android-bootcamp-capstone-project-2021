@@ -24,5 +24,4 @@ class CurrencyViewModel @Inject constructor(
             _currencies.postValue(currencyRepo.getCurrencies(isConnected))
         }
     }
-
 }

@@ -9,7 +9,6 @@ import com.example.bootcampproject.data.mock.Asks
 import com.example.bootcampproject.databinding.ItemAsksBinding
 import com.example.bootcampproject.util.reformatNumber
 
-
 class AsksAdapter() :
     ListAdapter<Asks, AsksAdapter.AsksViewHolder>(DIFF_CALLBACK) {
 

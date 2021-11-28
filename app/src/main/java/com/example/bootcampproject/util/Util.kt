@@ -19,7 +19,6 @@ private const val CURRENCY_BASE_IMAGE_URL = "https://cryptoicon-api.vercel.app/a
 private const val GENERIC_CURRENCY_IMAGE_URL =
     "https://www.rawshorts.com/freeicons/wp-content/uploads/2017/01/green_prodpictdollar_1484336218-1.png"
 
-
 private val listCurrencies = listOf<String>(
     "btc", "eth", "xrp", "ltc",
     "bch", "tusd", "mana", "bat", "dai",
@@ -51,12 +50,13 @@ fun returnURLImage(code: String): String {
     else GENERIC_CURRENCY_IMAGE_URL
 }
 
-fun StatusAvailableBooks.filterData(code: String?) : List<AvailableBook> {
+fun StatusAvailableBooks.filterData(code: String?): List<AvailableBook> {
     return this.payload.filter {
-        it.book.split("_")[0]==code }
+        it.book.split("_")[0] == code
+    }
 }
 
-fun StatusAvailableBooks?.getCurrencies(): List<Currency>{
+fun StatusAvailableBooks?.getCurrencies(): List<Currency> {
     val _currencies = mutableListOf<Currency>()
 
     this?.payload?.iterator()?.forEach { availableBook ->
@@ -73,14 +73,8 @@ fun StatusAvailableBooks?.getCurrencies(): List<Currency>{
     return _currencies
 }
 
-
 fun isOnline(context: Context): Boolean {
     val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
     return activeNetwork?.isConnectedOrConnecting == true
 }
-
-
-
-
-

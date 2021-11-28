@@ -1,7 +1,6 @@
 package com.example.bootcampproject.data.mock
 
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
@@ -24,7 +23,6 @@ data class OrderBook(
     @Json(name = "asks") val asks: List<Asks>
 )
 
-
 @JsonClass(generateAdapter = true)
 data class Asks(
 
@@ -39,5 +37,3 @@ data class Bids(
     @Json(name = "price") val price: Double,
     @Json(name = "amount") val amount: Double
 )
-
-

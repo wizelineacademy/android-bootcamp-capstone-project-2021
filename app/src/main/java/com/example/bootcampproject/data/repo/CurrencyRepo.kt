@@ -4,11 +4,8 @@ import com.example.bootcampproject.data.local.CurrencyDao
 import com.example.bootcampproject.data.services.BitsoServices
 import com.example.bootcampproject.domain.Currency
 import com.example.bootcampproject.util.getCurrencies
-import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
-
-
 
 @Singleton
 class CurrencyRepo @Inject constructor(
@@ -22,7 +19,7 @@ class CurrencyRepo @Inject constructor(
             return try {
                 val call = bitsoServices.getAvailableBooks()
                 val _currencies = call.body().getCurrencies()
-               // currencyDao.insertAll(_currencies)
+                // currencyDao.insertAll(_currencies)
                 _currencies
             } catch (e: Exception) {
                 currencyDao.getAll()
@@ -52,6 +49,4 @@ class CurrencyRepo @Inject constructor(
 
          }*/
     }
-
-
 }

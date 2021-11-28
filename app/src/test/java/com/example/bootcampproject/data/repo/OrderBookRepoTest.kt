@@ -12,7 +12,6 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 import org.mockito.InjectMocks
-
 import org.mockito.Mock
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
@@ -20,11 +19,10 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.mock.Calls
-import javax.inject.Inject
 
 private const val CURRENCY_BASE_URL = "https://api.bitso.com/v3/"
 
-class OrderBookRepoTest  {
+class OrderBookRepoTest {
 
     @InjectMocks
     private lateinit var orderBookRepo: OrderBookRepo
@@ -37,7 +35,7 @@ class OrderBookRepoTest  {
 
     private lateinit var response: Response<StatusOrderBook>
 
-    private lateinit var retrofitInstance : BitsoServices
+    private lateinit var retrofitInstance: BitsoServices
 
     @Before
     fun setUp() {
@@ -47,7 +45,7 @@ class OrderBookRepoTest  {
 
         val moshi = Moshi.Builder().build()
         val moshiConverterFactory = MoshiConverterFactory.create(moshi)
-         retrofitInstance = Retrofit.Builder()
+        retrofitInstance = Retrofit.Builder()
             .addConverterFactory(moshiConverterFactory)
             .baseUrl(CURRENCY_BASE_URL)
             .build()
@@ -59,44 +57,59 @@ class OrderBookRepoTest  {
     @Test
     fun `return empty body from bits services when code parameter does not exist but is online`() =
         runBlocking {
-            //given
-            response= Calls.response(StatusOrderBook(true,
-                OrderBook(updated_at="",sequence=0,bids= listOf<Bids>(), asks = listOf<Asks>()) )
+            // given
+            response = Calls.response(
+                StatusOrderBook(
+                    true,
+                    OrderBook(
+                        updated_at = "",
+                        sequence = 0,
+                        bids = listOf<Bids>(),
+                        asks = listOf<Asks>()
+                    )
+                )
             ).execute()
             whenever(bitsoServices.getOrderBook("")).thenReturn(response)
-            //when
-            val fetchData = orderBookRepo.getOrderBooks("",true)
-            //Then
-            assertTrue(fetchData == null)
+            // when
+            val fetchData = orderBookRepo.getOrderBooks("", true)
+            // Then
+            assertTrue(fetchData?.id == null)
         }
 
     @Test
     fun `check if orderBookRepo fetch data when app is online`() = runBlocking {
-        //given
-        response= Calls.response(StatusOrderBook(true,
-            OrderBook(updated_at="1",sequence=122,bids= listOf<Bids>(
-                Bids("btc_mxn",200.0,300.0)), asks = listOf<Asks>(
-                Asks("btc_mxn",200.0,300.0))) )
+        // given
+        response = Calls.response(
+            StatusOrderBook(
+                true,
+                OrderBook(
+                    updated_at = "1", sequence = 122,
+                    bids = listOf<Bids>(
+                        Bids("btc_mxn", 200.0, 300.0)
+                    ),
+                    asks = listOf<Asks>(
+                        Asks("btc_mxn", 200.0, 300.0)
+                    )
+                )
+            )
         ).execute()
         whenever(bitsoServices.getOrderBook("btc_mxn")).thenReturn(response)
-        //when
-        val fetchData = orderBookRepo.getOrderBooks("btc_mxn",true)
-        //Then
+        // when
+        val fetchData = orderBookRepo.getOrderBooks("btc_mxn", true)
+        // Then
         if (fetchData != null) {
-            assertTrue(fetchData.bids[0].book=="btc_mxn")
-        }
-    }
-    @Test
-    fun `Check if API delivers order book info correctly`() = runBlocking {
-        //given
-        bitsoServices=retrofitInstance
-        orderBookRepo = OrderBookRepo(bitsoServices, provideOrderBooks)
-        //when
-        val fetchData = orderBookRepo.getOrderBooks("btc_mxn",true)
-        //Then
-        if (fetchData != null) {
-            assertTrue(fetchData.bids[0].book=="btc_mxn")
+            assertTrue(fetchData.bids[0].book == "btc_mxn")
         }
     }
 
+    @Test
+    fun `Check if API delivers order book info correctly`() = runBlocking {
+        // given
+        bitsoServices = retrofitInstance
+        orderBookRepo = OrderBookRepo(bitsoServices, provideOrderBooks)
+        // when
+        val fetchData = orderBookRepo.getOrderBooks("btc_mxn", true)
+        // then
+        assertTrue(fetchData != null)
+    }
 }

@@ -1,14 +1,10 @@
 package com.example.bootcampproject.data.repo
 
-import android.util.Log
 import com.example.bootcampproject.data.local.OrderBookDao
 import com.example.bootcampproject.data.mock.OrderBook
 import com.example.bootcampproject.data.services.BitsoServices
-import java.lang.Exception
 import javax.inject.Inject
-import javax.inject.Named
 import javax.inject.Singleton
-
 
 @Singleton
 class OrderBookRepo @Inject constructor(

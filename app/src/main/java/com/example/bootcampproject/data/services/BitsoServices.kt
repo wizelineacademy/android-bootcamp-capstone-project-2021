@@ -4,8 +4,9 @@ import com.example.bootcampproject.data.mock.StatusAvailableBooks
 import com.example.bootcampproject.data.mock.StatusOrderBook
 import com.example.bootcampproject.data.mock.StatusTicker
 import retrofit2.Response
-import retrofit2.http.*
-
+import retrofit2.http.GET
+import retrofit2.http.Headers
+import retrofit2.http.Query
 
 interface BitsoServices {
     @Headers("User-Agent: demo")

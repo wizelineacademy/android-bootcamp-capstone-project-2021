@@ -4,7 +4,6 @@ import com.example.bootcampproject.data.mock.StatusAvailableBooks
 import com.example.bootcampproject.data.mock.StatusOrderBook
 import com.example.bootcampproject.data.mock.StatusTicker
 import io.reactivex.rxjava3.core.Observable
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query

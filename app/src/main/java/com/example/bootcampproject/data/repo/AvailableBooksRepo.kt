@@ -1,17 +1,11 @@
 package com.example.bootcampproject.data.repo
 
-
 import com.example.bootcampproject.data.local.AvailableBooksDao
 import com.example.bootcampproject.data.mock.AvailableBook
-import com.example.bootcampproject.data.mock.StatusAvailableBooks
 import com.example.bootcampproject.data.services.BitsoServices
-import com.example.bootcampproject.data.services.BitsoServicesObservable
 import com.example.bootcampproject.util.filterData
-import java.lang.Exception
 import javax.inject.Inject
-import javax.inject.Named
 import javax.inject.Singleton
-
 
 @Singleton
 class AvailableBooksRepo @Inject constructor(
@@ -23,7 +17,7 @@ class AvailableBooksRepo @Inject constructor(
         if (isConnected) {
             try {
                 val call = bitsoServices.getAvailableBooks()
-                val _payloads =  call.body()?.filterData(code)
+                val _payloads = call.body()?.filterData(code)
                 if (_payloads != null) {
                     return _payloads
                 }

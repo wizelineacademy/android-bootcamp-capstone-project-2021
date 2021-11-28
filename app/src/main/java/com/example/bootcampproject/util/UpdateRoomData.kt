@@ -1,7 +1,5 @@
 package com.example.bootcampproject.util
 
-import androidx.core.content.ContentProviderCompat
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.bootcampproject.data.local.AvailableBooksDao
 import com.example.bootcampproject.data.local.CurrencyDao
 import com.example.bootcampproject.data.local.OrderBookDao
@@ -10,11 +8,9 @@ import com.example.bootcampproject.data.mock.StatusAvailableBooks
 import com.example.bootcampproject.data.mock.StatusOrderBook
 import com.example.bootcampproject.data.mock.StatusTicker
 import com.example.bootcampproject.data.services.BitsoServicesObservable
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
-import javax.inject.Singleton
 
 class UpdateRoomData @Inject constructor(
 
@@ -24,41 +20,45 @@ class UpdateRoomData @Inject constructor(
     private val orderBookDao: OrderBookDao,
     private val tickerDao: TickerDao
 ) {
-    fun startObservables(){
-       runningObservables(bitsoServicesObservable.getAvailableBooks(),"")
+    fun startObservables() {
+        runningObservables(bitsoServicesObservable.getAvailableBooks(), "")
     }
 
-    private fun runningObservables(observable: Observable<*>, opcCode: String){
+    private fun runningObservables(observable: Observable<*>, opcCode: String) {
         observable.subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
-            .subscribe{
-                body ->
-                when(body){
+            .subscribe { body ->
+                when (body) {
                     is StatusAvailableBooks -> insertCurrencyAndAvailableBook(body)
-                    is StatusOrderBook -> insertOrderBook(body,opcCode)
-                    is StatusTicker -> insertTickers(body,opcCode)
+                    is StatusOrderBook -> insertOrderBook(body, opcCode)
+                    is StatusTicker -> insertTickers(body, opcCode)
                 }
             }
     }
-    private fun insertCurrencyAndAvailableBook(availableBooks: StatusAvailableBooks){
+
+    private fun insertCurrencyAndAvailableBook(availableBooks: StatusAvailableBooks) {
         currencyDao.insertAll(availableBooks.getCurrencies())
         availableBooksDao.insertAll(availableBooks.payload)
 
-        availableBooks.payload.forEach{
-            availableBook ->
-            runningObservables(bitsoServicesObservable.getOrderBook(availableBook.book),availableBook.book)
-            runningObservables(bitsoServicesObservable.getTicker(availableBook.book),availableBook.book)
+        availableBooks.payload.forEach { availableBook ->
+            runningObservables(
+                bitsoServicesObservable.getOrderBook(availableBook.book),
+                availableBook.book
+            )
+            runningObservables(
+                bitsoServicesObservable.getTicker(availableBook.book),
+                availableBook.book
+            )
         }
-
     }
-    private fun insertOrderBook(orderBooks:StatusOrderBook,code:String){
-        orderBooks.payload.book=code
+
+    private fun insertOrderBook(orderBooks: StatusOrderBook, code: String) {
+        orderBooks.payload.book = code
         orderBookDao.insert(orderBooks.payload)
     }
 
-    private fun insertTickers(tickers: StatusTicker,code:String){
-        tickers.payload.book=code
+    private fun insertTickers(tickers: StatusTicker, code: String) {
+        tickers.payload.book = code
         tickerDao.insert(tickers.payload)
     }
 }
-

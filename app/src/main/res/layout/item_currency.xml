@@ -22,7 +22,7 @@
             android:text="@string/textview"
             android:textAllCaps="false"
             android:textColor="#D4D4A9"
-            android:textSize="20sp"
+            android:textSize="34sp"
             android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

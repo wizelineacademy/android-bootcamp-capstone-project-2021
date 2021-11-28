@@ -10,7 +10,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.properties.Delegates
 
 @HiltViewModel
 class AvailablebooksViewModel @Inject constructor(
@@ -18,7 +17,6 @@ class AvailablebooksViewModel @Inject constructor(
 ) : ViewModel() {
     private val _books: MutableLiveData<List<AvailableBook>> = MutableLiveData()
     val books: LiveData<List<AvailableBook>> = _books
-
 
     fun getAvailableBooks(code: String?, isConnected: Boolean) {
         CoroutineScope(Dispatchers.IO).launch {

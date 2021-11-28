@@ -15,7 +15,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
 
-
 private const val CURRENCY_BASE_URL = "https://api.bitso.com/v3/"
 
 @Module
@@ -28,7 +27,6 @@ object NetworkingModule {
         return Moshi.Builder()
             .build()
     }
-
 
     @Singleton
     @Provides
@@ -57,6 +55,7 @@ object NetworkingModule {
             .client(okHttpClient)
             .build()
     }
+
     @Provides
     @Singleton
     @Named("Observable")
@@ -72,14 +71,13 @@ object NetworkingModule {
 
     @Provides
     @Singleton
-    fun  provideActualCurrency (@Named("Normal") retrofit: Retrofit): BitsoServices {
+    fun provideActualCurrency(@Named("Normal") retrofit: Retrofit): BitsoServices {
         return retrofit.create(BitsoServices::class.java)
     }
 
     @Provides
     @Singleton
-    fun  provideActualCurrencyObservable (@Named("Observable") retrofit: Retrofit): BitsoServicesObservable {
+    fun provideActualCurrencyObservable(@Named("Observable") retrofit: Retrofit): BitsoServicesObservable {
         return retrofit.create(BitsoServicesObservable::class.java)
     }
-
 }
