@@ -9,7 +9,7 @@ import com.example.bootcampproject.domain.Currency
 
 @Dao
 interface CurrencyDao {
-    @Query("Select * From Currency")
+    @Query("Select * From ${DBConstantTablesName.currency}")
     suspend fun getAll(): List<Currency>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -43,7 +43,7 @@ fun String.attachedName(): String = when (this) {
     else -> "Not exist"
 }
 
-fun Double.reformatNumber(): String = DecimalFormat("#.###########").format(this)
+fun Double.reformatNumber(): String = DecimalFormat("#.###########$").format(this)
 fun returnURLImage(code: String): String {
     return if (listCurrencies.contains(code))
         CURRENCY_BASE_IMAGE_URL + code

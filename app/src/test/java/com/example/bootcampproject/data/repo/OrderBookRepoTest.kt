@@ -1,28 +1,29 @@
 package com.example.bootcampproject.data.repo
 
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.bootcampproject.ConnectRetrofitAndRoom
+import com.example.bootcampproject.data.local.BitsoAppDataBase
 import com.example.bootcampproject.data.local.OrderBookDao
 import com.example.bootcampproject.data.mock.Asks
 import com.example.bootcampproject.data.mock.Bids
 import com.example.bootcampproject.data.mock.OrderBook
 import com.example.bootcampproject.data.mock.StatusOrderBook
 import com.example.bootcampproject.data.services.BitsoServices
-import com.squareup.moshi.Moshi
-import junit.framework.TestCase.assertTrue
+import junit.framework.TestCase.*
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.mock.Calls
+import java.io.IOException
 
-private const val CURRENCY_BASE_URL = "https://api.bitso.com/v3/"
-
-class OrderBookRepoTest {
+class OrderBookRepoTest : ConnectRetrofitAndRoom() {
 
     @InjectMocks
     private lateinit var orderBookRepo: OrderBookRepo
@@ -32,6 +33,10 @@ class OrderBookRepoTest {
 
     @Mock
     private lateinit var provideOrderBooks: OrderBookDao
+
+    // private lateinit var db: BitsoAppDataBase
+
+    private lateinit var statusOrderBook: StatusOrderBook
 
     private lateinit var response: Response<StatusOrderBook>
 
@@ -43,15 +48,24 @@ class OrderBookRepoTest {
         bitsoServices = mock(BitsoServices::class.java)
         provideOrderBooks = mock(OrderBookDao::class.java)
 
-        val moshi = Moshi.Builder().build()
-        val moshiConverterFactory = MoshiConverterFactory.create(moshi)
-        retrofitInstance = Retrofit.Builder()
-            .addConverterFactory(moshiConverterFactory)
-            .baseUrl(CURRENCY_BASE_URL)
-            .build()
-            .create(BitsoServices::class.java)
+        //db = createRoomInstance()
+        // provideOrderBooks = db.getOrderBooks()
 
+        retrofitInstance = createRetrofitInstance()
         orderBookRepo = OrderBookRepo(bitsoServices, provideOrderBooks)
+
+        statusOrderBook = StatusOrderBook(
+            true,
+            OrderBook(
+                updated_at = "1", sequence = 122,
+                bids = listOf<Bids>(
+                    Bids("btc_mxn", 200.0, 300.0)
+                ),
+                asks = listOf<Asks>(
+                    Asks("btc_mxn", 200.0, 300.0)
+                )
+            )
+        )
     }
 
     @Test
@@ -73,33 +87,20 @@ class OrderBookRepoTest {
             // when
             val fetchData = orderBookRepo.getOrderBooks("", true)
             // Then
-            assertTrue(fetchData?.id == null)
+            assertNull(fetchData?.id)
         }
 
     @Test
     fun `check if orderBookRepo fetch data when app is online`() = runBlocking {
         // given
         response = Calls.response(
-            StatusOrderBook(
-                true,
-                OrderBook(
-                    updated_at = "1", sequence = 122,
-                    bids = listOf<Bids>(
-                        Bids("btc_mxn", 200.0, 300.0)
-                    ),
-                    asks = listOf<Asks>(
-                        Asks("btc_mxn", 200.0, 300.0)
-                    )
-                )
-            )
+            statusOrderBook
         ).execute()
         whenever(bitsoServices.getOrderBook("btc_mxn")).thenReturn(response)
         // when
         val fetchData = orderBookRepo.getOrderBooks("btc_mxn", true)
         // Then
-        if (fetchData != null) {
-            assertTrue(fetchData.bids[0].book == "btc_mxn")
-        }
+        assertNotNull(fetchData)
     }
 
     @Test
@@ -112,4 +113,18 @@ class OrderBookRepoTest {
         // then
         assertTrue(fetchData != null)
     }
+
+    /* @Test
+    @Throws(Exception::class)
+    fun `fetch data from database room when app is offline`() = runBlocking {
+        provideOrderBooks.insert(statusOrderBook.payload)
+        val fetchData = orderBookRepo.getOrderBooks("btc_mxn", false)
+        assertNotNull(fetchData)
+    }
+
+    @After
+    @Throws(IOException::class)
+    fun closeDb() {
+        db.close()
+    }*/
 }

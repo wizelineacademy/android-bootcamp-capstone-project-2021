@@ -9,10 +9,10 @@ import com.example.bootcampproject.data.mock.Ticker
 
 @Dao
 interface TickerDao {
-    @Query("Select * From Ticker")
+    @Query("Select * From ${DBConstantTablesName.ticker}")
     suspend fun getAll(): List<Ticker>
 
-    @Query("Select * From Ticker Where book = :book ")
+    @Query("Select * From ${DBConstantTablesName.ticker} Where book = :book ")
     suspend fun getSelectedTickers(book: String?): Ticker
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

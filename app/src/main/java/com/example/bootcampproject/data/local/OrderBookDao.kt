@@ -9,10 +9,10 @@ import com.example.bootcampproject.data.mock.OrderBook
 
 @Dao
 interface OrderBookDao {
-    @Query("Select * From OrderBook")
+    @Query("Select * From ${DBConstantTablesName.orderBook}")
     suspend fun getAll(): List<OrderBook>
 
-    @Query("Select * From OrderBook Where book = :book ")
+    @Query("Select * From ${DBConstantTablesName.orderBook} Where book = :book ")
     suspend fun getSelectedBooks(book: String?): OrderBook
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
