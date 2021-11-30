@@ -41,7 +41,6 @@ class CurrencyFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         currencyAdapter = CurrencyAdapter { codeBook ->
             CurrencyFragmentDirections
                 .toavailableBooksFragment(codeBook)
@@ -52,8 +51,6 @@ class CurrencyFragment : Fragment() {
         viewModel.currencies.observe(viewLifecycleOwner, { currencies ->
             fillInfoCurrency(currencies)
         })
-
-
     }
 
     private fun fillInfoCurrency(currencies: List<Currency>) {

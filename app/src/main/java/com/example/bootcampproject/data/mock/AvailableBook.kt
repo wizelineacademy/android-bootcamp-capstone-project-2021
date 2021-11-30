@@ -1,12 +1,10 @@
 package com.example.bootcampproject.data.mock
 
-
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-
 
 @JsonClass(generateAdapter = true)
 data class StatusAvailableBooks(
@@ -29,9 +27,8 @@ data class AvailableBook(
     @Json(name = "maximum_value") val maximum_value: Double,
     @Json(name = "tick_size") val tick_size: Double,
     @Json(name = "default_chart") val default_chart: String,
-    //@Json(name = "fees") val fees : Fees ,
+    // @Json(name = "fees") val fees : Fees ,
 )
-
 
 @JsonClass(generateAdapter = true)
 data class Fees(
@@ -39,7 +36,6 @@ data class Fees(
     @Json(name = "flat_rate") val flat_rate: FlatRate,
     @Json(name = "structure") val structure: List<Structure>
 )
-
 
 @JsonClass(generateAdapter = true)
 data class FlatRate(

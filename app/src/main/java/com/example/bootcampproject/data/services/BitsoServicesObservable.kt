@@ -3,21 +3,21 @@ package com.example.bootcampproject.data.services
 import com.example.bootcampproject.data.mock.StatusAvailableBooks
 import com.example.bootcampproject.data.mock.StatusOrderBook
 import com.example.bootcampproject.data.mock.StatusTicker
-import retrofit2.Response
+import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
-interface BitsoServices {
+interface BitsoServicesObservable {
     @Headers("User-Agent: demo")
     @GET(value = "available_books/")
-    suspend fun getAvailableBooks(): Response<StatusAvailableBooks>
+    fun getAvailableBooks(): Observable<StatusAvailableBooks>
 
     @Headers("User-Agent: demo")
     @GET(value = "ticker/")
-    suspend fun getTicker(@Query(value = "book") id: String?): Response<StatusTicker>
+    fun getTicker(@Query(value = "book") id: String?): Observable<StatusTicker>
 
     @Headers("User-Agent: demo")
     @GET(value = "order_book/")
-    suspend fun getOrderBook(@Query(value = "book") id: String?): Response<StatusOrderBook>
+    fun getOrderBook(@Query(value = "book") id: String?): Observable<StatusOrderBook>
 }

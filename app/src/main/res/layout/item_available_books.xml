@@ -70,8 +70,8 @@
 
         <ImageView
             android:id="@+id/imageArrow"
-            android:layout_width="87dp"
-            android:layout_height="32dp"
+            android:layout_width="50dp"
+            android:layout_height="22dp"
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toStartOf="@+id/imageCurrencyExchange"
             app:layout_constraintStart_toEndOf="@+id/imageOriginalCurrency"

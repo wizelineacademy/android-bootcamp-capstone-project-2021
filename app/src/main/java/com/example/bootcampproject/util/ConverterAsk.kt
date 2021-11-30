@@ -2,7 +2,6 @@ package com.example.bootcampproject.util
 
 import androidx.room.TypeConverter
 import com.example.bootcampproject.data.mock.Asks
-import com.example.bootcampproject.data.mock.Bids
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 

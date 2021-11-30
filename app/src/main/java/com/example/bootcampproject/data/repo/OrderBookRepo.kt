@@ -1,13 +1,10 @@
 package com.example.bootcampproject.data.repo
 
-import android.util.Log
 import com.example.bootcampproject.data.local.OrderBookDao
 import com.example.bootcampproject.data.mock.OrderBook
 import com.example.bootcampproject.data.services.BitsoServices
-import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
-
 
 @Singleton
 class OrderBookRepo @Inject constructor(
@@ -18,15 +15,13 @@ class OrderBookRepo @Inject constructor(
     suspend fun getOrderBooks(code: String?, isConected: Boolean): OrderBook? {
 
         if (isConected) {
-            try {
+            return try {
                 val call = bitsoServices.getOrderBook(code)
                 val orderBook = call.body()?.payload
                 orderBook?.book = code
-
-                provideOrderBooks.insert(orderBook)
-                return orderBook
+                orderBook
             } catch (e: Exception) {
-                return provideOrderBooks.getSelectedBooks(code)
+                provideOrderBooks.getSelectedBooks(code)
             }
         }
 

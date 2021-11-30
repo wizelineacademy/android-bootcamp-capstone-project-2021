@@ -12,7 +12,6 @@ import com.example.bootcampproject.data.mock.OrderBook
 import com.example.bootcampproject.data.mock.Ticker
 import com.example.bootcampproject.databinding.FragmentResumeInfoBinding
 import com.example.bootcampproject.util.isOnline
-
 import com.example.bootcampproject.util.reformatNumber
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -2,14 +2,13 @@ package com.example.bootcampproject.ui.generalinfocurrency
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.bootcampproject.databinding.ItemCurrencyBinding
 import com.example.bootcampproject.domain.Currency
 import com.example.bootcampproject.util.attachedName
-
 
 typealias OnCurrencyClicked = (String) -> Unit
 

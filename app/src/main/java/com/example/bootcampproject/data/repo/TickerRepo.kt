@@ -1,10 +1,8 @@
 package com.example.bootcampproject.data.repo
 
-import com.example.bootcampproject.data.local.OrderBookDao
 import com.example.bootcampproject.data.local.TickerDao
 import com.example.bootcampproject.data.mock.Ticker
 import com.example.bootcampproject.data.services.BitsoServices
-import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,9 +17,7 @@ class TickerRepo @Inject constructor(
                 val call = bitsoServices.getTicker(code)
                 val ticker = call.body()?.payload
                 ticker?.book = code
-                provideTicker.insert(ticker)
                 ticker
-
             } catch (e: Exception) {
                 provideTicker.getSelectedTickers(code)
             }

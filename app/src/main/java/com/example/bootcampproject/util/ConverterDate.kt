@@ -1,7 +1,7 @@
 package com.example.bootcampproject.util
 
 import androidx.room.TypeConverter
-import java.util.*
+import java.util.Date
 
 class ConverterDate {
     @TypeConverter

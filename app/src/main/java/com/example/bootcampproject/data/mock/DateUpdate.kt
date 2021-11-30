@@ -2,7 +2,7 @@ package com.example.bootcampproject.data.mock
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
+import java.util.Date
 
 @Entity
 data class DateUpdate(

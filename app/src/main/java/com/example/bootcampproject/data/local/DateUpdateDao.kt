@@ -5,7 +5,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.bootcampproject.data.mock.DateUpdate
-import com.example.bootcampproject.domain.Currency
 
 interface DateUpdateDao {
     @Query("Select * From DateUpdate")

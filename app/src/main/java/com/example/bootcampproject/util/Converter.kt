@@ -4,9 +4,7 @@ import androidx.room.TypeConverter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 
-class Converter(
-
-) {
+class Converter() {
     /* private val membersType = Types.newParameterizedType(List::class.java, T::class.java)
      private val membersAdapter = moshi.adapter<List<T>>(membersType)
 
@@ -27,5 +25,4 @@ class Converter(
         val membersAdapter = Moshi.Builder().build().adapter<T>(membersType)
         return membersAdapter.toJson(data)
     }
-
 }
