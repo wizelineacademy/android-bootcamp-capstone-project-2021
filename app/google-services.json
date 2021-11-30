@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "493327766033",
+    "project_id": "bitsoapp-54a6f",
+    "storage_bucket": "bitsoapp-54a6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:493327766033:android:28c580da35bc0a1cb117b0",
+        "android_client_info": {
+          "package_name": "com.example.bootcampproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "493327766033-e8pjfbq0006bot2umulp4dnujdlveoba.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9pyx0pH1J77c-1Ax0qsZm0mH6Z8FgRN4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "493327766033-e8pjfbq0006bot2umulp4dnujdlveoba.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
