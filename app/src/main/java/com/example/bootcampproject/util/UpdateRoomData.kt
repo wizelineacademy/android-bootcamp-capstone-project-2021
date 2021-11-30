@@ -10,6 +10,7 @@ import com.example.bootcampproject.data.mock.StatusTicker
 import com.example.bootcampproject.data.services.BitsoServicesObservable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class UpdateRoomData @Inject constructor(
@@ -26,7 +27,9 @@ class UpdateRoomData @Inject constructor(
 
     private fun runningObservables(observable: Observable<*>, opcCode: String) {
         observable.subscribeOn(Schedulers.io())
+            .delay(3, TimeUnit.SECONDS)
             .observeOn(Schedulers.io())
+            //.retryWhen { errors -> errors.flatMap { error -> } }
             .subscribe { body ->
                 when (body) {
                     is StatusAvailableBooks -> insertCurrencyAndAvailableBook(body)

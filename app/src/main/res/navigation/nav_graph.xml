@@ -11,10 +11,10 @@
         <action
             android:id="@+id/toavailableBooksFragment"
             app:destination="@id/availableBooksFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:enterAnim="@animator/slide_in_right"
+            app:exitAnim="@animator/fade_out"
+            app:popEnterAnim="@animator/slide_in_left"
+            app:popExitAnim="@animator/fade_out"/>
     </fragment>
     <fragment
         android:id="@+id/availableBooksFragment"
@@ -26,10 +26,10 @@
         <action
             android:id="@+id/toorderBooksFragment"
             app:destination="@id/orderBooksFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:enterAnim="@animator/slide_in_right"
+            app:exitAnim="@animator/fade_out"
+            app:popEnterAnim="@animator/slide_in_left"
+            app:popExitAnim="@animator/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/orderBooksFragment"
