@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Cryptocurrency (
+data class Cryptocurrency(
     val book: String,
     var ticker: Ticker?
-    ): Parcelable
+) : Parcelable

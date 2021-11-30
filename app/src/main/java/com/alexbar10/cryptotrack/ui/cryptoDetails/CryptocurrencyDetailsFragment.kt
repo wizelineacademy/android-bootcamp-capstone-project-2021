@@ -2,21 +2,24 @@ package com.alexbar10.cryptotrack.ui.cryptoDetails
 
 import android.net.ConnectivityManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexbar10.cryptotrack.MainActivity
-import com.alexbar10.cryptotrack.R
-import com.alexbar10.cryptotrack.networking.NetworkStatusChecker
 import com.alexbar10.cryptotrack.databinding.FragmentCryptocurrencyDetailsBinding
-import com.alexbar10.cryptotrack.utils.*
+import com.alexbar10.cryptotrack.networking.NetworkStatusChecker
+import com.alexbar10.cryptotrack.utils.PriceType
+import com.alexbar10.cryptotrack.utils.currencyFormat
+import com.alexbar10.cryptotrack.utils.getImageResourceFor
+import com.alexbar10.cryptotrack.utils.getMarketFor
+import com.alexbar10.cryptotrack.utils.getNameFor
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,7 +35,8 @@ class CryptocurrencyDetailsFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -71,7 +75,7 @@ class CryptocurrencyDetailsFragment : Fragment() {
             // Check internet connection
             networkStatusChecker.performIfConnectedToInternet(
                 { viewModel.getLocalOrders(it) },
-                { viewModel.getOrderFor(it) }
+                { viewModel.getOrderRxFor(it) }
             )
         }
 
@@ -79,14 +83,23 @@ class CryptocurrencyDetailsFragment : Fragment() {
     }
 
     private fun setupObservables() {
-        viewModel.loadingLiveData.observe(viewLifecycleOwner, Observer { value: Boolean ->
-            binding.loaderAnimationView.isVisible = value
-        })
-        viewModel.errorLiveData.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(requireContext(), it?.message, Toast.LENGTH_LONG).show()
-        })
-        viewModel.cryptocurrencyOrderLiveData.observe(viewLifecycleOwner, Observer {
-            ordersAdapter.setData(if (binding.buyRadioButton.isChecked) it.payload.bids else it.payload.asks)
-        })
+        viewModel.loadingLiveData.observe(
+            viewLifecycleOwner,
+            Observer { value: Boolean ->
+                binding.loaderAnimationView.isVisible = value
+            }
+        )
+        viewModel.errorLiveData.observe(
+            viewLifecycleOwner,
+            Observer {
+                Toast.makeText(requireContext(), it?.message, Toast.LENGTH_LONG).show()
+            }
+        )
+        viewModel.cryptocurrencyOrderLiveData.observe(
+            viewLifecycleOwner,
+            Observer {
+                ordersAdapter.setData(if (binding.buyRadioButton.isChecked) it.payload.bids else it.payload.asks)
+            }
+        )
     }
 }

@@ -14,7 +14,7 @@ typealias OnCryptocurrencySelected = (Cryptocurrency) -> Unit
 
 class CryptocurrenciesAdapter(
     private val onCryptocurrencySelected: OnCryptocurrencySelected
-): RecyclerView.Adapter<CryptocurrenciesAdapter.CryptocurrencyViewHolder>() {
+) : RecyclerView.Adapter<CryptocurrenciesAdapter.CryptocurrencyViewHolder>() {
 
     private val cryptocurrenciesList: MutableList<Cryptocurrency> = mutableListOf()
 
@@ -39,7 +39,7 @@ class CryptocurrenciesAdapter(
     class CryptocurrencyViewHolder(
         private val binding: CryptocurrencyItemBinding,
         private val onCryptocurrencySelected: OnCryptocurrencySelected
-    ): RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(cryptocurrency: Cryptocurrency) {
             binding.currencyNameLabel.text = binding.root.context.getString(getNameFor(cryptocurrency))

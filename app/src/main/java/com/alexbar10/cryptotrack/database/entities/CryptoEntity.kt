@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "cryptos")
-data class CryptoEntity (
+data class CryptoEntity(
     @PrimaryKey
     val book: String,
     val high: Double?,

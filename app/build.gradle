@@ -55,7 +55,7 @@ dependencies {
     def material_design_version = "1.4.0"
     implementation "com.google.android.material:material:$material_design_version"
 
-    def nav_version = "2.3.5"
+    def nav_version = "2.4.0-beta02"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
@@ -72,7 +72,7 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
     def lottie_version = "3.4.0"
-    implementation "com.airbnb.android:lottie:3.4.0"
+    implementation "com.airbnb.android:lottie:3.7.0"
 
     // Room
     def room_version = "2.2.5"
@@ -81,4 +81,11 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
 
+    // RxJava
+    def adapter_rxjava2_version = "2.9.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$adapter_rxjava2_version"
+    def rx_android_version = "2.1.1"
+    implementation "io.reactivex.rxjava2:rxandroid:$rx_android_version"
+    def rx_java_version = "2.2.17"
+    implementation "io.reactivex.rxjava2:rxjava:$rx_java_version"
 }

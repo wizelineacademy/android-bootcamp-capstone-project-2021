@@ -2,7 +2,6 @@ package com.alexbar10.cryptotrack.utils
 
 import com.alexbar10.cryptotrack.R
 import com.alexbar10.cryptotrack.domain.Cryptocurrency
-import com.alexbar10.cryptotrack.domain.Order
 import com.alexbar10.cryptotrack.domain.OrderDetailItem
 import java.text.DecimalFormat
 

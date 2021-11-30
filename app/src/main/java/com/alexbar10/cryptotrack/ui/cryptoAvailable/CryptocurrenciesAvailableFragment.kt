@@ -2,12 +2,12 @@ package com.alexbar10.cryptotrack.ui.cryptoAvailable
 
 import android.net.ConnectivityManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -46,7 +46,7 @@ class CryptocurrenciesAvailableFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        cryptocurrenciesAdapter = CryptocurrenciesAdapter {  cryptocurrencySelected ->
+        cryptocurrenciesAdapter = CryptocurrenciesAdapter { cryptocurrencySelected ->
             CryptocurrenciesAvailableFragmentDirections
                 .actionCryptocurrenciesAvailableFragmentToCryptocurrencyDetailsFragment(cryptocurrencySelected)
                 .let { navController.navigate(it) }
@@ -77,20 +77,31 @@ class CryptocurrenciesAvailableFragment : Fragment() {
     }
 
     private fun setupObservables() {
-        viewModel.loadingLiveData.observe(viewLifecycleOwner, Observer { value: Boolean ->
-            binding.loaderAnimationView.isVisible = value
-        })
-        viewModel.errorLiveData.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(requireContext(), it?.message, Toast.LENGTH_LONG).show()
-        })
-        viewModel.cryptoAvailableDetailsLiveData.observe(viewLifecycleOwner, Observer { cryptocurrencies: List<Cryptocurrency> ->
-            cryptocurrenciesAdapter.setData(cryptocurrencies)
-            binding.cryptocurrenciesRecyclerView.visibility = View.VISIBLE
-        })
-        viewModel.cryptoFilterLiveData.observe(viewLifecycleOwner, Observer { value: List<Cryptocurrency> ->
-            cryptocurrenciesAdapter.setData(value)
-            binding.cryptocurrenciesRecyclerView.visibility = View.VISIBLE
-        })
+        viewModel.loadingLiveData.observe(
+            viewLifecycleOwner,
+            Observer { value: Boolean ->
+                binding.loaderAnimationView.isVisible = value
+            }
+        )
+        viewModel.errorLiveData.observe(
+            viewLifecycleOwner,
+            Observer {
+                Toast.makeText(requireContext(), it?.message, Toast.LENGTH_LONG).show()
+            }
+        )
+        viewModel.cryptoAvailableDetailsLiveData.observe(
+            viewLifecycleOwner,
+            Observer { cryptocurrencies: List<Cryptocurrency> ->
+                cryptocurrenciesAdapter.setData(cryptocurrencies)
+                binding.cryptocurrenciesRecyclerView.visibility = View.VISIBLE
+            }
+        )
+        viewModel.cryptoFilterLiveData.observe(
+            viewLifecycleOwner,
+            Observer { value: List<Cryptocurrency> ->
+                cryptocurrenciesAdapter.setData(value)
+                binding.cryptocurrenciesRecyclerView.visibility = View.VISIBLE
+            }
+        )
     }
-
 }

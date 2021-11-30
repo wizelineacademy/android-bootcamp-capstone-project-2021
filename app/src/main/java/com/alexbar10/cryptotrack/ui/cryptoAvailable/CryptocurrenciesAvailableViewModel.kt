@@ -22,7 +22,7 @@ import javax.inject.Inject
 class CryptocurrenciesAvailableViewModel @Inject constructor(
     private val cryptocurrenciesRepo: CryptocurrenciesRepo,
     private val cryptoDBRepo: CryptoDBRepo
-): ViewModel() {
+) : ViewModel() {
 
     private val _loadingLiveData = MutableLiveData<Boolean>()
     val loadingLiveData: LiveData<Boolean> get() = _loadingLiveData
@@ -63,7 +63,7 @@ class CryptocurrenciesAvailableViewModel @Inject constructor(
                 }
 
                 // Show all markets the first time
-                _marketsLiveData.value = mutableSetOf("mxn","btc","ars", "brl", "dai", "usd")
+                _marketsLiveData.value = mutableSetOf("mxn", "btc", "ars", "brl", "dai", "usd")
             } else {
                 val failure = currenciesResponse as Failure
                 _errorLiveData.postValue(failure.error)
@@ -96,7 +96,6 @@ class CryptocurrenciesAvailableViewModel @Inject constructor(
                     }
                 }
                 _cryptoAvailableDetailsLiveData.postValue(list?.toList())
-
             } else {
                 val failure = tickerResponse as Failure
                 println("Error getting ticker: ${failure.error}")
@@ -105,7 +104,7 @@ class CryptocurrenciesAvailableViewModel @Inject constructor(
     }
 
     // return the list of cryptos of the markets selected
-    fun showCryptocurrenciesFor(market: String, isAdded: Boolean){
+    fun showCryptocurrenciesFor(market: String, isAdded: Boolean) {
         var list = _marketsLiveData.value
 
         list?.let {

@@ -1,6 +1,6 @@
 package com.alexbar10.cryptotrack.domain
 
-data class OrderDetailItem (
+data class OrderDetailItem(
     val book: String,
     val price: Double,
     val amount: Double

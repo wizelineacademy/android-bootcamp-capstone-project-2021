@@ -7,7 +7,7 @@ import com.alexbar10.cryptotrack.databinding.OrderItemBinding
 import com.alexbar10.cryptotrack.domain.OrderDetailItem
 import com.alexbar10.cryptotrack.utils.currencyFormat
 
-class OrderAdapter: RecyclerView.Adapter<OrderAdapter.CurrencyOrderViewHolder>() {
+class OrderAdapter : RecyclerView.Adapter<OrderAdapter.CurrencyOrderViewHolder>() {
 
     private val cryptocurrencyOrderItems: MutableList<OrderDetailItem> = mutableListOf()
 
@@ -31,7 +31,7 @@ class OrderAdapter: RecyclerView.Adapter<OrderAdapter.CurrencyOrderViewHolder>()
 
     class CurrencyOrderViewHolder(
         private val binding: OrderItemBinding
-    ): RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(currencyOrderItem: OrderDetailItem) {
             binding.cryptocurrencyOrderPrice.text = currencyFormat(currencyOrderItem)
