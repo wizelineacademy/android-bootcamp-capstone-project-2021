@@ -13,13 +13,13 @@ import com.esaudev.wizeline.model.AvailableBook
 class BookAdapter(
     private val context: Context,
     private val itemClickListener: OnBookClickListener
-): ListAdapter<AvailableBook, BaseViewHolder<*>>(DiffUtilCallback) {
+) : ListAdapter<AvailableBook, BaseViewHolder<*>>(DiffUtilCallback) {
 
-    interface OnBookClickListener{
+    interface OnBookClickListener {
         fun onBookClickListener(book: AvailableBook)
     }
 
-    private object DiffUtilCallback: DiffUtil.ItemCallback<AvailableBook>() {
+    private object DiffUtilCallback : DiffUtil.ItemCallback<AvailableBook>() {
         override fun areItemsTheSame(oldItem: AvailableBook, newItem: AvailableBook): Boolean = oldItem.book == newItem.book
         override fun areContentsTheSame(oldItem: AvailableBook, newItem: AvailableBook): Boolean = oldItem == newItem
     }
@@ -30,13 +30,13 @@ class BookAdapter(
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
-        when(holder) {
+        when (holder) {
             is BookViewHolder -> holder.bind(getItem(position), position)
             else -> {}
         }
     }
 
-    inner class BookViewHolder(private val binding: ItemBookBinding): BaseViewHolder<AvailableBook>(binding.root) {
+    inner class BookViewHolder(private val binding: ItemBookBinding) : BaseViewHolder<AvailableBook>(binding.root) {
         override fun bind(item: AvailableBook, position: Int) = with(binding) {
             ivBook.load(item.icon)
 

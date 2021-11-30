@@ -11,12 +11,12 @@ import javax.inject.Inject
 
 class BitsoRemoteDataSourceImpl @Inject constructor(
     private val bitsoApi: BitsoApi
-): BitsoRemoteDataSource {
+) : BitsoRemoteDataSource {
 
     override suspend fun getAvailableBooks(): DataState<List<AvailableBook>> {
         val response = bitsoApi.getAvailableBooks()
 
-        return if (response.isSuccessful){
+        return if (response.isSuccessful) {
             val availableBooks = response.body()?.payload?.mapToDomain() ?: emptyList()
             DataState.Success(availableBooks)
         } else {
@@ -29,14 +29,14 @@ class BitsoRemoteDataSourceImpl @Inject constructor(
         return try {
             val response = bitsoApi.getTicker(book)
 
-            if (response.isSuccessful){
+            if (response.isSuccessful) {
                 val ticker = response.body()?.payload?.mapToDomain()!!
 
                 DataState.Success(ticker)
             } else {
                 DataState.Error(NETWORK_UNKNOWN_ERROR)
             }
-        } catch (e:Exception) {
+        } catch (e: Exception) {
             DataState.Error(NETWORK_UNKNOWN_ERROR)
         }
     }
@@ -46,14 +46,14 @@ class BitsoRemoteDataSourceImpl @Inject constructor(
         return try {
             val response = bitsoApi.getOrderBook(book)
 
-            if (response.isSuccessful){
+            if (response.isSuccessful) {
                 val orderBooks = response.body()?.payload?.mapToDomain()!!
 
                 DataState.Success(orderBooks)
             } else {
                 DataState.Error(NETWORK_UNKNOWN_ERROR)
             }
-        } catch (e: Exception){
+        } catch (e: Exception) {
             DataState.Error(NETWORK_UNKNOWN_ERROR)
         }
     }

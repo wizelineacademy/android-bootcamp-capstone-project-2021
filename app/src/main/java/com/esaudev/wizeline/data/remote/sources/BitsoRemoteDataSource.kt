@@ -12,5 +12,4 @@ interface BitsoRemoteDataSource {
     suspend fun getTickerFromBook(book: String): DataState<Ticker>
 
     suspend fun getOrderBook(book: String): DataState<OrderBook>
-
 }

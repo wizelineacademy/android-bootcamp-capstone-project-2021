@@ -3,7 +3,7 @@ package com.esaudev.wizeline.data.local.extensions
 import com.esaudev.wizeline.data.local.entities.AvailableBookEntity
 import com.esaudev.wizeline.model.AvailableBook
 
-fun AvailableBookEntity.mapToDomain(): AvailableBook{
+fun AvailableBookEntity.mapToDomain(): AvailableBook {
     return AvailableBook(
         book = book,
         maximumAmount = maximumAmount,

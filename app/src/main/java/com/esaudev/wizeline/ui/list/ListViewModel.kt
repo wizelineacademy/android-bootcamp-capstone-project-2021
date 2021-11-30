@@ -1,6 +1,5 @@
 package com.esaudev.wizeline.ui.list
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,14 +15,14 @@ import javax.inject.Inject
 @HiltViewModel
 class ListViewModel @Inject constructor(
     private val repository: BitsoRepository
-): ViewModel() {
+) : ViewModel() {
 
     private var _getAvailableBooksEvent = MutableLiveData<DataState<List<AvailableBook>>>()
     val getAvailableBooksEvent: LiveData<DataState<List<AvailableBook>>> = _getAvailableBooksEvent
 
-    fun getAvailableBooks(){
+    fun getAvailableBooks() {
         viewModelScope.launch {
-            try{
+            try {
                 _getAvailableBooksEvent.value = DataState.Loading
                 val data = repository.getAvailableBooks()
                 _getAvailableBooksEvent.value = data

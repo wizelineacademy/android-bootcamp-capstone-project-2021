@@ -1,6 +1,6 @@
 package com.esaudev.wizeline.model
 
-import java.util.*
+import java.util.UUID
 
 data class Bid(
     val amount: String,

@@ -17,4 +17,6 @@
     <string name="detail__asks_label">Asks</string>
 
     <string name="network__unknown_error">Oops, algo salió mal obteniendo los datos</string>
+    <string name="main__default_toolbar_title">Bitso coins</string>
+    <string name="detail__empty_state">Oops, we can\'t get the details for this coin, make sure that you are connected to internet</string>
 </resources>

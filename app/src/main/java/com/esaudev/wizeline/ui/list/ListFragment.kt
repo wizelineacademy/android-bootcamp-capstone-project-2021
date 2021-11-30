@@ -1,25 +1,13 @@
 package com.esaudev.wizeline.ui.list
 
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.drawable.VectorDrawable
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.toBitmap
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.esaudev.wizeline.R
 import com.esaudev.wizeline.databinding.FragmentListBinding
@@ -44,7 +32,8 @@ class ListFragment : Fragment(), BookAdapter.OnBookClickListener {
     private var listAdapter: BookAdapter? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
@@ -61,21 +50,21 @@ class ListFragment : Fragment(), BookAdapter.OnBookClickListener {
         initObservers()
     }
 
-    private fun init(){
+    private fun init() {
         initComponents()
         viewModel.getAvailableBooks()
     }
 
-    private fun initComponents(){
+    private fun initComponents() {
         listAdapter = BookAdapter(requireContext(), this)
         binding.rvList.adapter = listAdapter
-        val linearLayoutManager =  LinearLayoutManager(requireContext())
+        val linearLayoutManager = LinearLayoutManager(requireContext())
         binding.rvList.layoutManager = linearLayoutManager
     }
 
-    private fun initObservers(){
+    private fun initObservers() {
         viewModel.getAvailableBooksEvent.observe(viewLifecycleOwner, { dataState ->
-            when(dataState){
+            when (dataState) {
                 is DataState.Loading -> showProgressBar()
                 is DataState.Success -> handleSuccess(dataState.data)
                 is DataState.Error -> handleError(dataState.error)
@@ -84,25 +73,25 @@ class ListFragment : Fragment(), BookAdapter.OnBookClickListener {
         })
     }
 
-    private fun handleSuccess(list: List<AvailableBook>){
+    private fun handleSuccess(list: List<AvailableBook>) {
         hideProgressBar()
         listAdapter?.submitList(list)
     }
 
-    private fun handleError(error: String){
+    private fun handleError(error: String) {
         hideProgressBar()
-        when(error){
+        when (error) {
             NETWORK_UNKNOWN_ERROR -> activity?.toast(getString(R.string.network__unknown_error))
             else -> activity?.toast(getString(R.string.network__unknown_error))
         }
     }
 
-    private fun showProgressBar(){
+    private fun showProgressBar() {
         binding.pbList.show()
         binding.rvList.hide()
     }
 
-    private fun hideProgressBar(){
+    private fun hideProgressBar() {
         binding.pbList.hide()
         binding.rvList.show()
     }
@@ -110,5 +99,4 @@ class ListFragment : Fragment(), BookAdapter.OnBookClickListener {
     override fun onBookClickListener(book: AvailableBook) {
         findNavController().navigate(R.id.listFragmentToDetailFragment, bundleOf(BOOK_BUNDLE to book))
     }
-
 }

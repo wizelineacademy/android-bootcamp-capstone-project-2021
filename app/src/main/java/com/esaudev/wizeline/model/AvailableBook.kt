@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class AvailableBook (
+data class AvailableBook(
     val book: String,
     @SerializedName("maximum_amount") val maximumAmount: String,
     @SerializedName("maximum_price") val maximumPrice: String,
@@ -14,5 +14,4 @@ data class AvailableBook (
     @SerializedName("minimum_price") val minimumPrice: String,
     @SerializedName("minimum_value") val minimumValue: String,
     val icon: String
-): Parcelable
-
+) : Parcelable

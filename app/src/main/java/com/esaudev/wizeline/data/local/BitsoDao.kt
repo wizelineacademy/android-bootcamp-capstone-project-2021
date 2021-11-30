@@ -1,11 +1,12 @@
 package com.esaudev.wizeline.data.local
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.esaudev.wizeline.data.local.entities.AvailableBookEntity
 import com.esaudev.wizeline.data.local.entities.OrderBookEntity
 import com.esaudev.wizeline.data.local.entities.TickerEntity
-import com.esaudev.wizeline.model.AvailableBook
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BitsoDao {

@@ -21,5 +21,4 @@ interface BitsoApi {
     suspend fun getOrderBook(
         @Query("book") book: String
     ): Response<OrderBookResponse>
-
 }

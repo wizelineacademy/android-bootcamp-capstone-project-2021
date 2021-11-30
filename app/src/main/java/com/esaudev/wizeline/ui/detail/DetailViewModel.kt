@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     private val repository: BitsoRepository
-): ViewModel() {
+) : ViewModel() {
 
     private var _getOrderBookState = MutableLiveData<DataState<OrderBook>>()
     val getOrderBookState: LiveData<DataState<OrderBook>> = _getOrderBookState
@@ -24,9 +24,9 @@ class DetailViewModel @Inject constructor(
     private var _getTickerState = MutableLiveData<DataState<Ticker>>()
     val getTickerState: LiveData<DataState<Ticker>> = _getTickerState
 
-    fun getOrderBooks(book: String){
+    fun getOrderBooks(book: String) {
         viewModelScope.launch {
-            try{
+            try {
                 _getOrderBookState.value = DataState.Loading
                 val data = repository.getOrderBook(book)
                 _getOrderBookState.value = data
@@ -36,7 +36,7 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    fun getTickerFromBook(book: String){
+    fun getTickerFromBook(book: String) {
         viewModelScope.launch {
             try {
                 _getTickerState.value = DataState.Loading

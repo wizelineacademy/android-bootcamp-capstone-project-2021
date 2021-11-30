@@ -7,7 +7,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.esaudev.wizeline.data.local.entities.AvailableBookEntity
 import com.esaudev.wizeline.data.local.entities.OrderBookEntity
 import com.esaudev.wizeline.data.local.entities.TickerEntity
-import com.esaudev.wizeline.model.OrderBook
 import com.google.common.truth.Truth.assertThat
 import junit.framework.TestCase
 import kotlinx.coroutines.runBlocking
@@ -17,7 +16,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class BitsoDatabaseTest: TestCase() {
+class BitsoDatabaseTest : TestCase() {
 
     private lateinit var bitsoDatabase: BitsoDatabase
     private lateinit var bitsoDao: BitsoDao
@@ -30,12 +29,12 @@ class BitsoDatabaseTest: TestCase() {
     }
 
     @After
-    fun closeDatabase(){
+    fun closeDatabase() {
         bitsoDatabase.close()
     }
 
     @Test
-    fun writeAndReadAvailableBooks() = runBlocking {
+    fun write_and_read_available_books() = runBlocking {
         val availableBook = AvailableBookEntity(
             book = "btc_mxn",
             minimumAmount = ".003",
@@ -54,7 +53,7 @@ class BitsoDatabaseTest: TestCase() {
     }
 
     @Test
-    fun writeAndReadTickerFromBook() = runBlocking {
+    fun write_and_read_ticker_from_book() = runBlocking {
         val ticker = TickerEntity(
             ask = "ask",
             bid = "bid",
@@ -74,7 +73,7 @@ class BitsoDatabaseTest: TestCase() {
     }
 
     @Test
-    fun writeAndReadOrderFromBook() = runBlocking {
+    fun write_and_read_order_from_book() = runBlocking {
         val orderBook = OrderBookEntity(
             asks = listOf(),
             bids = listOf(),

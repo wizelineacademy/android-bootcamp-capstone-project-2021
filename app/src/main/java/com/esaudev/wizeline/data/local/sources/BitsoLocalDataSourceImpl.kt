@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class BitsoLocalDataSourceImpl @Inject constructor(
     private val bitsoDao: BitsoDao
-): BitsoLocalDataSource {
+) : BitsoLocalDataSource {
     override suspend fun insertBook(book: AvailableBookEntity) {
         bitsoDao.insertBook(book)
     }
@@ -40,6 +40,4 @@ class BitsoLocalDataSourceImpl @Inject constructor(
     override suspend fun getTickerByBook(book: String): TickerEntity {
         return bitsoDao.getTickerFromBook(book)
     }
-
-
 }

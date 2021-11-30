@@ -7,9 +7,11 @@
     tools:context=".ui.detail.DetailFragment">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsvContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
+        android:visibility="visible"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,6 +31,15 @@
                 tools:text="BTC - MXN"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tvHeader"
+                app:layout_constraintStart_toStartOf="@id/tvHeader">
+
+
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/tvLastPriceLabel"
@@ -154,18 +165,63 @@
                 android:id="@+id/gData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:constraint_referenced_ids="tvHeader, tvLastPriceLabel, tvLastPrice, tvBindsLabel, tvAsksLabel, tvMaximum, tvMaximumLabel, tvMinimum, tvMinimumLabel, rvBinds, rvAsks"/>
 
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/gLoading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:constraint_referenced_ids="pbDetail"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsvEmptyState"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivEmptyState"
+                android:layout_width="wrap_content"
+                android:layout_height="180dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_coin"
+                app:layout_constraintBottom_toTopOf="@+id/tvEmptyState"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:tint="@color/disabled" />
+
+            <TextView
+                android:id="@+id/tvEmptyState"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="40dp"
+                android:text="@string/detail__empty_state"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivEmptyState" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 

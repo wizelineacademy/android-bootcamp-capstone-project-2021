@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="com.esaudev.wizeline.ui.list.ListFragment"
-        android:label="fragment_list"
+        android:label="Bitso books"
         tools:layout="@layout/fragment_list" >
         <action
             android:id="@+id/listFragmentToDetailFragment"
@@ -21,6 +21,6 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.esaudev.wizeline.ui.detail.DetailFragment"
-        android:label="fragment_detail"
+        android:label="Bitso coin details"
         tools:layout="@layout/fragment_detail" />
 </navigation>

@@ -27,5 +27,4 @@ class RoomConverters {
     fun toBidList(string: String): List<BidEntity> {
         return Gson().fromJson(string, object : TypeToken<List<BidEntity>>() {}.type)
     }
-
 }

@@ -12,7 +12,7 @@ object InternetConnection {
                 socket.connect(InetSocketAddress("www.google.com", 80), 4000)
                 true
             }
-        }catch (e: Exception) {
+        } catch (e: Exception) {
             false
         }
     }

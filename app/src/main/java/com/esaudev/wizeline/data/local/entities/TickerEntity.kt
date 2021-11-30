@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "tickers")
-data class TickerEntity (
+data class TickerEntity(
     val ask: String,
     val bid: String,
     @PrimaryKey
@@ -15,4 +15,4 @@ data class TickerEntity (
     val low: String,
     val volume: String,
     val vwap: String
-        )
+)

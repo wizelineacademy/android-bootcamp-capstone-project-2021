@@ -1,23 +1,20 @@
 package com.esaudev.wizeline.ui.detail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.esaudev.wizeline.R
 import com.esaudev.wizeline.databinding.FragmentDetailBinding
 import com.esaudev.wizeline.extensions.hide
 import com.esaudev.wizeline.extensions.mapToQuery
 import com.esaudev.wizeline.extensions.show
-import com.esaudev.wizeline.extensions.toast
 import com.esaudev.wizeline.model.AvailableBook
 import com.esaudev.wizeline.model.OrderBook
 import com.esaudev.wizeline.model.Ticker
 import com.esaudev.wizeline.ui.adapters.AskAdapter
 import com.esaudev.wizeline.ui.adapters.BidAdapter
-import com.esaudev.wizeline.utils.Constants
 import com.esaudev.wizeline.utils.Constants.BOOK_BUNDLE
 import com.esaudev.wizeline.utils.DataState
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,7 +41,8 @@ class DetailFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
@@ -61,14 +59,14 @@ class DetailFragment : Fragment() {
         initObservers()
     }
 
-    private fun init(){
+    private fun init() {
         initComponents()
         viewModel.getTickerFromBook(book.book.mapToQuery())
         viewModel.getOrderBooks(book.book.mapToQuery())
     }
 
-    private fun initMinMax(ticker: Ticker){
-        with(binding){
+    private fun initMinMax(ticker: Ticker) {
+        with(binding) {
             tvHeader.text = book.book
             tvMaximum.text = ticker.high
             tvMinimum.text = ticker.low
@@ -76,7 +74,7 @@ class DetailFragment : Fragment() {
         }
     }
 
-    private fun initComponents(){
+    private fun initComponents() {
         bidAdapter = BidAdapter(requireContext())
         askAdapter = AskAdapter(requireContext())
 
@@ -84,10 +82,10 @@ class DetailFragment : Fragment() {
         binding.rvAsks.adapter = askAdapter
     }
 
-    private fun initObservers(){
+    private fun initObservers() {
 
-        viewModel.getTickerState.observe(viewLifecycleOwner,{ dataState ->
-            when(dataState){
+        viewModel.getTickerState.observe(viewLifecycleOwner, { dataState ->
+            when (dataState) {
                 is DataState.Loading -> showProgressBar()
                 is DataState.Success -> handleTickerSuccess(dataState.data)
                 is DataState.Error -> handleError(dataState.error)
@@ -96,7 +94,7 @@ class DetailFragment : Fragment() {
         })
 
         viewModel.getOrderBookState.observe(viewLifecycleOwner, { dataState ->
-            when(dataState){
+            when (dataState) {
                 is DataState.Success -> handleOrderBookSuccess(dataState.data)
                 is DataState.Error -> handleError(dataState.error)
                 else -> Unit
@@ -104,32 +102,44 @@ class DetailFragment : Fragment() {
         })
     }
 
-    private fun handleTickerSuccess(ticker: Ticker){
+    private fun handleTickerSuccess(ticker: Ticker) {
+        hideEmptyState()
         initMinMax(ticker)
     }
 
-    private fun handleOrderBookSuccess(orderBook: OrderBook){
+    private fun handleOrderBookSuccess(orderBook: OrderBook) {
         hideProgressBar()
+        hideEmptyState()
         bidAdapter?.submitList(orderBook.bids)
         askAdapter?.submitList(orderBook.asks)
     }
 
-    private fun handleError(error: String){
+    private fun handleError(error: String) {
         hideProgressBar()
-        when(error){
-            Constants.NETWORK_UNKNOWN_ERROR -> activity?.toast(getString(R.string.network__unknown_error))
-            else -> activity?.toast(getString(R.string.network__unknown_error))
+        showEmptyState()
+    }
+
+    private fun showEmptyState() {
+        with(binding) {
+            nsvContainer.hide()
+            nsvEmptyState.show()
         }
     }
 
-    private fun showProgressBar(){
+    private fun hideEmptyState() {
+        with(binding) {
+            nsvEmptyState.hide()
+            nsvContainer.show()
+        }
+    }
+
+    private fun showProgressBar() {
         binding.gLoading.show()
         binding.gData.hide()
     }
 
-    private fun hideProgressBar(){
+    private fun hideProgressBar() {
         binding.gLoading.hide()
         binding.gData.show()
     }
-
 }

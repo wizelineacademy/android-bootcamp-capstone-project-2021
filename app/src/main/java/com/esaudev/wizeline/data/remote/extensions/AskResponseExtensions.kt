@@ -14,8 +14,6 @@ fun AskResponse.mapToDomain(): Ask {
     )
 }
 
-
-
 fun List<AskResponse>.mapToAskList(): List<Ask> {
     return this.map { it.mapToDomain() }
 }

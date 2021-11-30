@@ -4,5 +4,3 @@ data class OrderBookResponse(
     val payload: OrderBookPayload,
     val success: Boolean
 )
-
-

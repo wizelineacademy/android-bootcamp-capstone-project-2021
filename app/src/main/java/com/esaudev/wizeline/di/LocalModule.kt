@@ -35,5 +35,4 @@ object LocalModule {
     ): BitsoLocalDataSource = BitsoLocalDataSourceImpl(
         bitsoDao
     )
-
 }

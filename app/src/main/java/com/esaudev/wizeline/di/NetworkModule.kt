@@ -1,12 +1,9 @@
 package com.esaudev.wizeline.di
 
-import com.esaudev.wizeline.data.local.sources.BitsoLocalDataSource
 import com.esaudev.wizeline.data.remote.api.BitsoApi
 import com.esaudev.wizeline.data.remote.interceptors.BitsoClientInterceptor
 import com.esaudev.wizeline.data.remote.sources.BitsoRemoteDataSource
 import com.esaudev.wizeline.data.remote.sources.BitsoRemoteDataSourceImpl
-import com.esaudev.wizeline.repository.BitsoRepository
-import com.esaudev.wizeline.repository.BitsoRepositoryImpl
 import com.esaudev.wizeline.utils.Constants.BITSO_BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -36,7 +33,7 @@ object NetworkModule {
     fun provideBitsoApi(
         bitsoHttpClient: OkHttpClient.Builder,
         bitsoClientInterceptor: BitsoClientInterceptor
-    ): BitsoApi{
+    ): BitsoApi {
 
         val client = bitsoHttpClient
             .addInterceptor(bitsoClientInterceptor)
@@ -52,18 +49,6 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideBitsoRepository(
-        remoteDataSource: BitsoRemoteDataSource,
-        localDataSource: BitsoLocalDataSource,
-        networkDispatcher: CoroutineDispatcher
-    ): BitsoRepository = BitsoRepositoryImpl(
-        remoteDataSource,
-        localDataSource,
-        networkDispatcher
-    )
-
-    @Provides
-    @Singleton
     fun provideBitsoRemoteDataSource(
         bitsoApi: BitsoApi
     ): BitsoRemoteDataSource = BitsoRemoteDataSourceImpl(
@@ -73,5 +58,4 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideNetworkDispatcher(): CoroutineDispatcher = Dispatchers.IO
-
 }

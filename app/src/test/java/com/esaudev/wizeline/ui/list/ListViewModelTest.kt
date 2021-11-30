@@ -39,7 +39,7 @@ class ListViewModelTest {
         // Given
         listViewModel = ListViewModel(fakeBitsoSuccessRepository)
         val books = DataState.Success(
-            listOf (
+            listOf(
                 AvailableBook(
                     book = "btc_mxn",
                     minimumAmount = ".003",

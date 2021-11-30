@@ -5,20 +5,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.esaudev.wizeline.R
-import com.esaudev.wizeline.data.remote.responses.BidResponse
 import com.esaudev.wizeline.databinding.ItemBindBinding
-import com.esaudev.wizeline.databinding.ItemBookBinding
-import com.esaudev.wizeline.extensions.load
 import com.esaudev.wizeline.model.Ask
-import com.esaudev.wizeline.model.AvailableBook
-import com.esaudev.wizeline.model.Bid
 
 class AskAdapter(
     private val context: Context
-): ListAdapter<Ask, BaseViewHolder<*>>(DiffUtilCallback) {
+) : ListAdapter<Ask, BaseViewHolder<*>>(DiffUtilCallback) {
 
-    private object DiffUtilCallback: DiffUtil.ItemCallback<Ask>() {
+    private object DiffUtilCallback : DiffUtil.ItemCallback<Ask>() {
         override fun areItemsTheSame(oldItem: Ask, newItem: Ask): Boolean = oldItem.id == newItem.id
         override fun areContentsTheSame(oldItem: Ask, newItem: Ask): Boolean = oldItem == newItem
     }
@@ -29,13 +23,13 @@ class AskAdapter(
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
-        when(holder) {
+        when (holder) {
             is BindViewHolder -> holder.bind(getItem(position), position)
             else -> {}
         }
     }
 
-    inner class BindViewHolder(private val binding: ItemBindBinding): BaseViewHolder<Ask>(binding.root) {
+    inner class BindViewHolder(private val binding: ItemBindBinding) : BaseViewHolder<Ask>(binding.root) {
         override fun bind(item: Ask, position: Int) = with(binding) {
 
             tvHeader.text = item.book

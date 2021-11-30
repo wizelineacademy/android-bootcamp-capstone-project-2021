@@ -5,4 +5,3 @@ data class AskResponse(
     val book: String,
     val price: String
 )
-

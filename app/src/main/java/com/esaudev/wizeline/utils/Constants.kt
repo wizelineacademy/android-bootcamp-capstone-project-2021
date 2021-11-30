@@ -7,7 +7,6 @@ object Constants {
 
     const val NETWORK_UNKNOWN_ERROR = "unknown_error"
 
-
     // Bundle
     const val BOOK_BUNDLE = "book_bundle"
 

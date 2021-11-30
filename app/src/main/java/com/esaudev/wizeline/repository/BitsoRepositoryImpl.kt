@@ -41,8 +41,8 @@ class BitsoRepositoryImpl @Inject constructor(
 
     override suspend fun getTickerFromBook(book: String): DataState<Ticker> =
         withContext(networkDispatcher) {
-            if (isNetworkAvailable()){
-                when(val networkState = remoteDataSource.getTickerFromBook(book)){
+            if (isNetworkAvailable()) {
+                when (val networkState = remoteDataSource.getTickerFromBook(book)) {
                     is DataState.Success -> {
                         localDataSource.insertBookTicker(networkState.data.mapToEntity())
                         val bookTicker = localDataSource.getTickerByBook(book).mapToDomain()
@@ -59,8 +59,8 @@ class BitsoRepositoryImpl @Inject constructor(
 
     override suspend fun getOrderBook(book: String): DataState<OrderBook> =
         withContext(networkDispatcher) {
-            if (isNetworkAvailable()){
-                when(val networkState = remoteDataSource.getOrderBook(book)){
+            if (isNetworkAvailable()) {
+                when (val networkState = remoteDataSource.getOrderBook(book)) {
                     is DataState.Success -> {
                         localDataSource.insertOrderBook(networkState.data.mapToEntity(book))
                         val orderBook = localDataSource.getOrderBookByBook(book).mapToDomain()
