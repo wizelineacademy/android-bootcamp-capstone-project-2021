@@ -33,31 +33,23 @@ class CurrenciesViewModel @Inject constructor(
     val loading: LiveData<Boolean>
         get() = _loading
 
-    private var _coinList = MutableLiveData<List<CoinList>>()
-
     init {
         downloadBooks()
     }
 
-    // Using coinGecko library to get a friendly name of the Currency
-    fun getCoinList() = viewModelScope.launch {
-        try {
-            val coinGecko = CoinGeckoClient.create()
-            _coinList.value = coinGecko.getCoinList()
-        } catch (e: Exception) {
-            _coinList.value = emptyList()
-        }
-    }
-
     private suspend fun insertCoins(listBooks: List<Book>) {
+
+        val coinList: List<CoinList> = CoinGeckoClient.create().getCoinList()
+
         listBooks.map { item ->
-            val data = _coinList.value?.filter {
+            val data = coinList.filter {
                 it.symbol == item.book.split("_")[0] && !it.id.contains(
                     "binance",
                     ignoreCase = true
                 )
-            }?.get(0)
-            data?.let {
+            }[0]
+
+            data.let {
                 currencyRepository.insert(
                     Coins(
                         name = data.name,
@@ -87,11 +79,13 @@ class CurrenciesViewModel @Inject constructor(
             }
         } catch (ex: Exception) {
             _error.value = ex.localizedMessage
+        } finally {
+            _loading.value = false
+            getBooks()
         }
-        _loading.value = false
     }
 
-    fun getBooks() = viewModelScope.launch(Dispatchers.IO) {
+    private fun getBooks() = viewModelScope.launch(Dispatchers.IO) {
         val result = currencyRepository.getBooks()
         withContext(Dispatchers.Main) {
             _availableBooks.value = result

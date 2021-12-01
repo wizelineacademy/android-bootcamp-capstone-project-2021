@@ -24,8 +24,8 @@ class CurrencyDetailViewModel @Inject constructor(
     val bookTicker: LiveData<BookDetail>
         get() = _bookTicker
 
-    private val _orders = MutableLiveData<OrderDetail>()
-    val orders: LiveData<OrderDetail>
+    private val _orders = MutableLiveData<OrderDetail?>()
+    val orders: LiveData<OrderDetail?>
         get() = _orders
 
     private val _error = MutableLiveData<String>()
@@ -64,8 +64,9 @@ class CurrencyDetailViewModel @Inject constructor(
             }
         } catch (ex: Exception) {
             _error.value = ex.localizedMessage
+        }finally {
+            _loadingOrders.value = false
         }
-        _loadingOrders.value = false
     }
 
     fun getOrder(book: String) = viewModelScope.launch(Dispatchers.IO) {
@@ -94,8 +95,9 @@ class CurrencyDetailViewModel @Inject constructor(
             }
         } catch (ex: Exception) {
             _error.value = ex.localizedMessage
+        } finally {
+            _loadingTicker.value = false
         }
-        _loadingTicker.value = false
     }
 
     fun getTicker(book: String) = viewModelScope.launch(Dispatchers.IO) {

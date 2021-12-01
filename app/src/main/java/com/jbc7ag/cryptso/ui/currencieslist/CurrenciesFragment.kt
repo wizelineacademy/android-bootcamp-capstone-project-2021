@@ -1,22 +1,21 @@
 package com.jbc7ag.cryptso.ui.currencieslist
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.jbc7ag.cryptso.R
 import com.jbc7ag.cryptso.data.model.Book
 import com.jbc7ag.cryptso.databinding.FragmentCurrenciesBinding
 import com.jbc7ag.cryptso.util.getCurrencyCodeFilter
 import com.jbc7ag.cryptso.util.getFilterList
-import com.jbc7ag.cryptso.util.isInternetAvailable
 import dagger.hilt.android.AndroidEntryPoint
+import com.jbc7ag.cryptso.util.FILTER
+
 
 @AndroidEntryPoint
 class CurrenciesFragment : Fragment() {
@@ -43,10 +42,6 @@ class CurrenciesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
-
-        if (context?.let { isInternetAvailable(it) } == true)
-            viewModel.getCoinList()
-
         navController = findNavController()
     }
 
@@ -54,25 +49,24 @@ class CurrenciesFragment : Fragment() {
         viewModel.apply {
             error.observe(viewLifecycleOwner, {
                 it?.let {
-                    Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
+                    showEmptyScreen(true)
                 }
             })
+
             availableBooks.observe(viewLifecycleOwner, {
                 if (it.isNotEmpty()) {
-                    binding?.noItemsView?.root?.visibility = View.GONE
                     showCurrencyList(it)
                     showFilters(it)
-                } else {
-                    binding?.noItemsView?.root?.visibility = View.VISIBLE
                 }
+                showEmptyScreen(it.isEmpty())
             })
+
             loading.observe(viewLifecycleOwner, {
-                if (!it) {
-                    viewModel.getBooks()
-                }
+                binding?.progressLoader?.visibility = if(it) View.VISIBLE else View.GONE
             })
         }
     }
+
 
     private fun showCurrencyList(data: List<Book>) {
         currenciesAdapter = CurrenciesAdapter { book ->
@@ -82,12 +76,14 @@ class CurrenciesFragment : Fragment() {
                 }
         }
         binding?.currenciesList?.adapter = currenciesAdapter
-        currenciesAdapter.submitList(data.filter { it.book.getCurrencyCodeFilter() == data[0].book.getCurrencyCodeFilter() })
+        val dataFilter = if(!getFilter().isNullOrEmpty()) getFilter() else data[0].book.getCurrencyCodeFilter()
+        currenciesAdapter.submitList(data.filter { it.book.getCurrencyCodeFilter() == dataFilter})
     }
 
     private fun showFilters(data: List<Book>) {
 
         currenciesFilterAdapter = CurrenciesFilterAdapter { book ->
+            saveFilter(book)
             val dataFilter = data.filter { it.book.getCurrencyCodeFilter() == book }
             currenciesAdapter.submitList(dataFilter)
             currenciesFilterAdapter.currentList.map {
@@ -97,11 +93,30 @@ class CurrenciesFragment : Fragment() {
         }
 
         binding?.filterList?.adapter = currenciesFilterAdapter
-        currenciesFilterAdapter.submitList(data.getFilterList(data[0].book.getCurrencyCodeFilter()))
+        val dataFilter = if(!getFilter().isNullOrEmpty()) getFilter() else data[0].book.getCurrencyCodeFilter()
+        currenciesFilterAdapter.submitList(data.getFilterList(dataFilter))
+    }
+
+    private fun showEmptyScreen(visible: Boolean){
+        binding?.noItemsView?.root?.visibility = if(visible) View.VISIBLE else View.GONE
+    }
+
+    private fun saveFilter(filter: String){
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        with (sharedPref.edit()) {
+            putString(FILTER, filter)
+            apply()
+        }
+    }
+
+    private fun getFilter(): String? {
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return ""
+        return sharedPref.getString(FILTER, "")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 }

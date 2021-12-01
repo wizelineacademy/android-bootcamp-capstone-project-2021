@@ -4,8 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.13360507246376813" />
-        <entry key="app/src/main/res/layout/fragment_currencies.xml" value="0.11639492753623189" />
-        <entry key="app/src/main/res/layout/fragment_currency_details.xml" value="0.11639492753623189" />
+        <entry key="app/src/main/res/layout/fragment_currencies.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_currency_details.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/fragment_no_details.xml" value="0.23645833333333333" />
+        <entry key="app/src/main/res/layout/fragment_no_items.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_currencies.xml" value="0.1828774062816616" />
+        <entry key="app/src/main/res/layout/item_currencies_market.xml" value="0.1828774062816616" />
+        <entry key="app/src/main/res/layout/item_trades.xml" value="0.1828774062816616" />
       </map>
     </option>
   </component>

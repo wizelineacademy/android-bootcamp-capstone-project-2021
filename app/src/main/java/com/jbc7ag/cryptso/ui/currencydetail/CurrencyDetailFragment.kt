@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -51,6 +50,7 @@ class CurrencyDetailFragment : Fragment() {
 
         val args = CurrencyDetailFragmentArgs.fromBundle(requireArguments())
         val bookName = args.currencyId
+        initObservers(bookName)
         initView(bookName)
         initObservers(bookName)
         buttonListeners()
@@ -79,13 +79,14 @@ class CurrencyDetailFragment : Fragment() {
             })
             error.observe(viewLifecycleOwner, {
                 it?.let {
-                    Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
+                    showEmptyScreen(true)
                 }
             })
             loadingOrders.observe(viewLifecycleOwner, {
                 if (!it) {
                     viewModel.getOrder(bookName)
                 }
+                binding?.progressLoader?.visibility = if(it) View.VISIBLE else View.GONE
             })
             loadingTicker.observe(viewLifecycleOwner, {
                 if (!it) {
@@ -95,11 +96,13 @@ class CurrencyDetailFragment : Fragment() {
             bookTicker.observe(viewLifecycleOwner, {
                 it?.let {
                     fillDataTicker(it)
+                    showEmptyScreen(false)
                 }
             })
             orders.observe(viewLifecycleOwner, {
                 it?.let {
                     fillOrderList(it)
+                    showEmptyScreen(false)
                 }
             })
         }
@@ -171,5 +174,14 @@ class CurrencyDetailFragment : Fragment() {
             }
             fillData(TYPES.ASKS)
         }
+    }
+
+    private fun showEmptyScreen(visible: Boolean){
+        val itemsVisibility = if(!visible) View.VISIBLE else View.GONE
+        binding?.noItemsView?.root?.visibility =  if(visible) View.VISIBLE else View.GONE
+        binding?.header?.visibility = itemsVisibility
+        binding?.buttonBids?.visibility = itemsVisibility
+        binding?.buttonAsks?.visibility = itemsVisibility
+        binding?.detailCurrencyTrades?.visibility = itemsVisibility
     }
 }
