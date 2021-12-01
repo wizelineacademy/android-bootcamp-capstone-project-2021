@@ -13,7 +13,7 @@ class MainViewModel @Inject constructor(app: Application) : AndroidViewModel(app
     private val repo = (app as CryptoChallengeApp).repository
     private val _gettingBooks = MutableLiveData(false)
     val gettingBooks: LiveData<Boolean> = _gettingBooks
-    val books = repo.books.asLiveData()
+    val books = repo.books().asLiveData()
     // TODO: Display advice when theres no data available
 
     fun updateBooks() {

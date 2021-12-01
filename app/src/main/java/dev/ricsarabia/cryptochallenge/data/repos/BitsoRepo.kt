@@ -1,20 +1,21 @@
 package dev.ricsarabia.cryptochallenge.data.repos
 
 import dev.ricsarabia.cryptochallenge.data.db.AppDatabase
+import dev.ricsarabia.cryptochallenge.data.services.BitsoService
 import dev.ricsarabia.cryptochallenge.di.BitsoNetworkingModule
 import dev.ricsarabia.cryptochallenge.domain.*
+import dev.ricsarabia.cryptochallenge.utils.toBook
 import java.lang.Exception
 
 /**
  * Created by Ricardo Sarabia on 2021/11/04.
  * Class to retrieve Bitso data from different sources.
  */
-class BitsoRepo(database: AppDatabase) {
-    private val remoteDataSource = BitsoNetworkingModule.service
+class BitsoRepo(database: AppDatabase, bitsoService: BitsoService) {
+    private val remoteDataSource = bitsoService
     private val localDataSource = database
-    private val cryptoiconUrl = "https://cryptoicon-api.vercel.app/api/icon/"
 
-    val books = localDataSource.bookDao().getAll()
+    fun books() = localDataSource.bookDao().getAll()
     fun bookPricesOf(book: String) = localDataSource.bookPricesDao().findById(book)
     fun asksOf(book: String) = localDataSource.bookOrderDao().getAllOf(book, BookOrder.Type.ASK)
     fun bidsOf(book: String) = localDataSource.bookOrderDao().getAllOf(book, BookOrder.Type.BID)
@@ -22,14 +23,7 @@ class BitsoRepo(database: AppDatabase) {
     suspend fun updateBooks(): Boolean {
         val response = try { remoteDataSource.getAvailableBooks() } catch (e: Exception) { null }
         if (response == null || !response.success) return false
-        val books: List<Book> = response.payload.map {
-            Book(
-                it.book,
-                it.book.substringBefore("_"),
-                it.book.substringAfter("_"),
-                cryptoiconUrl + it.book.substringBefore("_")
-            )
-        }
+        val books = response.payload.map { it.toBook() }
         localDataSource.bookDao().insert(books)
         return true
     }

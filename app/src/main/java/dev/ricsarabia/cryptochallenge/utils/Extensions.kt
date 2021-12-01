@@ -1,5 +1,7 @@
 package dev.ricsarabia.cryptochallenge.utils
 
+import dev.ricsarabia.cryptochallenge.data.services.AvailableBooksResponse
+import dev.ricsarabia.cryptochallenge.domain.Book
 import java.lang.Exception
 import java.text.DecimalFormat
 import java.time.*
@@ -27,4 +29,14 @@ fun String.asLocalDate(offset: ZoneOffset = OffsetDateTime.now().offset): String
     bitsoDate.toInstant().atOffset(offset).format(localFormatter)
 } catch (e: Exception) {
     "never"
+}
+
+fun AvailableBooksResponse.Payload.toBook(): Book {
+    val cryptoiconUrl = "https://cryptoicon-api.vercel.app/api/icon/"
+    return Book(
+        this.book,
+        this.book.substringBefore("_"),
+        this.book.substringAfter("_"),
+        cryptoiconUrl + this.book.substringBefore("_")
+    )
 }
