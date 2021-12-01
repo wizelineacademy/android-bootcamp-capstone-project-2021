@@ -41,6 +41,7 @@ class CurrenciesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = findNavController()
+        viewModel.start()
         setViewModelListeners()
     }
 
@@ -72,6 +73,6 @@ class CurrenciesFragment : Fragment() {
     }
 
     private fun showMessage(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT)
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 }

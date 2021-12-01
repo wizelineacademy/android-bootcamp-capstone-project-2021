@@ -1,6 +1,7 @@
 package com.kcruz.cryptochallenge.usecase.data
 
 import com.kcruz.cryptochallenge.commons.Response
+import com.kcruz.cryptochallenge.domain.ExchangeOrderBook
 
 //TODO: Add documentation
 

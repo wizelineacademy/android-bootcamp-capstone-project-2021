@@ -9,8 +9,11 @@ import com.kcruz.cryptochallenge.R
 import com.kcruz.cryptochallenge.data.repository.BookRepository
 import com.kcruz.cryptochallenge.domain.Book
 import com.kcruz.cryptochallenge.domain.Order
+import com.kcruz.cryptochallenge.domain.Orders
+import com.kcruz.cryptochallenge.framework.database.AppDatabase
 import com.kcruz.cryptochallenge.framework.response.BookResponse
 import com.kcruz.cryptochallenge.framework.response.OrderBookResponse
+import com.kcruz.cryptochallenge.framework.source.local.BookLocalSource
 import com.kcruz.cryptochallenge.framework.source.remote.BookRemoteSource
 import com.kcruz.cryptochallenge.presentation.commons.SingleLiveEvent
 import com.kcruz.cryptochallenge.presentation.currencydetail.order.OrderType
@@ -37,24 +40,28 @@ class CurrencyDetailViewModel : ViewModel() {
     private fun getBookDetail(book: String) {
         viewModelScope.launch {
             //TODO: Add dependency injection library
-            val response = GetBookInfo(BookRepository(BookRemoteSource())).getBookInfo(book)
-            if (response.body is BookResponse && response.body.success) {
-                _currencyDetail.value = response.body.payload
+            val response = GetBookInfo(BookRepository(BookRemoteSource(), BookLocalSource(
+                AppDatabase.getInstance(App.appContext)))).getBookInfo(book)
+            if (response.code == 200) {
+                _currencyDetail.value = response.body as Book
             } else {
                 _events.value = SendMessage(App.appContext.getString(R.string.error_message))
             }
             getOpenOrders(book)
+            _events.value = ShowLoading(false)
         }
     }
 
     private fun getOpenOrders(book: String) {
         viewModelScope.launch {
             val response =
-                GetOpenOrders(BookRepository(BookRemoteSource())).getOpenOrders(book, false)
-            if (response.body is OrderBookResponse && response.body.success) {
+                GetOpenOrders(BookRepository(BookRemoteSource(), BookLocalSource(
+                    AppDatabase.getInstance(App.appContext)))).getOpenOrders(book, false)
+            if (response.code == 200) {
+                val body = response.body as Orders
                 val orders = mapOf(
-                    OrderType.ASKS.label to response.body.payload.asks,
-                    OrderType.BIDS.label to response.body.payload.bids
+                    OrderType.ASKS.label to body.asks,
+                    OrderType.BIDS.label to body.bids
                 )
                 _openOrders.value = orders
             } else {

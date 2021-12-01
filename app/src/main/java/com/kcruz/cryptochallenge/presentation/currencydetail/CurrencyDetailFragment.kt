@@ -75,7 +75,7 @@ class CurrencyDetailFragment : Fragment() {
     }
 
     private fun showMessage(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT)
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun setCurrencyDetailInfo(book: Book) {
