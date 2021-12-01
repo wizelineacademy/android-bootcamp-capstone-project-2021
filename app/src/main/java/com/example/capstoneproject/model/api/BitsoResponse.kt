@@ -28,3 +28,20 @@ data class Ticker(
     @SerializedName(value = "low") val lowPrice: String,
     @SerializedName(value = "last") val lastPrice: String,
 )
+
+data class BitsoOrderResponse(
+    @SerializedName(value = "success") val success: Boolean,
+    @SerializedName(value = "payload") val payload: AsksAndBids
+)
+
+data class AsksAndBids(
+    @SerializedName(value = "asks") val asks: List<OrderBook>,
+    @SerializedName(value = "bids") val bids: List<OrderBook>
+)
+
+data class OrderBook(
+    @SerializedName(value = "book") val book: String,
+    @SerializedName(value = "price") val price: String,
+    @SerializedName(value = "amount") val amount: String,
+    @SerializedName(value = "oid") val orderId: String,
+)

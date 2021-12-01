@@ -40,7 +40,6 @@ class CurrencyDetailsFragment : Fragment() {
             .into(binding.currencyImageView)
 
         mainViewModel.tickerInfo.observe(viewLifecycleOwner) { ticker ->
-            Log.e("BITSO", "Max price" + ticker.highPrice)
             binding.highestTextView.text = ticker.highPrice
             binding.lowestTextView.text = ticker.lowPrice
             binding.lastTextView.text = ticker.lastPrice

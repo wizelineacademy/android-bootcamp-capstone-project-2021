@@ -41,7 +41,6 @@ class MainFragment : Fragment() {
         currencyAdapter = CurrencyAdapter { bookName ->
             MainFragmentDirections.actionMainFragmentToCurrencyDetailsFragment(bookName)
                 .let { findNavController().navigate(it) }
-            Log.e("BITSO", "Currency clicked $bookName")
         }
 
         binding.currencyList.run {
