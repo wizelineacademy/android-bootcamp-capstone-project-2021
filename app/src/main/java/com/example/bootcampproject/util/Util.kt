@@ -40,6 +40,8 @@ fun String.attachedName(): String = when (this) {
     "link" -> "Chain Link"
     "uni" -> "Uni Swap"
     "aave" -> "Aave"
+    "chz" -> "chiliz"
+    "axs" -> "axs"
     else -> "Not exist"
 }
 

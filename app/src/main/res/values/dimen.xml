@@ -2,4 +2,5 @@
 <resources>
     <dimen name="titleCustom">34sp</dimen>
     <dimen name="heightCustom">100dp</dimen>
+    <dimen name="valueTextSize">20sp</dimen>
 </resources>

@@ -66,4 +66,3 @@ inline fun <reified T : Fragment> launchFragmentInHiltContainer(
         fragment.action()
     }
 }
-
