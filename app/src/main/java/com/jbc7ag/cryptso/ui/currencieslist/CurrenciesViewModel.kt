@@ -21,6 +21,8 @@ class CurrenciesViewModel @Inject constructor(
     private val currencyRepository: CurrencyRepository
 ) : ViewModel() {
 
+    var dispatcher = Dispatchers.IO
+
     private val _availableBooks = MutableLiveData<List<Book>>()
     val availableBooks: LiveData<List<Book>>
         get() = _availableBooks
@@ -32,10 +34,6 @@ class CurrenciesViewModel @Inject constructor(
     private var _loading = MutableLiveData<Boolean>(true)
     val loading: LiveData<Boolean>
         get() = _loading
-
-    init {
-        downloadBooks()
-    }
 
     private suspend fun insertCoins(listBooks: List<Book>) {
 
@@ -61,13 +59,13 @@ class CurrenciesViewModel @Inject constructor(
         }
     }
 
-    private fun downloadBooks() = viewModelScope.launch() {
+    fun downloadBooks() = viewModelScope.launch() {
         try {
-            val result = withContext(Dispatchers.IO) { currencyRepository.downloadAvailableBooks() }
+            val result = withContext(dispatcher) { currencyRepository.downloadAvailableBooks() }
             when (result) {
                 is Resource.Success -> {
                     result.data?.let {
-                        withContext(Dispatchers.IO) {
+                        withContext(dispatcher) {
                             insertCoins(it)
                             currencyRepository.saveBooks(it)
                         }
@@ -85,10 +83,8 @@ class CurrenciesViewModel @Inject constructor(
         }
     }
 
-    private fun getBooks() = viewModelScope.launch(Dispatchers.IO) {
-        val result = currencyRepository.getBooks()
-        withContext(Dispatchers.Main) {
-            _availableBooks.value = result
-        }
+    fun getBooks() = viewModelScope.launch() {
+        val result = withContext(dispatcher) { currencyRepository.getBooks() }
+        _availableBooks.value = result
     }
 }

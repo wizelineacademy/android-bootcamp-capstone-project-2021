@@ -43,6 +43,7 @@ class CurrenciesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
         navController = findNavController()
+        viewModel.downloadBooks()
     }
 
     private fun initObservers() {

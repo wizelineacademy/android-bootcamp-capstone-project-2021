@@ -75,18 +75,26 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     testImplementation "org.hamcrest:hamcrest-all:$hamcrest_version"
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
-    androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
     implementation "androidx.fragment:fragment-testing:$fragmentVersion"
     implementation "androidx.test:core:$androidXTestCoreVersion"
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
+
 
     // AndroidX Test - Instrumented testing
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
     androidTestImplementation "androidx.arch.core:core-testing:$archTestingVersion"
     implementation "androidx.test.espresso:espresso-idling-resource:$espressoVersion"
-    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$dexMakerVersion"
     androidTestImplementation('androidx.test:runner:1.4.0')
     androidTestImplementation('androidx.test:rules:1.4.0')
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2'
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+
+    //Mockito
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$dexMakerVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoVersion"
+
+
 
     //Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"

@@ -20,6 +20,8 @@ class CurrencyDetailViewModel @Inject constructor(
     private val currencyRepository: CurrencyRepository
 ) : ViewModel() {
 
+    var dispatcher = Dispatchers.IO
+
     private val _bookTicker = MutableLiveData<BookDetail>()
     val bookTicker: LiveData<BookDetail>
         get() = _bookTicker
@@ -46,13 +48,12 @@ class CurrencyDetailViewModel @Inject constructor(
 
     fun downloadOrders(book: String) = viewModelScope.launch() {
         try {
-
             _loadingOrders.value = true
-            val result = withContext(Dispatchers.IO) { currencyRepository.downloadOrders(book) }
+            val result = withContext(dispatcher) { currencyRepository.downloadOrders(book) }
             when (result) {
                 is Resource.Success -> {
                     result.data?.let {
-                        withContext(Dispatchers.IO) {
+                        withContext(dispatcher) {
                             it.book = book
                             currencyRepository.saveOrder(it)
                         }
@@ -69,7 +70,7 @@ class CurrencyDetailViewModel @Inject constructor(
         }
     }
 
-    fun getOrder(book: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun getOrder(book: String) = viewModelScope.launch(dispatcher) {
         val result = currencyRepository.getOrder(book)
         withContext(Dispatchers.Main) {
             _orders.value = result
@@ -78,13 +79,12 @@ class CurrencyDetailViewModel @Inject constructor(
 
     fun downloadTicker(book: String) = viewModelScope.launch() {
         try {
-
             _loadingTicker.value = true
-            val result = withContext(Dispatchers.IO) { currencyRepository.downloadTicker(book) }
+            val result = withContext(dispatcher) { currencyRepository.downloadTicker(book) }
             when (result) {
                 is Resource.Success -> {
                     result.data?.let {
-                        withContext(Dispatchers.IO) {
+                        withContext(dispatcher) {
                             currencyRepository.saveTicker(it)
                         }
                     }
@@ -100,7 +100,7 @@ class CurrencyDetailViewModel @Inject constructor(
         }
     }
 
-    fun getTicker(book: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun getTicker(book: String) = viewModelScope.launch(dispatcher) {
         val result = currencyRepository.getTicker(book)
         withContext(Dispatchers.Main) {
             _bookTicker.value = result
@@ -108,7 +108,7 @@ class CurrencyDetailViewModel @Inject constructor(
     }
 
     fun getBookName(bookId: String) =  viewModelScope.launch() {
-        val result = withContext(Dispatchers.IO) { currencyRepository.getCoinListBySymbol(bookId.getCurrencyCode()) }
+        val result = withContext(dispatcher) { currencyRepository.getCoinListBySymbol(bookId.getCurrencyCode()) }
         _coinName.value = result
     }
 }
