@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Wizeline</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">List Fragment</string>
+
+
+    <string name="list__price_label">Price</string>
+    <string name="list__amount_label">Amount</string>
+    <string name="list__value_label">Value</string>
+
+    <string name="list__minimum_placeholder">Min: %1$s</string>
+    <string name="list__maximum_placeholder">Max: %1$s</string>
+
+    <string name="detail__minimum_label">Minimum</string>
+    <string name="detail__maximum_label">Maximum</string>
+    <string name="detail__binds_label">Binds</string>
+    <string name="detail__asks_label">Asks</string>
+
+    <string name="network__unknown_error">Oops, algo salió mal obteniendo los datos</string>
+    <string name="main__default_toolbar_title">Bitso coins</string>
+    <string name="detail__empty_state">Oops, we can\'t get the details for this coin, make sure that you are connected to internet</string>
+</resources>
