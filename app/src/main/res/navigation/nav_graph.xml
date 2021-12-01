@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/currencyFragment">
+
+    <fragment
+        android:id="@+id/currencyFragment"
+        android:name="com.example.bootcampproject.ui.generalinfocurrency.CurrencyFragment"
+        android:label="CurrencyFragment">
+        <action
+            android:id="@+id/toavailableBooksFragment"
+            app:destination="@id/availableBooksFragment"
+            app:enterAnim="@animator/slide_in_right"
+            app:exitAnim="@animator/fade_out"
+            app:popEnterAnim="@animator/slide_in_left"
+            app:popExitAnim="@animator/fade_out"/>
+    </fragment>
+    <fragment
+        android:id="@+id/availableBooksFragment"
+        android:name="com.example.bootcampproject.ui.availablebooks.AvailableBooksFragmentFragment"
+        android:label="AvailableBooksFragment">
+        <argument
+            android:name="code"
+            app:argType="string" />
+        <action
+            android:id="@+id/toorderBooksFragment"
+            app:destination="@id/orderBooksFragment"
+            app:enterAnim="@animator/slide_in_right"
+            app:exitAnim="@animator/fade_out"
+            app:popEnterAnim="@animator/slide_in_left"
+            app:popExitAnim="@animator/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderBooksFragment"
+        android:name="com.example.bootcampproject.ui.orderbooks.OrderBooksFragment"
+        android:label="OrderBooksFragment">
+        <argument
+            android:name="code"
+            app:argType="string" />
+    </fragment>
+</navigation>
