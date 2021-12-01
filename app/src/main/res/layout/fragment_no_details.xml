@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgray">
+
+    <ImageView
+        android:id="@+id/no_internet_img"
+        android:layout_width="@dimen/image_size"
+        android:layout_height="@dimen/image_size"
+        android:src="@drawable/ic_baseline_grass_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/gray"
+        android:contentDescription="@string/no_internet_image" />
+
+    <TextView
+        android:id="@+id/no_internet_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/imprima"
+        android:text="@string/theres_no_details_to_show"
+        android:textSize="@dimen/text_subtitle"
+        android:textStyle="bold"
+        android:textColor="@color/darkGray"
+        android:layout_marginTop="@dimen/margin_items"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/no_internet_img" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
