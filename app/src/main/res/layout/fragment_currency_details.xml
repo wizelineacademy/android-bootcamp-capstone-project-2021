@@ -1,100 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.CurrencyDetailsFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/lastTagTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/latest_price"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintBottom_toBottomOf="@id/lastTextView"
+        app:layout_constraintEnd_toStartOf="@+id/lastTextView" />
 
-        <TextView
-            android:id="@+id/lastTagTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Latest price:"
-            android:textSize="10sp"
-            app:layout_constraintEnd_toStartOf="@+id/lastTextView"
-            app:layout_constraintBottom_toBottomOf="@id/lastTextView"/>
+    <ImageView
+        android:id="@+id/currencyImageView"
+        android:layout_width="@dimen/currency_image_width_small"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/currency_image_margin"
+        android:layout_marginTop="@dimen/currency_image_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
 
-        <ImageView
-            android:id="@+id/currencyImageView"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+    <TextView
+        android:id="@+id/highestTagTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/highest"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintBottom_toBottomOf="@+id/highestTextView"
+        app:layout_constraintStart_toStartOf="@+id/currencyImageView" />
 
-        <TextView
-            android:id="@+id/highestTagTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Highest:"
-            android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="@+id/currencyImageView"
-            app:layout_constraintBottom_toBottomOf="@+id/highestTextView"/>
+    <TextView
+        android:id="@+id/lowestTagTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lowest"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintBottom_toBottomOf="@+id/lowestTextView"
+        app:layout_constraintStart_toStartOf="@+id/currencyImageView" />
 
-        <TextView
-            android:id="@+id/lowestTagTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lowest:"
-            android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="@+id/currencyImageView"
-            app:layout_constraintBottom_toBottomOf="@+id/lowestTextView"/>
+    <TextView
+        android:id="@+id/book_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_big"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/currencyImageView"
+        app:layout_constraintTop_toTopOf="@+id/currencyImageView"
+        tools:text="@string/hello_blank_fragment" />
 
-        <TextView
-            android:id="@+id/book_name_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/currencyImageView"
-            app:layout_constraintTop_toTopOf="@+id/currencyImageView"
-            tools:text="@string/hello_blank_fragment" />
+    <TextView
+        android:id="@+id/timeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ultimas_24_horas"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintStart_toStartOf="@+id/currencyImageView"
+        app:layout_constraintTop_toBottomOf="@+id/currencyImageView" />
 
-        <TextView
-            android:id="@+id/timeTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10sp"
-            app:layout_constraintStart_toStartOf="@+id/currencyImageView"
-            app:layout_constraintTop_toBottomOf="@+id/currencyImageView"
-            android:text="@string/uiltimas_24_horas" />
+    <TextView
+        android:id="@+id/highestTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_medium"
+        app:layout_constraintStart_toEndOf="@+id/highestTagTextView"
+        app:layout_constraintTop_toBottomOf="@+id/timeTextView"
+        tools:text="Highest price" />
 
-        <TextView
-            android:id="@+id/highestTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/highestTagTextView"
-            app:layout_constraintTop_toBottomOf="@+id/timeTextView"
-            tools:text="Highest price" />
+    <TextView
+        android:id="@+id/lowestTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_medium"
+        app:layout_constraintStart_toStartOf="@+id/highestTextView"
+        app:layout_constraintTop_toBottomOf="@+id/highestTextView"
+        tools:text="Lowest price" />
 
-        <TextView
-            android:id="@+id/lowestTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/highestTextView"
-            app:layout_constraintTop_toBottomOf="@+id/highestTextView"
-            tools:text="Lowest price" />
-
-        <TextView
-            android:id="@+id/lastTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@id/lowestTextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.85"
-            app:layout_constraintStart_toEndOf="@id/lowestTextView"
-            tools:text="Latest price" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</FrameLayout>
+    <TextView
+        android:id="@+id/lastTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_big"
+        app:layout_constraintBottom_toBottomOf="@id/lowestTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toEndOf="@id/lowestTextView"
+        tools:text="Latest price" />
+</androidx.constraintlayout.widget.ConstraintLayout>

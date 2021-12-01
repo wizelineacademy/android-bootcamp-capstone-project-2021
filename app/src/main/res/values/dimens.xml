@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_margin">8dp</dimen>
+    <dimen name="currency_image_width">128dp</dimen>
+    <dimen name="currency_image_margin">16dp</dimen>
+    <dimen name="text_size_big">24sp</dimen>
+    <dimen name="currency_image_width_small">70dp</dimen>
+    <dimen name="text_size_small">10sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+</resources>

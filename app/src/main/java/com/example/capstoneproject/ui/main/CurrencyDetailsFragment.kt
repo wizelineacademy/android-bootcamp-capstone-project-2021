@@ -40,12 +40,17 @@ class CurrencyDetailsFragment : Fragment() {
             .into(binding.currencyImageView)
 
         mainViewModel.tickerInfo.observe(viewLifecycleOwner) { ticker ->
-            Log.e("BITSO", "Max price" + ticker.high_price)
-            binding.highestTextView.text = ticker.high_price
-            binding.lowestTextView.text = ticker.low_price
-            binding.lastTextView.text = ticker.last_price
+            Log.e("BITSO", "Max price" + ticker.highPrice)
+            binding.highestTextView.text = ticker.highPrice
+            binding.lowestTextView.text = ticker.lowPrice
+            binding.lastTextView.text = ticker.lastPrice
         }
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

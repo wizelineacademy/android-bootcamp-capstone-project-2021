@@ -5,24 +5,24 @@
     style="@style/CardView.Light"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginBottom="8dp">
+    android:layout_marginStart="@dimen/card_margin"
+    android:layout_marginTop="@dimen/card_margin"
+    android:layout_marginEnd="@dimen/card_margin"
+    android:layout_marginBottom="@dimen/card_margin">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/currency_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/card_background"
-        android:id="@+id/currency_background">
+        android:background="@color/card_background">
 
         <ImageView
             android:id="@+id/currencyImage"
-            android:layout_width="128dp"
+            android:layout_width="@dimen/currency_image_width"
             android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="@dimen/currency_image_margin"
+            android:layout_marginTop="@dimen/currency_image_margin"
+            android:layout_marginBottom="@dimen/currency_image_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -33,8 +33,8 @@
             android:id="@+id/currencyName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:textColor="@color/currency_name_color"
+            android:textSize="@dimen/text_size_big"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/currencyImage"

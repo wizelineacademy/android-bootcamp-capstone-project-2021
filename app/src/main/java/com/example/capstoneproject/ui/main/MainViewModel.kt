@@ -25,10 +25,10 @@ class MainViewModel : ViewModel() {
 
     private val service: CurrencyService = retrofit.create(CurrencyService::class.java)
 
-    private var _currencyList = MutableLiveData<List<Currency>> ()
+    private var _currencyList = MutableLiveData<List<Currency>>()
     val currencyList: LiveData<List<Currency>> get() = _currencyList
 
-    private var _tickerInfo = MutableLiveData<Ticker> ()
+    private var _tickerInfo = MutableLiveData<Ticker>()
     val tickerInfo: LiveData<Ticker> get() = _tickerInfo
 
     fun loadCurrencies() {
@@ -55,7 +55,7 @@ class MainViewModel : ViewModel() {
 
     }
 
-    fun getBookInfo(bookNameIn : String) {
+    fun getBookInfo(bookNameIn: String) {
         viewModelScope.launch {
             val currenciesCall = service.getCurrencyInfo(bookName = bookNameIn)
             currenciesCall.enqueue(object : Callback<BitsoTickerResponse> {
