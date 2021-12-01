@@ -1,13 +1,12 @@
 package com.example.bootcampproject.data.repo
 
-import com.example.bootcampproject.ConnectRetrofitAndRoom
 import com.example.bootcampproject.data.local.AvailableBooksDao
-import com.example.bootcampproject.data.local.CurrencyDao
 import com.example.bootcampproject.data.mock.AvailableBook
 import com.example.bootcampproject.data.mock.StatusAvailableBooks
 import com.example.bootcampproject.data.services.BitsoServices
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.mockito.InjectMocks

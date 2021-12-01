@@ -1,27 +1,24 @@
 package com.example.bootcampproject.data.repo
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.bootcampproject.ConnectRetrofitAndRoom
-import com.example.bootcampproject.data.local.BitsoAppDataBase
 import com.example.bootcampproject.data.local.OrderBookDao
 import com.example.bootcampproject.data.mock.Asks
 import com.example.bootcampproject.data.mock.Bids
 import com.example.bootcampproject.data.mock.OrderBook
 import com.example.bootcampproject.data.mock.StatusOrderBook
 import com.example.bootcampproject.data.services.BitsoServices
-import junit.framework.TestCase.*
 import kotlinx.coroutines.runBlocking
-import org.junit.After
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
 import retrofit2.Response
 import retrofit2.mock.Calls
-import java.io.IOException
 
 class OrderBookRepoTest : ConnectRetrofitAndRoom() {
 
@@ -48,7 +45,7 @@ class OrderBookRepoTest : ConnectRetrofitAndRoom() {
         bitsoServices = mock(BitsoServices::class.java)
         provideOrderBooks = mock(OrderBookDao::class.java)
 
-        //db = createRoomInstance()
+        // db = createRoomInstance()
         // provideOrderBooks = db.getOrderBooks()
 
         retrofitInstance = createRetrofitInstance()

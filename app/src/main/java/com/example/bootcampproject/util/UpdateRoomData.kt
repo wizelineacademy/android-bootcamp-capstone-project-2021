@@ -27,16 +27,15 @@ class UpdateRoomData @Inject constructor(
 
     private fun runningObservables(observable: Observable<*>, opcCode: String) {
         observable.subscribeOn(Schedulers.io())
-            .delay(3, TimeUnit.SECONDS)
+            .delay(5, TimeUnit.SECONDS)
             .observeOn(Schedulers.io())
-            //.retryWhen { errors -> errors.flatMap { error -> } }
-            .subscribe { body ->
+            .subscribe({ body ->
                 when (body) {
                     is StatusAvailableBooks -> insertCurrencyAndAvailableBook(body)
                     is StatusOrderBook -> insertOrderBook(body, opcCode)
                     is StatusTicker -> insertTickers(body, opcCode)
                 }
-            }
+            }, { it -> println(it.message) })
     }
 
     private fun insertCurrencyAndAvailableBook(availableBooks: StatusAvailableBooks) {
