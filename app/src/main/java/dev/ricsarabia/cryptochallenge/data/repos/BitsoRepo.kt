@@ -2,7 +2,6 @@ package dev.ricsarabia.cryptochallenge.data.repos
 
 import dev.ricsarabia.cryptochallenge.data.db.AppDatabase
 import dev.ricsarabia.cryptochallenge.data.services.BitsoService
-import dev.ricsarabia.cryptochallenge.di.BitsoNetworkingModule
 import dev.ricsarabia.cryptochallenge.domain.*
 import dev.ricsarabia.cryptochallenge.utils.toBook
 import java.lang.Exception
@@ -42,7 +41,7 @@ class BitsoRepo @Inject constructor(database: AppDatabase, bitsoService: BitsoSe
         if (response == null || !response.success) return false
         val orders = response.payload.run {
             asks.map { BookOrder(it.book, it.price, it.amount, BookOrder.Type.ASK) } +
-            bids.map { BookOrder(it.book, it.price, it.amount, BookOrder.Type.BID) }
+                bids.map { BookOrder(it.book, it.price, it.amount, BookOrder.Type.BID) }
         }
         localDataSource.bookOrderDao().deleteOldOrdersOf(book)
         localDataSource.bookOrderDao().insert(orders)

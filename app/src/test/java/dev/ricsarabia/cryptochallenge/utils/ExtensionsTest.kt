@@ -1,9 +1,9 @@
 package dev.ricsarabia.cryptochallenge.utils
 
-import org.junit.Assert.*
-import org.junit.Test
 import java.time.*
 import java.time.format.DateTimeFormatter
+import org.junit.Assert.*
+import org.junit.Test
 
 /**
  * Created by Ricardo Sarabia on 2021/11/26.

@@ -1,12 +1,10 @@
 package dev.ricsarabia.cryptochallenge.ui.detail
 
-import android.app.Application
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.ricsarabia.cryptochallenge.core.CryptoChallengeApp
 import dev.ricsarabia.cryptochallenge.data.repos.BitsoRepo
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(private val repo: BitsoRepo) : ViewModel() {
@@ -36,7 +34,7 @@ class DetailViewModel @Inject constructor(private val repo: BitsoRepo) : ViewMod
     fun updateBookPrices() {
         gettingPrices.value = true
         viewModelScope.launch {
-            selectedBook.value?.let { repo.updateBookPrices(it)}
+            selectedBook.value?.let { repo.updateBookPrices(it) }
             gettingPrices.value = false
         }
     }

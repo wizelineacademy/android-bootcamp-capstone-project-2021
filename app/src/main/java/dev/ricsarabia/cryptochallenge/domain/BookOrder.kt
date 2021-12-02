@@ -10,7 +10,6 @@ data class BookOrder(
     val amount: String,
     val type: Type,
     @PrimaryKey(autoGenerate = true) val id: Int = 0
-){
+) {
     enum class Type { ASK, BID }
 }
-

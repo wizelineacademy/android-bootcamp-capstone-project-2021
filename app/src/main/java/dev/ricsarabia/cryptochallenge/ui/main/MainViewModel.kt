@@ -3,8 +3,8 @@ package dev.ricsarabia.cryptochallenge.ui.main
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.ricsarabia.cryptochallenge.data.repos.BitsoRepo
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 /**
  * Created by Ricardo Sarabia on 2021/11/22.

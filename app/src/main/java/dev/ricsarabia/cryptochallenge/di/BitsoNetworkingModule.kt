@@ -5,13 +5,13 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.ricsarabia.cryptochallenge.data.services.BitsoService
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 
 /**
  * Created by Ricardo Sarabia on 2021/11/04.
@@ -20,7 +20,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object BitsoNetworkingModule {
-    private const val BITSO_BASE_URL = "https://api.bitso.com/v3/" //TODO: Configure environments
+    private const val BITSO_BASE_URL = "https://api.bitso.com/v3/" // TODO: Configure environments
 
     @Provides
     @Singleton

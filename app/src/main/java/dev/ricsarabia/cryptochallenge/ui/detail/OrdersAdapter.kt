@@ -15,12 +15,14 @@ class OrdersAdapter : ListAdapter<BookOrder, OrdersViewHolder>(BookOrderDiffCall
         val binding = OrderItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return OrdersViewHolder(binding)
     }
+
     override fun onBindViewHolder(holder: OrdersViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 }
 
-class OrdersViewHolder(private val binding: OrderItemBinding) : RecyclerView.ViewHolder(binding.root) {
+class OrdersViewHolder(private val binding: OrderItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
     fun bind(order: BookOrder) {
         binding.priceTextView.text = order.price.asDecimalPrice()
         binding.amountTextView.text = order.amount.asDecimalAmount()
