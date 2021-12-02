@@ -1,16 +1,17 @@
 package dev.ricsarabia.cryptochallenge.ui.main
 
-import android.app.Application
 import androidx.lifecycle.*
-import dev.ricsarabia.cryptochallenge.core.CryptoChallengeApp
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.ricsarabia.cryptochallenge.data.repos.BitsoRepo
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
  * Created by Ricardo Sarabia on 2021/11/22.
  */
-class MainViewModel @Inject constructor(app: Application) : AndroidViewModel(app) {
-    private val repo = (app as CryptoChallengeApp).repository
+@HiltViewModel
+class MainViewModel @Inject constructor(private val repo: BitsoRepo) : ViewModel() {
+
     private val _gettingBooks = MutableLiveData(false)
     val gettingBooks: LiveData<Boolean> = _gettingBooks
     val books = repo.books().asLiveData()

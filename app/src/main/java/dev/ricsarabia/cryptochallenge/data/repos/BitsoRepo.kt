@@ -6,12 +6,13 @@ import dev.ricsarabia.cryptochallenge.di.BitsoNetworkingModule
 import dev.ricsarabia.cryptochallenge.domain.*
 import dev.ricsarabia.cryptochallenge.utils.toBook
 import java.lang.Exception
+import javax.inject.Inject
 
 /**
  * Created by Ricardo Sarabia on 2021/11/04.
  * Class to retrieve Bitso data from different sources.
  */
-class BitsoRepo(database: AppDatabase, bitsoService: BitsoService) {
+class BitsoRepo @Inject constructor(database: AppDatabase, bitsoService: BitsoService) {
     private val remoteDataSource = bitsoService
     private val localDataSource = database
 

@@ -4,12 +4,12 @@ import android.app.Application
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.ricsarabia.cryptochallenge.core.CryptoChallengeApp
+import dev.ricsarabia.cryptochallenge.data.repos.BitsoRepo
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailViewModel @Inject constructor(app: Application) : AndroidViewModel(app) {
-    private val repo = (app as CryptoChallengeApp).repository
+class DetailViewModel @Inject constructor(private val repo: BitsoRepo) : ViewModel() {
     private val _loading = MediatorLiveData<Boolean>()
     private val selectedBook = MutableLiveData("")
     private val gettingPrices = MutableLiveData(false)
