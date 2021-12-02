@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".DetailFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:fitsSystemWindows="true"
+        android:layout_height="200dp">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:expandedTitleMarginBottom="20dp"
+            app:expandedTitleMarginStart="15dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap" >
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_marginTop="?attr/actionBarSize"
+                android:orientation="vertical"
+                android:fitsSystemWindows="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/imageView_image"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    tools:src="@tools:sample/avatars"
+                    />
+                <TextView
+                    android:id="@+id/textView_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    tools:text="BTC a MXN"
+                    />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tool_bar"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                app:contentInsetStart="0dp"
+                app:contentInsetStartWithNavigation="0dp"
+                app:layout_collapseMode="pin"
+                android:theme="@style/Theme.ToolbarMenu"
+                app:navigationIcon="?attr/homeAsUpIndicator"
+                />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="16dp"
+        android:overScrollMode="never"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+    >
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_middle_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"
+            />
+        <TextView
+            android:id="@+id/textView_label_lastPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Last price: "
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideline_middle_vertical"
+            android:layout_marginEnd="4dp"
+            />
+        <TextView
+            android:id="@+id/textView_lastPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="$9.123"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_middle_vertical"
+            android:layout_marginStart="4dp"
+            />
+        <TextView
+            android:id="@+id/textView_label_lastHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Last high: "
+            app:layout_constraintTop_toBottomOf="@id/textView_label_lastPrice"
+            app:layout_constraintEnd_toEndOf="@id/guideline_middle_vertical"
+            android:layout_marginEnd="4dp"
+            />
+        <TextView
+            android:id="@+id/textView_lastHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="$9.123"
+            app:layout_constraintTop_toBottomOf="@id/textView_label_lastPrice"
+            app:layout_constraintStart_toStartOf="@id/guideline_middle_vertical"
+            android:layout_marginStart="4dp"
+            />
+        <TextView
+            android:id="@+id/textView_label_lastLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Last low: "
+            app:layout_constraintTop_toBottomOf="@id/textView_label_lastHigh"
+            app:layout_constraintEnd_toEndOf="@id/guideline_middle_vertical"
+            android:layout_marginEnd="4dp"
+            />
+        <TextView
+            android:id="@+id/textView_lastLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="$9.123"
+            app:layout_constraintTop_toBottomOf="@id/textView_label_lastHigh"
+            app:layout_constraintStart_toStartOf="@id/guideline_middle_vertical"
+            android:layout_marginStart="4dp"
+            />
+
+        <TextView
+            android:id="@+id/textView_label_asks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Asks"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView_label_lastLow"
+            app:layout_constraintEnd_toStartOf="@id/guideline_middle_vertical"
+            android:layout_marginTop="16dp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_asks"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView_label_asks"
+            app:layout_constraintEnd_toStartOf="@id/guideline_middle_vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/textView_label_bids"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bids"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView_label_lastLow"
+            app:layout_constraintStart_toEndOf="@id/guideline_middle_vertical"
+            android:layout_marginTop="16dp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_bids"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView_label_bids"
+            app:layout_constraintStart_toEndOf="@id/guideline_middle_vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

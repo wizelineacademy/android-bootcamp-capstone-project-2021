@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Developer/AndroidStudioProjects/CryptoChallenge/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Developer/AndroidStudioProjects/CryptoChallenge/app/src/main/res/layout/ask_item_row.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Developer/AndroidStudioProjects/CryptoChallenge/app/src/main/res/layout/bid_item_row.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Developer/AndroidStudioProjects/CryptoChallenge/app/src/main/res/layout/book_item_row.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Developer/AndroidStudioProjects/CryptoChallenge/app/src/main/res/layout/fragment_detail.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Developer/AndroidStudioProjects/CryptoChallenge/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Developer/AndroidStudioProjects/CryptoChallenge/app/src/main/res/layout/order_item_row.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Developer/AndroidStudioProjects/CryptoChallenge/app/src/main/res/layout/pokemon_item_row.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Developer/AndroidStudioProjects/CryptoChallenge/app/src/main/res/layout/property_item_row.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Developer/StudioProjects/android-bootcamp-capstone-project-2021/app/src/main/res/layout/property_item_row.xml" value="0.36666666666666664" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
