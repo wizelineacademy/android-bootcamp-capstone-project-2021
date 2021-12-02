@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="dev.ricsarabia.cryptochallenge.ui.main.MainFragment"
+        tools:layout="@layout/main_fragment" >
+        <action
+            android:id="@+id/detailFragment_to_detailFragment"
+            app:destination="@id/detailFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="dev.ricsarabia.cryptochallenge.ui.detail.DetailFragment"
+        tools:layout="@layout/detail_fragment"/>
+
+</navigation>
