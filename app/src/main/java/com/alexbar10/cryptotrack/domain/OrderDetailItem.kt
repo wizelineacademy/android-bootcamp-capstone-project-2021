@@ -4,4 +4,7 @@ data class OrderDetailItem(
     val book: String,
     val price: Double,
     val amount: Double
-)
+) {
+    val total: Double
+        get() = price * amount
+}

@@ -33,4 +33,6 @@
     <string name="last_price">Last Price</string>
     <string name="high_price">High</string>
     <string name="low_price">Low</string>
+    <string name="not_internet_available">Your network is unavailable. Please check your data or wifi connection</string>
+    <string name="error_message">Something went wrong, please try again</string>
 </resources>

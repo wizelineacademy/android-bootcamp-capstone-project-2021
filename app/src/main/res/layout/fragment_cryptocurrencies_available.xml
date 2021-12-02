@@ -83,7 +83,7 @@
         android:fontFamily="@font/montserrat_bold"
         android:text="@string/cryptocurrencies"
         android:textColor="@color/text_light"
-        android:textSize="18sp"
+        android:textSize="@dimen/text_size_header"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/market_usd_checkbox" />
 

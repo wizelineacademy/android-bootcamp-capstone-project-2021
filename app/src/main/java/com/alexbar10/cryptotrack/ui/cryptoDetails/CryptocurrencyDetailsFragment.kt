@@ -17,9 +17,9 @@ import com.alexbar10.cryptotrack.databinding.FragmentCryptocurrencyDetailsBindin
 import com.alexbar10.cryptotrack.networking.NetworkStatusChecker
 import com.alexbar10.cryptotrack.utils.PriceType
 import com.alexbar10.cryptotrack.utils.currencyFormat
-import com.alexbar10.cryptotrack.utils.getImageResourceFor
-import com.alexbar10.cryptotrack.utils.getMarketFor
-import com.alexbar10.cryptotrack.utils.getNameFor
+import com.alexbar10.cryptotrack.utils.getImageResource
+import com.alexbar10.cryptotrack.utils.getMarket
+import com.alexbar10.cryptotrack.utils.getStringResource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -56,11 +56,11 @@ class CryptocurrencyDetailsFragment : Fragment() {
         }
 
         cryptocurrencyToShow?.let {
-            (requireActivity() as MainActivity).supportActionBar?.title = getString(getNameFor(it))
-            binding.lastCostValueTxt.text = currencyFormat(it) + " " + getMarketFor(it).uppercase()
-            binding.currencyHighTxt.text = currencyFormat(it, forPrice = PriceType.HIGH) + " " + getMarketFor(it).uppercase()
-            binding.currencyLowTxt.text = currencyFormat(it, forPrice = PriceType.LOW) + " " + getMarketFor(it).uppercase()
-            binding.currencyLogoImage.setImageResource(getImageResourceFor(it))
+            (requireActivity() as MainActivity).supportActionBar?.title = getString(it.getStringResource())
+            binding.lastCostValueTxt.text = it.currencyFormat() + " " + it.getMarket().uppercase()
+            binding.currencyHighTxt.text = it.currencyFormat(forPrice = PriceType.HIGH) + " " + it.getMarket().uppercase()
+            binding.currencyLowTxt.text = it.currencyFormat(forPrice = PriceType.LOW) + " " + it.getMarket().uppercase()
+            binding.currencyLogoImage.setImageResource(it.getImageResource())
             binding.buyRadioButton.setOnCheckedChangeListener { _, _ ->
                 viewModel.cryptocurrencyOrderLiveData.value?.payload?.asks?.let { data ->
                     ordersAdapter.setData(data)
@@ -75,7 +75,7 @@ class CryptocurrencyDetailsFragment : Fragment() {
             // Check internet connection
             networkStatusChecker.performIfConnectedToInternet(
                 { viewModel.getLocalOrders(it) },
-                { viewModel.getOrderRxFor(it) }
+                { viewModel.getOrderRxFor(it, requireContext()) }
             )
         }
 

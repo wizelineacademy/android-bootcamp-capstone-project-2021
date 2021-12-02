@@ -8,9 +8,7 @@ import com.alexbar10.cryptotrack.domain.Success
 import com.alexbar10.cryptotrack.domain.TickerResponse
 import com.alexbar10.cryptotrack.networking.services.CryptocurrenciesServices
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
 class CryptocurrenciesRepo @Inject constructor(private val remoteApiServices: CryptocurrenciesServices) {
     suspend fun getCryptocurrenciesAvailable(): Result<CryptocurrenciesListResponse> = try {
         val data = remoteApiServices.getCryptocurrenciesAvailable()

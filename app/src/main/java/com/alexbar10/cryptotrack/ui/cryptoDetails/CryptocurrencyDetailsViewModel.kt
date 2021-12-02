@@ -1,9 +1,11 @@
 package com.alexbar10.cryptotrack.ui.cryptoDetails
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.alexbar10.cryptotrack.R
 import com.alexbar10.cryptotrack.database.entities.OrderEntity
 import com.alexbar10.cryptotrack.database.repo.CryptoDBRepo
 import com.alexbar10.cryptotrack.domain.Cryptocurrency
@@ -15,9 +17,8 @@ import com.alexbar10.cryptotrack.domain.Success
 import com.alexbar10.cryptotrack.networking.repo.CryptocurrenciesRepo
 import com.alexbar10.cryptotrack.networking.repo.CryptosRxRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -42,37 +43,36 @@ class CryptocurrencyDetailsViewModel @Inject constructor(
     private val _cryptocurrencyOrderLiveData = MutableLiveData<OrderResponse>()
     val cryptocurrencyOrderLiveData: LiveData<OrderResponse> get() = _cryptocurrencyOrderLiveData
 
-    // Using RxJava
-    fun getOrderRxFor(cryptocurrency: Cryptocurrency) {
-        _loadingLiveData.postValue(true)
+    private val disposable = CompositeDisposable()
 
-        cryptosRxRepo.getOrderFor(cryptocurrency.book)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe(handleResponse(cryptocurrency))
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
     }
 
-    private fun handleResponse(cryptocurrency: Cryptocurrency): Observer<OrderResponse> {
-        return object : Observer<OrderResponse> {
-            override fun onSubscribe(d: Disposable) {
-                _loadingLiveData.postValue(true)
-            }
+    // Using RxJava
+    fun getOrderRxFor(cryptocurrency: Cryptocurrency, context: Context) {
+        _loadingLiveData.postValue(true)
 
-            override fun onNext(orderResponse: OrderResponse) {
-                _cryptocurrencyOrderLiveData.postValue(orderResponse)
-                viewModelScope.launch(Dispatchers.IO) {
-                    syncDB(orderResponse.payload, cryptocurrency)
+        disposable.add(
+            cryptosRxRepo.getOrderFor(cryptocurrency.book)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { orderResponse ->
+
+                    _loadingLiveData.postValue(false)
+
+                    if (orderResponse.success) {
+                        _cryptocurrencyOrderLiveData.postValue(orderResponse)
+
+                        viewModelScope.launch(Dispatchers.IO) {
+                            syncDB(orderResponse.payload, cryptocurrency)
+                        }
+                    } else {
+                        _errorLiveData.postValue(Exception(context.getString(R.string.error_message)))
+                    }
                 }
-            }
-
-            override fun onError(error: Throwable) {
-                _errorLiveData.postValue(error)
-            }
-
-            override fun onComplete() {
-                _loadingLiveData.postValue(false)
-            }
-        }
+        )
     }
 
     // Using coroutines

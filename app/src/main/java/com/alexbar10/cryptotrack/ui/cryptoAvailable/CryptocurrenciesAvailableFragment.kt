@@ -18,6 +18,12 @@ import com.alexbar10.cryptotrack.R
 import com.alexbar10.cryptotrack.databinding.FragmentCryptocurrenciesAvailableBinding
 import com.alexbar10.cryptotrack.domain.Cryptocurrency
 import com.alexbar10.cryptotrack.networking.NetworkStatusChecker
+import com.alexbar10.cryptotrack.utils.market_ars
+import com.alexbar10.cryptotrack.utils.market_brl
+import com.alexbar10.cryptotrack.utils.market_btc
+import com.alexbar10.cryptotrack.utils.market_dai
+import com.alexbar10.cryptotrack.utils.market_mxn
+import com.alexbar10.cryptotrack.utils.market_usd
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -58,18 +64,18 @@ class CryptocurrenciesAvailableFragment : Fragment() {
             adapter = cryptocurrenciesAdapter
             layoutManager = GridLayoutManager(context, 2)
         }
-        binding.marketMxnCheckbox.setOnCheckedChangeListener { _, isChecked -> viewModel.showCryptocurrenciesFor("mxn", isChecked) }
-        binding.marketArgCheckbox.setOnCheckedChangeListener { _, isChecked -> viewModel.showCryptocurrenciesFor("ars", isChecked) }
-        binding.marketBitcoinCheckbox.setOnCheckedChangeListener { _, isChecked -> viewModel.showCryptocurrenciesFor("btc", isChecked) }
-        binding.marketBrlCheckbox.setOnCheckedChangeListener { _, isChecked -> viewModel.showCryptocurrenciesFor("brl", isChecked) }
-        binding.marketDaiCheckbox.setOnCheckedChangeListener { _, isChecked -> viewModel.showCryptocurrenciesFor("dai", isChecked) }
-        binding.marketUsdCheckbox.setOnCheckedChangeListener { _, isChecked -> viewModel.showCryptocurrenciesFor("usd", isChecked) }
+        binding.marketMxnCheckbox.setOnCheckedChangeListener { _, isChecked -> viewModel.showCryptocurrenciesFor(market_mxn, isChecked) }
+        binding.marketArgCheckbox.setOnCheckedChangeListener { _, isChecked -> viewModel.showCryptocurrenciesFor(market_ars, isChecked) }
+        binding.marketBitcoinCheckbox.setOnCheckedChangeListener { _, isChecked -> viewModel.showCryptocurrenciesFor(market_btc, isChecked) }
+        binding.marketBrlCheckbox.setOnCheckedChangeListener { _, isChecked -> viewModel.showCryptocurrenciesFor(market_brl, isChecked) }
+        binding.marketDaiCheckbox.setOnCheckedChangeListener { _, isChecked -> viewModel.showCryptocurrenciesFor(market_dai, isChecked) }
+        binding.marketUsdCheckbox.setOnCheckedChangeListener { _, isChecked -> viewModel.showCryptocurrenciesFor(market_usd, isChecked) }
 
         // Check internet connection
         networkStatusChecker.performIfConnectedToInternet(
             {
                 viewModel.getLocalCryptos()
-                Toast.makeText(requireContext(), "Please Your network is unavailable. Check your data or wifi connection", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), getString(R.string.not_internet_available), Toast.LENGTH_LONG).show()
             },
             { viewModel.getCryptocurrenciesAvailable() }
         )

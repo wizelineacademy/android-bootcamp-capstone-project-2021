@@ -34,10 +34,9 @@ class OrderAdapter : RecyclerView.Adapter<OrderAdapter.CurrencyOrderViewHolder>(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(currencyOrderItem: OrderDetailItem) {
-            binding.cryptocurrencyOrderPrice.text = currencyFormat(currencyOrderItem)
+            binding.cryptocurrencyOrderPrice.text = currencyOrderItem.currencyFormat()
             binding.cryptocurrencyOrderAmount.text = currencyOrderItem.amount.toString()
-            val total = currencyOrderItem.price * currencyOrderItem.amount
-            binding.cryptocurrencyOrderTotal.text = currencyFormat(currencyOrderItem, total)
+            binding.cryptocurrencyOrderTotal.text = currencyOrderItem.currencyFormat(currencyOrderItem.total)
         }
     }
 }

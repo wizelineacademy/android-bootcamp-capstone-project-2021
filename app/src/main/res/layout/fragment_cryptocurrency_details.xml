@@ -11,12 +11,12 @@
         android:id="@+id/last_cost_key_txt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="@dimen/text_title_margin_top"
         android:gravity="center"
         android:text="@string/last_price"
         android:fontFamily="@font/montserrat_light"
         android:textColor="@color/text_light"
-        android:textSize="14sp"
+        android:textSize="@dimen/text_size_title"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp" />
 
@@ -28,14 +28,14 @@
         tools:text="1,222,222 MXN"
         android:fontFamily="@font/montserrat_medium"
         android:textColor="@color/text_light"
-        android:textSize="20sp"
+        android:textSize="@dimen/text_size_title_value"
         app:layout_constraintTop_toBottomOf="@+id/last_cost_key_txt"
         tools:layout_editor_absoluteX="0dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/margin_small"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/last_cost_value_txt">
 
@@ -52,7 +52,7 @@
                 android:text="@string/high_price"
                 android:fontFamily="@font/montserrat_light"
                 android:textColor="@color/text_light"
-                android:textSize="14sp"
+                android:textSize="@dimen/text_size_title"
                 tools:layout_editor_absoluteX="0dp" />
 
             <TextView
@@ -63,7 +63,7 @@
                 tools:text="1,222,222 MXN"
                 android:fontFamily="@font/montserrat_medium"
                 android:textColor="@color/text_light"
-                android:textSize="18sp"
+                android:textSize="@dimen/text_size_subtitle"
                 tools:layout_editor_absoluteX="0dp" />
 
         </LinearLayout>
@@ -80,7 +80,7 @@
                 android:gravity="center"
                 android:text="@string/low_price"
                 android:textColor="@color/text_light"
-                android:textSize="14sp"
+                android:textSize="@dimen/text_size_title"
                 android:fontFamily="@font/montserrat_light"
                 tools:layout_editor_absoluteX="0dp" />
 
@@ -92,7 +92,7 @@
                 tools:text="1,222,222 MXN"
                 android:fontFamily="@font/montserrat_medium"
                 android:textColor="@color/text_light"
-                android:textSize="18sp"
+                android:textSize="@dimen/text_size_subtitle"
                 tools:layout_editor_absoluteX="0dp" />
 
         </LinearLayout>
@@ -102,7 +102,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:cardCornerRadius="20dp"
+        app:cardCornerRadius="@dimen/card_corner_radius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -113,7 +113,7 @@
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:gravity="center"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="@dimen/margin_for_icon"
             android:layout_height="wrap_content">
             <RadioButton
                 android:id="@+id/buy_radio_button"
@@ -131,7 +131,7 @@
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="@dimen/margin_top_orders"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -144,7 +144,7 @@
                 android:gravity="center"
                 android:text="@string/order_title_price"
                 android:fontFamily="@font/montserrat_medium"
-                android:textSize="14sp"
+                android:textSize="@dimen/text_size_title"
                 android:textStyle="bold"
                 tools:layout_editor_absoluteX="0dp" />
 
@@ -155,7 +155,7 @@
                 android:gravity="center"
                 android:text="@string/order_title_amount"
                 android:fontFamily="@font/montserrat_medium"
-                android:textSize="14sp"
+                android:textSize="@dimen/text_size_title"
                 android:textStyle="bold"
                 tools:layout_editor_absoluteX="0dp" />
 
@@ -166,7 +166,7 @@
                 android:gravity="center"
                 android:text="@string/order_title_total"
                 android:fontFamily="@font/montserrat_medium"
-                android:textSize="14sp"
+                android:textSize="@dimen/text_size_title"
                 android:textStyle="bold"
                 tools:layout_editor_absoluteX="0dp" />
         </LinearLayout>
@@ -209,7 +209,7 @@
         android:layout_height="@dimen/detail_logo_size"
         android:layout_margin="@dimen/margin_big"
         android:scaleType="centerCrop"
-        android:translationZ="90dp"
+        android:translationZ="@dimen/icon_translation_z"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

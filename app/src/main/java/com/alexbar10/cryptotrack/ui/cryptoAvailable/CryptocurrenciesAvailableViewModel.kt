@@ -11,7 +11,7 @@ import com.alexbar10.cryptotrack.domain.Failure
 import com.alexbar10.cryptotrack.domain.Success
 import com.alexbar10.cryptotrack.domain.Ticker
 import com.alexbar10.cryptotrack.networking.repo.CryptocurrenciesRepo
-import com.alexbar10.cryptotrack.utils.getMarketFor
+import com.alexbar10.cryptotrack.utils.getMarket
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -115,7 +115,7 @@ class CryptocurrenciesAvailableViewModel @Inject constructor(
             }
 
             // Filter main list
-            val listFiltered = _cryptoAvailableDetailsLiveData.value?.filter { currency -> getMarketFor(currency) in list }
+            val listFiltered = _cryptoAvailableDetailsLiveData.value?.filter { currency -> currency.getMarket() in list }
             _cryptoFilterLiveData.postValue(listFiltered)
         }
     }

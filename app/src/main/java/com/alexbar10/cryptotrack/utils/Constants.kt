@@ -1,0 +1,27 @@
+package com.alexbar10.cryptotrack.utils
+
+const val prefix_btc = "btc"
+const val prefix_eth = "eth"
+const val prefix_xrp = "xrp"
+const val prefix_ltc = "ltc"
+const val prefix_bch = "bch"
+const val prefix_tusd = "tusd"
+const val prefix_mana = "mana"
+const val prefix_bat = "bat"
+const val prefix_dai = "dai"
+const val prefix_usd = "usd"
+const val prefix_comp = "comp"
+const val prefix_link = "link"
+const val prefix_uni = "uni"
+const val prefix_aave = "aave"
+
+const val market_mxn = "mxn"
+const val market_ars = "ars"
+const val market_btc = "btc"
+const val market_brl = "brl"
+const val market_dai = "dai"
+const val market_usd = "usd"
+
+const val DATABASE_NAME = "CRYPTO_DATABASE"
+const val EMPTY_STRING = ""
+const val DELIMITER_CHARACTER = "_"

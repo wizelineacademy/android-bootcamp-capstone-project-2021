@@ -5,7 +5,6 @@ import com.alexbar10.cryptotrack.networking.services.CryptosRxServices
 import io.reactivex.Observable
 import javax.inject.Inject
 
-// @Singleton
 class CryptosRxRepo @Inject constructor(
     private val remoteApiServiceRx: CryptosRxServices
 ) {

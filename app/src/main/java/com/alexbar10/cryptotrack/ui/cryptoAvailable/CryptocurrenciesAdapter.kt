@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexbar10.cryptotrack.databinding.CryptocurrencyItemBinding
 import com.alexbar10.cryptotrack.domain.Cryptocurrency
 import com.alexbar10.cryptotrack.utils.currencyFormat
-import com.alexbar10.cryptotrack.utils.getImageResourceFor
-import com.alexbar10.cryptotrack.utils.getMarketFor
-import com.alexbar10.cryptotrack.utils.getNameFor
+import com.alexbar10.cryptotrack.utils.getImageResource
+import com.alexbar10.cryptotrack.utils.getMarket
+import com.alexbar10.cryptotrack.utils.getStringResource
 
 typealias OnCryptocurrencySelected = (Cryptocurrency) -> Unit
 
@@ -42,11 +42,11 @@ class CryptocurrenciesAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(cryptocurrency: Cryptocurrency) {
-            binding.currencyNameLabel.text = binding.root.context.getString(getNameFor(cryptocurrency))
-            binding.currencyMarketLabel.text = getMarketFor(cryptocurrency).uppercase()
-            binding.currencyImageView.setImageResource(getImageResourceFor(cryptocurrency))
+            binding.currencyNameLabel.text = binding.root.context.getString(cryptocurrency.getStringResource())
+            binding.currencyMarketLabel.text = cryptocurrency.getMarket().uppercase()
+            binding.currencyImageView.setImageResource(cryptocurrency.getImageResource())
             cryptocurrency.ticker?.last.let {
-                binding.currencyCostLabel.text = currencyFormat(cryptocurrency) + " " + getMarketFor(cryptocurrency).uppercase()
+                binding.currencyCostLabel.text = cryptocurrency.currencyFormat() + " " + cryptocurrency.getMarket().uppercase()
             }
 
             binding.cardView.setOnClickListener { onCryptocurrencySelected(cryptocurrency) }

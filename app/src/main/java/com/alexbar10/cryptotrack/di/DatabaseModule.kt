@@ -3,6 +3,7 @@ package com.alexbar10.cryptotrack.di
 import android.content.Context
 import androidx.room.Room
 import com.alexbar10.cryptotrack.database.CryptoDatabase
+import com.alexbar10.cryptotrack.utils.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,7 +23,7 @@ class DatabaseModule {
         return Room.databaseBuilder(
             app,
             CryptoDatabase::class.java,
-            "CRYPTO_DATABASE"
+            DATABASE_NAME
         )
             .fallbackToDestructiveMigrationOnDowngrade()
             .fallbackToDestructiveMigration()
