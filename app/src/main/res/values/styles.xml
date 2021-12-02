@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="style_check_box">
+        <item name="android:layout_marginStart">@dimen/margin_small</item>
+        <item name="android:checked">true</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+        <item name="android:textColor">@color/text_light</item>
+    </style>
+</resources>

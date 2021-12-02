@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="crypto_logo_size">30dp</dimen>
+    <dimen name="margin_crypto_logo">12dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_micro">2dp</dimen>
+    <dimen name="card_elevation">4dp</dimen>
+    <dimen name="card_radius">8dp</dimen>
+    <dimen name="card_height">140dp</dimen>
+    <dimen name="text_size_normal">16sp</dimen>
+    <dimen name="text_size_details">14sp</dimen>
+    <dimen name="margin_big">16dp</dimen>
+    <dimen name="text_size_header">18sp</dimen>
+    <dimen name="margin_huge">24dp</dimen>
+    <dimen name="loader_size">120dp</dimen>
+    <dimen name="orders_list_top_margin">130dp</dimen>
+    <dimen name="detail_logo_size">90dp</dimen>
+    <dimen name="text_size_title">14sp</dimen>
+    <dimen name="text_size_title_value">20sp</dimen>
+    <dimen name="text_size_subtitle">18sp</dimen>
+    <dimen name="card_corner_radius">20dp</dimen>
+    <dimen name="margin_for_icon">50dp</dimen>
+    <dimen name="margin_top_orders">100dp</dimen>
+    <dimen name="icon_translation_z">90dp</dimen>
+    <dimen name="text_title_margin_top">24dp</dimen>
+    <dimen name="card_corner_radius_order_item">8dp</dimen>
+    <dimen name="order_item_height">50dp</dimen>
+    <dimen name="crypto_item_card_stroke_width">1dp</dimen>
+</resources>

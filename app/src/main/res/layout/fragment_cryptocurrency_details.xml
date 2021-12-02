@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background_item"
+    tools:context=".ui.cryptoDetails.CryptocurrencyDetailsFragment">
+
+    <TextView
+        android:id="@+id/last_cost_key_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/text_title_margin_top"
+        android:gravity="center"
+        android:text="@string/last_price"
+        android:fontFamily="@font/montserrat_light"
+        android:textColor="@color/text_light"
+        android:textSize="@dimen/text_size_title"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/last_cost_value_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="1,222,222 MXN"
+        android:fontFamily="@font/montserrat_medium"
+        android:textColor="@color/text_light"
+        android:textSize="@dimen/text_size_title_value"
+        app:layout_constraintTop_toBottomOf="@+id/last_cost_key_txt"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/last_cost_value_txt">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/high_price"
+                android:fontFamily="@font/montserrat_light"
+                android:textColor="@color/text_light"
+                android:textSize="@dimen/text_size_title"
+                tools:layout_editor_absoluteX="0dp" />
+
+            <TextView
+                android:id="@+id/currency_high_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="1,222,222 MXN"
+                android:fontFamily="@font/montserrat_medium"
+                android:textColor="@color/text_light"
+                android:textSize="@dimen/text_size_subtitle"
+                tools:layout_editor_absoluteX="0dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/low_price"
+                android:textColor="@color/text_light"
+                android:textSize="@dimen/text_size_title"
+                android:fontFamily="@font/montserrat_light"
+                tools:layout_editor_absoluteX="0dp" />
+
+            <TextView
+                android:id="@+id/currency_low_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="1,222,222 MXN"
+                android:fontFamily="@font/montserrat_medium"
+                android:textColor="@color/text_light"
+                android:textSize="@dimen/text_size_subtitle"
+                tools:layout_editor_absoluteX="0dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline">
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:checkedButton="@+id/buy_radio_button"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/margin_for_icon"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/buy_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/buy_orders"/>
+            <RadioButton
+                android:id="@+id/sell_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/sell_orders"/>
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_top_orders"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/order_title_price"
+                android:fontFamily="@font/montserrat_medium"
+                android:textSize="@dimen/text_size_title"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="0dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/order_title_amount"
+                android:fontFamily="@font/montserrat_medium"
+                android:textSize="@dimen/text_size_title"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="0dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/order_title_total"
+                android:fontFamily="@font/montserrat_medium"
+                android:textSize="@dimen/text_size_title"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="0dp" />
+        </LinearLayout>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loaderAnimationView"
+            android:layout_width="@dimen/loader_size"
+            android:layout_height="@dimen/loader_size"
+            android:layout_gravity="center"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cryptos_txt"
+            app:layout_constraintVertical_bias="0.45"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loader_cryptos" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/orders_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/orders_list_top_margin"
+            android:layout_weight="1" />
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.28" />
+
+    <ImageView
+        android:id="@+id/currency_logo_image"
+        android:layout_width="@dimen/detail_logo_size"
+        android:layout_height="@dimen/detail_logo_size"
+        android:layout_margin="@dimen/margin_big"
+        android:scaleType="centerCrop"
+        android:translationZ="@dimen/icon_translation_z"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.23" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
