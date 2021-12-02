@@ -15,14 +15,38 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
 
+        // Default build values
+        setProperty("archivesBaseName", "cryptochallenge" + "-" + versionName)
+        resValue "string", "app_name", "Crypto Challenge"
+        buildConfigField "String", "BITSO_URL", "\"https://api-sandbox.bitso.com/v3/\""
+    }
+    signingConfigs {
+        qa {
+            keyAlias 'crypto_key'
+            keyPassword 'noSoSecretPass'
+            storeFile file('signing/crypto_keystore')
+            storePassword 'noSoSecretPass'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BITSO_URL", "\"https://api.bitso.com/v3/\""
+        }
+        qa {
+            resValue "string", "app_name", "Crypto Challenge [qa]"
+            applicationIdSuffix ".qa"
+            versionNameSuffix "-qa"
+            signingConfig signingConfigs.qa
+            buildConfigField "String", "BITSO_URL", "\"https://api.bitso.com/v3/\""
+        }
+        debug {
+            resValue "string", "app_name", "Crypto Challenge [debug]"
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
         }
     }
     compileOptions {

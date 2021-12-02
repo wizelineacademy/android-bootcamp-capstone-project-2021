@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dev.ricsarabia.cryptochallenge.BuildConfig
 import dev.ricsarabia.cryptochallenge.data.services.BitsoService
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -20,8 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Module
 @InstallIn(SingletonComponent::class)
 object BitsoNetworkingModule {
-    private const val BITSO_BASE_URL = "https://api.bitso.com/v3/" // TODO: Configure environments
-
+    private const val BITSO_BASE_URL = BuildConfig.BITSO_URL
     @Provides
     @Singleton
     fun provideNetworkInterceptor() = Interceptor { chain ->
