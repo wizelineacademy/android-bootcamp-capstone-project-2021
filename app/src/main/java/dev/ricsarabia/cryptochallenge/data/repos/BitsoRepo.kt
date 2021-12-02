@@ -19,6 +19,7 @@ class BitsoRepo @Inject constructor(database: AppDatabase, bitsoService: BitsoSe
     fun bookPricesOf(book: String) = localDataSource.bookPricesDao().findById(book)
     fun asksOf(book: String) = localDataSource.bookOrderDao().getAllOf(book, BookOrder.Type.ASK)
     fun bidsOf(book: String) = localDataSource.bookOrderDao().getAllOf(book, BookOrder.Type.BID)
+    fun refreshTimeOf(book: String) = localDataSource.refreshTimeDao().findById(book)
 
     suspend fun updateBooks(): Boolean {
         val response = try { remoteDataSource.getAvailableBooks() } catch (e: Exception) { null }
@@ -45,6 +46,7 @@ class BitsoRepo @Inject constructor(database: AppDatabase, bitsoService: BitsoSe
         }
         localDataSource.bookOrderDao().deleteOldOrdersOf(book)
         localDataSource.bookOrderDao().insert(orders)
+        localDataSource.refreshTimeDao().insert(RefreshTime(book, response.payload.updated_at))
         return true
     }
 }

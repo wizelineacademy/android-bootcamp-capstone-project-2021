@@ -16,6 +16,7 @@ import dev.ricsarabia.cryptochallenge.R
 import dev.ricsarabia.cryptochallenge.databinding.DetailFragmentBinding
 import dev.ricsarabia.cryptochallenge.domain.BookPrices
 import dev.ricsarabia.cryptochallenge.utils.asDecimalPrice
+import dev.ricsarabia.cryptochallenge.utils.asLocalDate
 
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
@@ -69,6 +70,9 @@ class DetailFragment : Fragment() {
         selectedBookPrices.observe(viewLifecycleOwner, { setPrices(it) })
         selectedBookAsks.observe(viewLifecycleOwner, { asksAdapter.submitList(it) })
         selectedBookBids.observe(viewLifecycleOwner, { bidsAdapter.submitList(it) })
+        selectedBookLastRefresh.observe(viewLifecycleOwner, {
+            it?.let { binding.refreshTimeTextView.text = it.dateTime.asLocalDate() }
+        })
         loading.observe(viewLifecycleOwner, {
             binding.asksSwipeRefresh.isRefreshing = it
             binding.bidsSwipeRefresh.isRefreshing = it

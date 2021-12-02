@@ -5,13 +5,18 @@ import androidx.room.RoomDatabase
 import dev.ricsarabia.cryptochallenge.domain.Book
 import dev.ricsarabia.cryptochallenge.domain.BookOrder
 import dev.ricsarabia.cryptochallenge.domain.BookPrices
+import dev.ricsarabia.cryptochallenge.domain.RefreshTime
 
 /**
  * Created by Ricardo Sarabia on 2021/11/20.
  */
-@Database(entities = [Book::class, BookOrder::class, BookPrices::class], version = 1)
+@Database(
+    entities = [Book::class, BookOrder::class, BookPrices::class, RefreshTime::class],
+    version = 1
+)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun bookDao(): BookDao
     abstract fun bookOrderDao(): BookOrderDao
     abstract fun bookPricesDao(): BookPricesDao
+    abstract fun refreshTimeDao(): RefreshTimeDao
 }

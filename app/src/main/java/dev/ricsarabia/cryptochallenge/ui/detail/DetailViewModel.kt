@@ -19,6 +19,8 @@ class DetailViewModel @Inject constructor(private val repo: BitsoRepo) : ViewMod
         Transformations.switchMap(selectedBook) { repo.bookPricesOf(it).asLiveData() }
     val selectedBookAsks = Transformations.switchMap(selectedBook) { repo.asksOf(it).asLiveData() }
     val selectedBookBids = Transformations.switchMap(selectedBook) { repo.bidsOf(it).asLiveData() }
+    val selectedBookLastRefresh =
+        Transformations.switchMap(selectedBook) { repo.refreshTimeOf(it).asLiveData() }
     private val localDataUnavailable = Transformations.map(selectedBookPrices) { it == null }
     private val _dataError = MediatorLiveData<Boolean>()
     val dataError = Transformations.distinctUntilChanged(_dataError)
