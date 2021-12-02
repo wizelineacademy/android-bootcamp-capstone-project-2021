@@ -46,8 +46,6 @@ object BitsoNetworkingModule {
     ) = OkHttpClient.Builder()
         .addInterceptor(networkInterceptor)
         .addInterceptor(loggingInterceptor)
-        .readTimeout(60, TimeUnit.SECONDS)
-        .connectTimeout(60, TimeUnit.SECONDS)
         .build()
 
     @Provides

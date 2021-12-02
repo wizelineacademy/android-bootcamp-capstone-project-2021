@@ -4,10 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFINITE
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import dev.ricsarabia.cryptochallenge.R
 import dev.ricsarabia.cryptochallenge.databinding.DetailFragmentBinding
 import dev.ricsarabia.cryptochallenge.domain.BookPrices
 import dev.ricsarabia.cryptochallenge.utils.asDecimalPrice
@@ -20,6 +25,7 @@ class DetailFragment : Fragment() {
     private val viewModel: DetailViewModel by viewModels()
     private val asksAdapter = OrdersAdapter()
     private val bidsAdapter = OrdersAdapter()
+    private lateinit var snackbar: Snackbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +43,7 @@ class DetailFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        snackbar.dismiss()
         _binding = null
     }
 
@@ -54,6 +61,8 @@ class DetailFragment : Fragment() {
         bidsLinearLayout.layoutManager = LinearLayoutManager(context)
         bidsLinearLayout.adapter = bidsAdapter
         bidsSwipeRefresh.setOnRefreshListener { viewModel.run { updateBookOrders(); updateBookPrices() } }
+        snackbar =
+            Snackbar.make(binding.detailRootView, R.string.no_data_available, LENGTH_INDEFINITE)
     }
 
     private fun initObservers() = viewModel.run {
@@ -64,6 +73,13 @@ class DetailFragment : Fragment() {
             binding.asksSwipeRefresh.isRefreshing = it
             binding.bidsSwipeRefresh.isRefreshing = it
         })
+        dataError.observe(viewLifecycleOwner, { if (it) showErrorDialog() })
+        refreshSucceeded.observe(viewLifecycleOwner, {
+            when (it) {
+                true -> snackbar.dismiss()
+                false -> snackbar.show()
+            }
+        })
     }
 
     private fun setPrices(prices: BookPrices?) = binding.run {
@@ -73,5 +89,17 @@ class DetailFragment : Fragment() {
         lastPriceTextView.text = mPrices.last.asDecimalPrice()
         higherPriceTextView.text = mPrices.high.asDecimalPrice()
         lowerPriceTextView.text = mPrices.low.asDecimalPrice()
+    }
+
+    private fun showErrorDialog() {
+        val dialog: AlertDialog? = activity?.let {
+            AlertDialog.Builder(it).run {
+                setMessage(R.string.data_error_message)
+                setPositiveButton(R.string.ok) { _, _ -> findNavController().popBackStack() }
+                setCancelable(false)
+                create()
+            }
+        }
+        dialog?.show()
     }
 }
