@@ -61,8 +61,9 @@ class DetailFragment : Fragment() {
 
     private fun init() {
         initComponents()
-        viewModel.getTickerFromBook(book.book.mapToQuery())
-        viewModel.getOrderBooks(book.book.mapToQuery())
+        //viewModel.getTickerFromBook(book.book.mapToQuery())
+        //viewModel.getOrderBooks(book.book.mapToQuery())
+        viewModel.getViewData(book = book.book.mapToQuery())
     }
 
     private fun initMinMax(ticker: Ticker) {
@@ -84,22 +85,23 @@ class DetailFragment : Fragment() {
 
     private fun initObservers() {
 
-        viewModel.getTickerState.observe(viewLifecycleOwner, { dataState ->
+        viewModel.getTickerState.observe(viewLifecycleOwner) { dataState ->
             when (dataState) {
                 is DataState.Loading -> showProgressBar()
                 is DataState.Success -> handleTickerSuccess(dataState.data)
                 is DataState.Error -> handleError(dataState.error)
                 else -> Unit
             }
-        })
+        }
 
-        viewModel.getOrderBookState.observe(viewLifecycleOwner, { dataState ->
+        viewModel.getOrderBookState.observe(viewLifecycleOwner) { dataState ->
             when (dataState) {
+                is DataState.Loading -> showProgressBar()
                 is DataState.Success -> handleOrderBookSuccess(dataState.data)
                 is DataState.Error -> handleError(dataState.error)
                 else -> Unit
             }
-        })
+        }
     }
 
     private fun handleTickerSuccess(ticker: Ticker) {

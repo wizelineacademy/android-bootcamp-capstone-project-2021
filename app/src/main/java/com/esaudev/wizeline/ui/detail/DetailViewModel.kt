@@ -10,6 +10,8 @@ import com.esaudev.wizeline.repository.BitsoRepository
 import com.esaudev.wizeline.utils.Constants
 import com.esaudev.wizeline.utils.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,6 +25,33 @@ class DetailViewModel @Inject constructor(
 
     private var _getTickerState = MutableLiveData<DataState<Ticker>>()
     val getTickerState: LiveData<DataState<Ticker>> = _getTickerState
+
+    fun getViewData(book: String) {
+        viewModelScope.launch {
+
+            _getTickerState.value = DataState.Loading
+            _getOrderBookState.value = DataState.Loading
+
+            val ticker: Deferred<DataState<Ticker>> = async {
+                getTicker(book = book)
+            }
+
+            val books: Deferred<DataState<OrderBook>> = async {
+                getBooks(book = book)
+            }
+
+            _getTickerState.value = ticker.await()
+            _getOrderBookState.value = books.await()
+        }
+    }
+
+    private suspend fun getTicker(book: String): DataState<Ticker>{
+        return repository.getTickerFromBook(book = book)
+    }
+
+    private suspend fun getBooks(book: String): DataState<OrderBook>{
+        return repository.getOrderBook(book = book)
+    }
 
     fun getOrderBooks(book: String) {
         viewModelScope.launch {
