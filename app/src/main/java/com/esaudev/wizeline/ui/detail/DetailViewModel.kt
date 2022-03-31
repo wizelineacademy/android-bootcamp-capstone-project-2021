@@ -1,13 +1,13 @@
 package com.esaudev.wizeline.ui.detail
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.esaudev.wizeline.extensions.mapToQuery
+import com.esaudev.wizeline.model.AvailableBook
 import com.esaudev.wizeline.model.OrderBook
 import com.esaudev.wizeline.model.Ticker
 import com.esaudev.wizeline.repository.BitsoRepository
 import com.esaudev.wizeline.utils.Constants
+import com.esaudev.wizeline.utils.Constants.BOOK_BUNDLE
 import com.esaudev.wizeline.utils.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Deferred
@@ -17,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    private val repository: BitsoRepository
+    private val repository: BitsoRepository,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private var _getOrderBookState = MutableLiveData<DataState<OrderBook>>()
@@ -25,6 +26,11 @@ class DetailViewModel @Inject constructor(
 
     private var _getTickerState = MutableLiveData<DataState<Ticker>>()
     val getTickerState: LiveData<DataState<Ticker>> = _getTickerState
+
+    init {
+        val availableBook = savedStateHandle.get<AvailableBook>(BOOK_BUNDLE)
+        availableBook?.book?.mapToQuery()?.let { getViewData(book = it) }
+    }
 
     fun getViewData(book: String) {
         viewModelScope.launch {

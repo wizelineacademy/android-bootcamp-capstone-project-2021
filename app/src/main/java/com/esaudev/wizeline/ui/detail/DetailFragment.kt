@@ -63,7 +63,7 @@ class DetailFragment : Fragment() {
         initComponents()
         //viewModel.getTickerFromBook(book.book.mapToQuery())
         //viewModel.getOrderBooks(book.book.mapToQuery())
-        viewModel.getViewData(book = book.book.mapToQuery())
+        //viewModel.getViewData(book = book.book.mapToQuery())
     }
 
     private fun initMinMax(ticker: Ticker) {
