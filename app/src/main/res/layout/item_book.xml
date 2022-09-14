@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcvBook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="6dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvBook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:textStyle="bold"
+                tools:text="BTC - MXN"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivBook"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBook"
+                tools:src="@drawable/ic_coin" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvBook"
+                app:layout_constraintTop_toTopOf="@id/tvBook"
+                app:layout_constraintVertical_bias="0">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tvPriceLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/list__price_label"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Price" />
+
+                    <TextView
+                        android:id="@+id/tvPriceMin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintStart_toStartOf="@id/tvPriceLabel"
+                        app:layout_constraintTop_toBottomOf="@id/tvPriceLabel"
+                        tools:text="Minimum" />
+
+                    <TextView
+                        android:id="@+id/tvPriceMax"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@id/tvPriceLabel"
+                        app:layout_constraintTop_toBottomOf="@id/tvPriceMin"
+                        tools:text="Maximum" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tvAmountLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/list__amount_label"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Amount" />
+
+                    <TextView
+                        android:id="@+id/tvAmountMin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintStart_toStartOf="@id/tvAmountLabel"
+                        app:layout_constraintTop_toBottomOf="@id/tvAmountLabel"
+                        tools:text="Minimum" />
+
+                    <TextView
+                        android:id="@+id/tvAmountMax"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@id/tvAmountLabel"
+                        app:layout_constraintTop_toBottomOf="@id/tvAmountMin"
+                        tools:text="Maximum" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tvValueLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/list__value_label"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Value" />
+
+                    <TextView
+                        android:id="@+id/tvValueMin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintStart_toStartOf="@id/tvValueLabel"
+                        app:layout_constraintTop_toBottomOf="@id/tvValueLabel"
+                        tools:text="Minimum" />
+
+                    <TextView
+                        android:id="@+id/tvValueMax"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@id/tvValueLabel"
+                        app:layout_constraintTop_toBottomOf="@id/tvValueMin"
+                        tools:text="Maximum" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
