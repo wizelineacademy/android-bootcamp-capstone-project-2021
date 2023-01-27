@@ -32,11 +32,18 @@ fun String.asLocalDate(offset: ZoneOffset = OffsetDateTime.now().offset): String
 }
 
 fun AvailableBooksResponse.Payload.toBook(): Book {
-    val cryptoiconUrl = "https://cryptoicon-api.vercel.app/api/icon/"
+    val cryptoiconUrl = "https://cryptoicons.org/api/icon/"
     return Book(
         this.book,
         this.book.substringBefore("_"),
         this.book.substringAfter("_"),
-        cryptoiconUrl + this.book.substringBefore("_")
+        cryptoiconUrl + this.book.substringBefore("_") + "/50"
     )
+}
+
+fun String?.toMoneyValue(): Int = try {
+    val result = this!!.toDouble() * 100
+    result.toInt()
+} catch (e: Exception) {
+    0
 }

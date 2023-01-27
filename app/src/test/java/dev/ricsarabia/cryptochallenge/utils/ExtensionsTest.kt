@@ -108,4 +108,13 @@ class ExtensionsTest {
         assertEquals("never", emptyString.asLocalDate())
         assertEquals("never", badFormattedDate.asLocalDate())
     }
+
+    @Test
+    fun toMoneyValueWorks() {
+        // Given
+        val validStringNumber: String? = "10.10"
+
+        // Then
+        assertEquals(1010, validStringNumber.toMoneyValue())
+    }
 }
