@@ -67,23 +67,23 @@ class DetailFragment : Fragment() {
     }
 
     private fun initObservers() = viewModel.run {
-        selectedBookPrices.observe(viewLifecycleOwner, { setPrices(it) })
-        selectedBookAsks.observe(viewLifecycleOwner, { asksAdapter.submitList(it) })
-        selectedBookBids.observe(viewLifecycleOwner, { bidsAdapter.submitList(it) })
-        selectedBookLastRefresh.observe(viewLifecycleOwner, {
+        selectedBookPrices.observe(viewLifecycleOwner) { setPrices(it) }
+        selectedBookAsks.observe(viewLifecycleOwner) { asksAdapter.submitList(it) }
+        selectedBookBids.observe(viewLifecycleOwner) { bidsAdapter.submitList(it) }
+        selectedBookLastRefresh.observe(viewLifecycleOwner) {
             it?.let { binding.refreshTimeTextView.text = it.dateTime.asLocalDate() }
-        })
-        loading.observe(viewLifecycleOwner, {
+        }
+        loading.observe(viewLifecycleOwner) {
             binding.asksSwipeRefresh.isRefreshing = it
             binding.bidsSwipeRefresh.isRefreshing = it
-        })
-        dataError.observe(viewLifecycleOwner, { if (it) showErrorDialog() })
-        refreshSucceeded.observe(viewLifecycleOwner, {
+        }
+        dataError.observe(viewLifecycleOwner) { if (it) showErrorDialog() }
+        refreshSucceeded.observe(viewLifecycleOwner) {
             when (it) {
                 true -> snackbar.dismiss()
                 false -> snackbar.show()
             }
-        })
+        }
     }
 
     private fun setPrices(prices: BookPrices?) = binding.run {
